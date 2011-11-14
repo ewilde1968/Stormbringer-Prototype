@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.TextArea")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="disabledWithPrompt" />
+		<s:State name="normalWithPrompt" />
+		<s:State name="disabled" />
+		<s:State name="normal" />
+	</s:states>
+	
+	<s:Rect width="100%" height="100%"
+			radiusX="5" radiusY="5"
+			includeIn="normal, normalWithPrompt"
+			>
+		<s:stroke>
+			<s:SolidColorStroke color="0x878a68" weight="2"/>
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="0x878a68" alpha="0.2"/>
+		</s:fill>
+	</s:Rect>
+
+	<s:Scroller id="scroller"
+				left="0"
+				top="0"
+				right="0"
+				bottom="0" 
+				horizontalScrollPolicy="off"
+				minViewportInset="1"
+				focusEnabled="false">
+		<s:RichEditableText id="textDisplay"
+							verticalCenter="0"
+							paddingBottom="4" paddingTop="5" paddingLeft="10" paddingRight="10"
+							/>
+	</s:Scroller>
+
+	<!-- SkinParts
+	name=scroller, type=spark.components.Scroller, required=false
+	name=promptDisplay, type=spark.core.IDisplayText, required=false
+	name=textDisplay, type=spark.core.IEditableText, required=false
+	-->
+</s:Skin>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="400" height="300"
+			   >
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+	</s:layout>
+
+	<fx:Declarations>
+		<fx:String id="errorMessageS"/>
+	</fx:Declarations>
+	
+	<s:Label text="{errorMessageS}" width="80%"/>
+	<s:Button label="OK" click="{parentApplication.RemoveError( null)}"/>
+</s:TitleWindow>

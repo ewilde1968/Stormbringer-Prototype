@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ViewStack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			  xmlns:s="library://ns.adobe.com/flex/spark" 
+			  xmlns:mx="library://ns.adobe.com/flex/mx"
+			  xmlns:view="view.*"
+			  xmlns:views="views.*"
+			  width="100%" height="100%"
+			  change="changeHandler(event)"
+			  >
+	<fx:Script>
+		<![CDATA[
+			import model.Character;
+			import model.PhysicalItem;
+			import model.Skill;
+			
+			import mx.events.IndexChangedEvent;
+
+			private var backUpContext:String = null;
+			[Bindable] private var context:String;
+			[Bindable] private var character:Character;
+			[Bindable] private var skill:Skill;
+			[Bindable] private var possession:PhysicalItem;
+			[Bindable] private var backButtonAction:Function;
+			
+			private function generateCharacterHandler():void
+			{
+				selectedChild = gcgNC;
+			}
+			
+			private function editCharacterHandler( c:Character):void
+			{
+				character = c;
+				selectedChild = ecgNC;
+			}
+			
+			private function backToCharHandler():void
+			{
+				switch( context) {
+					case "GenerateCharacter":
+						selectedChild = gcgNC;
+						break;
+					case "EditCharacter":
+						selectedChild = ecgNC;
+						break;
+					default:
+						break;
+				}
+			}
+			
+			private function skillsF( char:Character, con:String):void
+			{
+				selectedChild = skillsNC;
+			}
+			
+			private function possessionsF( char:Character, con:String):void
+			{
+				// it may be that possessions changed from acquiring skills
+				// so make sure to refresh the possession list from the character group
+				if( possessionsG) possessionsG.character = null;	// trigger refresh
+				selectedChild = possessionsNC;
+			}
+			
+			private function descriptionF( char:Character, con:String):void
+			{
+				selectedChild = characterDescriptionNC;
+			}
+
+			protected function doneHandler():void
+			{
+				selectedChild = clgNC;
+			}
+			
+			private function saveHandler():void
+			{
+				try {
+					if( character)
+						character.Save();
+					
+					doneHandler();
+				} catch( e:Error) {
+					parentApplication.ShowError( "User Error", e.message);
+				}
+			}
+
+			private function addSkillHandler( sk:Skill):void
+			{
+				skill = sk;
+				if( sk && sk.complete)
+					selectedChild = skillDescriptionNC;
+				else
+					selectedChild = skillChoiceNC;
+			}
+			
+			private function skillsDoneHandler():void
+			{
+				skillsG.character = null;	// trigger refresh
+				selectedChild = skillsNC;
+			}
+
+			private function possessionDoneHandler():void
+			{
+				possessionsG.character = null;	// trigger refresh
+				selectedChild = possessionsNC;
+			}
+
+			private function possessionHandler( p:PhysicalItem):void
+			{
+				possession = p;
+				selectedChild = possessionDescriptionNC;
+			}
+			
+			private function addPossessionHandler( p:PhysicalItem, con:String):void
+			{
+				possession = p;
+				selectedChild = possessionChoiceNC;
+			}
+			
+			protected function changeHandler(event:IndexChangedEvent):void
+			{
+				switch( selectedChild) {
+					case clgNC:
+						context =  null;	// clear the context stack
+						character = null;
+						clg.Refresh();
+						backButtonAction = null;
+						break;
+					case gcgNC:
+						context = "GenerateCharacter";
+						gcg.SetupCharacter( character);
+						backButtonAction = doneHandler;
+						break;
+					case ecgNC:
+						context = "EditCharacter";
+						backButtonAction = saveHandler;
+						break;
+					case skillsNC:
+						skillsG.character = character;	// trigger refresh
+						skillsG.context = context;
+						skill = null;
+						backButtonAction = backToCharHandler;
+						break;
+					case skillDescriptionNC:
+					case skillChoiceNC:
+						backButtonAction = skillsDoneHandler;
+						break;
+					case possessionsNC:
+						// reset the context from any purchase workflows
+						if( backUpContext)
+							context = backUpContext;
+						backUpContext = null;
+						
+						possessionsG.character = character;	// trigger reset of data
+						possessionsG.context = context;
+						possession = null;
+						backButtonAction = backToCharHandler;
+						break;
+					case possessionChoiceNC:
+						backUpContext = context;
+						context = possession.complete ? "PurchaseItem" : context;
+						// fall through
+					case possessionDescriptionNC:
+						backButtonAction = possessionDoneHandler;
+						break;
+					case characterDescriptionNC:
+						backButtonAction = backToCharHandler;
+						break;
+					default:
+						throw Error( "CharactersVS:changeHandler - bad navigator content identifier");
+						break;
+				}
+			}
+
+			private function back_clickHandler():void
+			{
+				if( backButtonAction != null)
+					backButtonAction();
+			}
+		]]>
+	</fx:Script>
+	
+	<s:NavigatorContent id="clgNC">
+		<view:CharactersListGroup id="clg"
+								  generateCharacterF="{generateCharacterHandler}"
+								  editCharacterF="{editCharacterHandler}"
+								  />
+	</s:NavigatorContent>
+	<s:NavigatorContent id="gcgNC">
+		<s:VGroup>
+			<views:BackButton click="{back_clickHandler()}"/>
+			<view:GenerateCharacterGroup id="gcg"
+										 saveF="{doneHandler}"
+										 skillsF="{skillsF}"
+										 possessionsF="{possessionsF}"
+										 descriptionF="{descriptionF}"
+										 character="@{character}"
+										 />
+		</s:VGroup>
+	</s:NavigatorContent>
+	<s:NavigatorContent id="ecgNC">
+		<s:VGroup>
+			<views:BackButton click="{back_clickHandler()}"/>
+			<view:EditCharacterGroup id="editCharacterG"
+									 doneF="{doneHandler}"
+									 skillsF="{skillsF}"
+									 possessionsF="{possessionsF}"
+									 descriptionF="{descriptionF}"
+									 character="{character}"
+									 />
+		</s:VGroup>
+	</s:NavigatorContent>
+	<s:NavigatorContent id="skillsNC">
+		<s:VGroup>
+			<views:BackButton click="{back_clickHandler()}"/>
+			<view:SkillsGroup id="skillsG"
+							  addF="{addSkillHandler}"
+							  character="{character}"
+							  context="{context}"
+							  />
+		</s:VGroup>
+	</s:NavigatorContent>
+	<s:NavigatorContent id="possessionsNC">
+		<s:VGroup>
+			<views:BackButton click="{back_clickHandler()}"/>
+			<view:PossessionsGroup id="possessionsG"
+								   possessionF="{possessionHandler}"
+								   addF="{addPossessionHandler}"
+								   character="{character}"
+								   context="{context}"
+								   />
+		</s:VGroup>
+	</s:NavigatorContent>
+	<s:NavigatorContent id="characterDescriptionNC">
+		<s:VGroup>
+			<views:BackButton click="{back_clickHandler()}"/>
+			<view:CharacterDescriptionGroup id="characterDescriptionG"
+											character="{character}"
+											/>
+		</s:VGroup>
+	</s:NavigatorContent>
+	<s:NavigatorContent id="skillDescriptionNC">
+		<s:VGroup>
+			<views:BackButton click="{back_clickHandler()}"/>
+			<view:SkillDescriptionGroup id="skillDescriptionG"
+										skill="{skill}"
+										doneF="{skillsDoneHandler}"
+										/>
+		</s:VGroup>
+	</s:NavigatorContent>
+	<s:NavigatorContent id="skillChoiceNC">
+		<s:VGroup>
+			<views:BackButton click="{back_clickHandler()}"/>
+			<view:SkillChoiceGroup id="skillChoiceG"
+								   skill="{skill}"
+								   doneF="{skillsDoneHandler}"
+								   />
+		</s:VGroup>
+	</s:NavigatorContent>
+	<s:NavigatorContent id="possessionDescriptionNC">
+		<s:VGroup>
+			<views:BackButton click="{back_clickHandler()}"/>
+			<view:PossessionDescriptionGroup id="possessionDescriptionG"
+											 item="{possession}"
+											 doneF="{possessionDoneHandler}"
+											 />
+		</s:VGroup>
+	</s:NavigatorContent>
+	<s:NavigatorContent id="possessionChoiceNC">
+		<s:VGroup>
+			<views:BackButton click="{back_clickHandler()}"/>
+			<view:PossessionChoiceGroup id="possessionChoiceG"
+										item="{possession}"
+										context="{context}"
+										doneF="{possessionDoneHandler}"
+										/>
+		</s:VGroup>
+	</s:NavigatorContent>
+</mx:ViewStack>

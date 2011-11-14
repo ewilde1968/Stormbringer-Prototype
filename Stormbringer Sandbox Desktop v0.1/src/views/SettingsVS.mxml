@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ViewStack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			  xmlns:s="library://ns.adobe.com/flex/spark" 
+			  xmlns:mx="library://ns.adobe.com/flex/mx"
+			  xmlns:view="view.*"
+			  width="100%" height="100%"
+			  change="viewstack1_changeHandler(event)"
+			  >
+	<fx:Script>
+		<![CDATA[
+			import mx.events.IndexChangedEvent;
+			public function AttemptLogIn():void
+			{
+				if( this.selectedIndex != -1)
+					selectedChild = accountNC;
+			}
+			
+			private function CreateAccount():void
+			{
+				selectedChild = createAccountNC;
+			}
+			
+			private function ForgotEmail():void
+			{
+				selectedChild = forgotEmailNC;
+			}
+
+			private function SendEmail( address:String):void
+			{
+				// TODO send email
+				
+				selectedChild = accountNC;
+			}
+
+			protected function viewstack1_changeHandler(event:IndexChangedEvent):void
+			{
+				switch( selectedChild) {
+					case accountNC:
+						if( accountG && accountG.passwordTI)
+							accountG.passwordTI.text = "";
+						break;
+					case createAccountNC:
+					case forgotEmailNC:
+						break;
+					default:
+						throw Error( "SettingsVS:changeHandler - bad navigator content identifier");
+						break;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+
+	<mx:states>
+		<s:State name="LoggedOut"/>
+		<s:State name="LoggedIn"/>
+	</mx:states>
+	
+	<s:NavigatorContent id="accountNC">
+		<view:AccountGroup id="accountG"
+						   width="50%"
+						   createF="{CreateAccount}"
+						   forgotF="{ForgotEmail}"
+						   />
+	</s:NavigatorContent>
+	<s:NavigatorContent id="createAccountNC">
+		<view:CreateAccountGroup id="createAccountG"
+								 />
+	</s:NavigatorContent>
+	<s:NavigatorContent id="forgotEmailNC">
+		<view:ForgotPasswordGroup id="forgotEmailG"
+								  />
+	</s:NavigatorContent>
+</mx:ViewStack>

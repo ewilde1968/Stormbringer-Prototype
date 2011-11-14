@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true"
+				dataChange="dataChangeHandler(event)"
+				height="50"
+				>
+	<fx:Script>
+		<![CDATA[
+			import controller.ItemRendererContainer;
+			
+			import model.Character;
+			import model.PhysicalItem;
+			import model.Skill;
+			
+			import mx.events.FlexEvent;
+			
+			import view.CharacterGroup;
+			
+			[Bindable] private var irc:ItemRendererContainer;
+			[Bindable] private var doRedBorder:Boolean;
+			
+			private function IsComplete( i:ItemRendererContainer):Boolean
+			{
+				switch( i.dataObject as String) {
+					case "Skills":
+						for each( var sk:Skill in i.character.skills)
+							if( sk && !sk.complete)
+								return false;
+						break;
+					case "Possessions":
+						for each( var pi:PhysicalItem in i.character.possessions)
+							if( pi && !pi.complete)
+								return false;
+						break;
+					default:
+						break;
+				}
+				
+				return true;
+			}
+			
+			protected function dataChangeHandler(event:FlexEvent):void
+			{
+				irc = data as ItemRendererContainer;
+				doRedBorder = irc.character && !IsComplete( irc);
+			}
+		]]>
+	</fx:Script>
+
+	<s:Rect width="100%" height="100%"
+			radiusX="5" radiusY="5"
+			>
+		<s:stroke>
+			<s:SolidColorStroke weight="{doRedBorder?2:1}" color="{doRedBorder ? 0xff0000 : 0x603937}"/>
+		</s:stroke>
+	</s:Rect>
+
+	<s:HGroup width="100%" verticalCenter="0"
+			  paddingLeft="10" paddingRight="10"
+			  >
+		<s:Label text="{irc.dataObject}" styleName="emphasisLabelStyle"/>
+		<s:Spacer width="100%"/>
+		<s:Label text=">" styleName="plainListLabelStyle"/>
+	</s:HGroup>
+</s:ItemRenderer>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.List")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="disabled" />
+		<s:State name="normal" />
+	</s:states>
+	
+	<s:Rect left="0" right="0" top="0" bottom="0"
+			radiusX="5" radiusY="5"
+			>
+		<s:fill>
+			<s:SolidColor color="0x603937" alpha=".3"/>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Scroller id="scroller"
+				left="0"
+				top="0"
+				right="0"
+				bottom="0" 
+				horizontalScrollPolicy="off"
+				minViewportInset="1"
+				focusEnabled="false">
+		<s:DataGroup id="dataGroup"
+					 itemRenderer="ItemRenderers.CharacterListItemRenderer"
+					 width="400" maxHeight="400"
+					 >
+			<s:layout>
+				<s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
+			</s:layout>
+		</s:DataGroup>
+	</s:Scroller>
+
+	<!-- SkinParts
+	name=scroller, type=spark.components.Scroller, required=false
+	name=dropIndicator, type=mx.core.IFactory, required=false
+	name=dataGroup, type=spark.components.DataGroup, required=false
+	-->
+</s:Skin>

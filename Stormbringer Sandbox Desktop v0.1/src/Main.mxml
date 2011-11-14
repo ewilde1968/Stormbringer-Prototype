@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   xmlns:view="view.*"
+					   xmlns:views="views.*"
+					   initialize="initializeHandler(event)"
+					   applicationComplete="applicationCompleteHandler(event)"
+					   currentState="Splash"
+					   >
+	<fx:Script>
+		<![CDATA[
+			import air.update.ApplicationUpdaterUI;
+			import air.update.events.DownloadErrorEvent;
+			import air.update.events.StatusFileUpdateErrorEvent;
+			import air.update.events.StatusFileUpdateEvent;
+			import air.update.events.StatusUpdateErrorEvent;
+			import air.update.events.StatusUpdateEvent;
+			import air.update.events.UpdateEvent;
+			
+			import controller.SandboxGlobals;
+			
+			import model.Account;
+			
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Group;
+			
+			import views.ScrimError;
+
+			[Bindable] public var globals:SandboxGlobals = null;
+			private var updater:ApplicationUpdaterUI = new ApplicationUpdaterUI();
+			
+			protected function initializeHandler(event:FlexEvent):void
+			{
+				var defaultXMLA:Array = new Array();
+				defaultXMLA[ "abilities"] = abilitiesXML;
+				defaultXMLA[ "nationalities"] = nationalitiesXML;
+				defaultXMLA[ "characterclasses"] = characterclassesXML;
+				defaultXMLA[ "skills"] = skillsXML;
+				defaultXMLA[ "afflictions"] = afflictionsXML;
+				defaultXMLA[ "physicalitems"] = physicalItemsXML;
+				
+				globals = new SandboxGlobals( defaultXMLA);
+			}
+			
+			protected function applicationCompleteHandler(event:FlexEvent):void
+			{
+				// set the splash screen timer
+				splashSequence.play( [this]);
+
+				// prepare the globals
+				globals.ApplicationComplete();
+				
+				// See if there are any updates
+				updater = new ApplicationUpdaterUI();
+				updater.configurationFile = new File( "app:/config/updaterConfig.xml");
+				globals.versionString = updater.currentVersion;
+				updater.initialize();
+			}
+			
+			public function LogOut():void
+			{
+				tabNavigatorTN.selectedChild = charactersVS;
+				globals.loggedIn = null;
+			}
+			
+			public function LogIn( a:Account):void
+			{
+				tabNavigatorTN.selectedChild = charactersVS;
+				
+				globals.loggedIn = a;
+			}
+			
+			public function AttemptLogIn():void
+			{
+				tabNavigatorTN.selectedChild = settingsVS;
+				settingsVS.AttemptLogIn();
+			}
+			
+			public function ShowError( tS:String, sS:String):void
+			{
+				scrimError = new ScrimError();
+				scrimError.title = tS;
+				scrimError.errorMessageS = sS;
+				scrimError.horizontalCenter = 0;
+				scrimError.verticalCenter = 0;
+				
+				PopUpManager.addPopUp( scrimError, this, true);
+				PopUpManager.centerPopUp( scrimError);
+			}
+			
+			public function RemoveError( g:Group):void
+			{
+				PopUpManager.removePopUp( scrimError);
+			}
+			
+			public function RemoveSplash():void
+			{
+				setCurrentState( "Executing");
+			}
+			
+			public function Close():void
+			{
+				exit();
+			}
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="Splash"/>
+		<s:State name="Executing"/>
+	</s:states>
+			
+	<fx:Style source="stormbringersandbox_desktop.css"/>
+	
+	<fx:Declarations>
+		<fx:XML id="nationalitiesXML" source="resources/nationalities.xml"/>
+		<fx:XML id="characterclassesXML" source="resources/characterclasses.xml"/>
+		<fx:XML id="skillsXML" source="resources/skills.xml"/>
+		<fx:XML id="abilitiesXML" source="resources/abilities.xml"/>
+		<fx:XML id="afflictionsXML" source="resources/afflictions.xml"/>
+		<fx:XML id="physicalItemsXML" source="resources/physicalitems.xml"/>
+		
+		<views:ScrimError id="scrimError"/>
+		
+		<s:Sequence id="splashSequence">
+			<s:Pause duration="2500"/>
+			<s:CallAction functionName="RemoveSplash"/>
+		</s:Sequence>
+	</fx:Declarations>
+	
+	<s:Image id="splashI" includeIn="Splash" horizontalAlign="center" horizontalCenter="0"
+			 source="@Embed('resources/Elric2.gif')"/>
+	<mx:TabNavigator id="tabNavigatorTN" includeIn="Executing"
+					 width="100%" height="100%"
+					 tabStyleName="tabNavigatorTabStyle"
+					 >
+		<views:CharactersVS id="charactersVS"
+							label="Characters"
+							/>
+		<views:SettingsVS id="settingsVS"
+						  label="Settings"
+						  />
+	</mx:TabNavigator>
+</s:WindowedApplication>

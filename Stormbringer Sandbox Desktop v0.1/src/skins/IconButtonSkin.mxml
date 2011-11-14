@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.Button")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="disabled" />
+		<s:State name="down" />
+		<s:State name="over" />
+		<s:State name="up" />
+	</s:states>
+	
+	<s:Rect left="0" right="0" top="0" bottom="0"
+			minHeight="30" minWidth="40"
+			radiusX="2" radiusY="2" includeIn="down"
+			>
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:entries>
+					<s:GradientEntry color="0x603937" ratio="0.0" alpha="0.2"/>
+					<s:GradientEntry color="0x878a68" ratio="0.1" alpha="0.2"/>
+					<s:GradientEntry color="0x603937" ratio="0.9" alpha="0.2"/>
+				</s:entries>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Rect left="0" right="0" top="0" bottom="0"
+			minHeight="30" minWidth="40"
+			radiusX="2" radiusY="2" includeIn="disabled"
+			>
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:entries>
+					<s:GradientEntry color="0x660e07" ratio="0.0" alpha="0.4"/>
+					<s:GradientEntry color="0x660e07" ratio="0.3" alpha="0.4"/>
+					<s:GradientEntry color="0x603937" ratio="0.6" alpha="0.4"/>
+				</s:entries>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<s:BitmapImage id="iconDisplay"
+				   horizontalCenter="0" verticalCenter="0"
+				   alpha.disabled="0.2"
+				   />
+	<!-- SkinParts
+	name=iconDisplay, type=spark.primitives.BitmapImage, required=false
+	name=labelDisplay, type=spark.core.IDisplayText, required=false
+	-->
+</s:Skin>

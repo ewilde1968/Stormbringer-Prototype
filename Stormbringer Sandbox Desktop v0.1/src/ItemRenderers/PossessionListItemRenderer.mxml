@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				xmlns:view="view.*"
+				autoDrawBackground="true"
+				dataChange="dataChangeHandler(event)"
+				>
+	<fx:Script>
+		<![CDATA[
+			import controller.ItemRendererContainer;
+			
+			import model.Character;
+			import model.PhysicalItem;
+			
+			import mx.events.FlexEvent;
+			
+			import view.PossessionChoiceGroup;
+			import view.PossessionListGroup;
+			
+			[Bindable] private var irc:ItemRendererContainer;
+			[Bindable] private var itemPI:PhysicalItem;
+			[Bindable] private var doRedBorder:Boolean;
+
+			private function SetContext():void
+			{
+				doRedBorder = false;
+				switch( irc.context) {
+					case "GenerateCharacter":
+						if( itemPI && !itemPI.complete)
+							doRedBorder = true;
+						break;
+					case "PurchaseItem":
+						if( itemPI && irc.character && itemPI.cost > irc.character.GetCash())
+							doRedBorder = true;	// can't afford the item
+						break;
+					default:
+						break;
+				}
+
+			}
+
+			protected function dataChangeHandler(event:FlexEvent):void
+			{
+				if( data != null) {
+					irc = data as ItemRendererContainer;
+					itemPI = irc.dataObject as PhysicalItem;
+					
+					SetContext();
+				}
+			}
+		]]>
+	</fx:Script>
+
+	<s:Rect left="0" right="0" top="0" bottom="0"
+			radiusX="5" radiusY="5"
+			>
+		<s:stroke>
+			<s:SolidColorStroke color="{doRedBorder ? 0xff0000 : 0x603937}"/>
+		</s:stroke>
+	</s:Rect>
+
+	<s:HGroup width="100%" verticalAlign="middle">
+		<s:VGroup horizontalAlign="contentJustify"
+				  paddingTop="5" paddingBottom="5" paddingLeft="10"
+				  >
+			<s:Label id="nameL"
+					 styleName="emphasisLabelStyle"
+					 text="{itemPI.name + ' (' + itemPI.quantity + ')'}"
+					 />
+			<s:Label id="subtextL"
+					 styleName="subtextLabelStyle"
+					 text="{itemPI.GetMessage() + '\rCost: ' + itemPI.cost}"
+					 />
+		</s:VGroup>
+		<s:Spacer width="100%"/>
+		<view:ListItemDeleteButton id="deleteB"
+								   enabled="{itemPI.character != null}"
+								   visible="{itemPI.character != null}"
+								   objectToDelete="{itemPI}"
+								   deleteF="{irc.genericF}" right="20"
+								   />
+	</s:HGroup>
+</s:ItemRenderer>
