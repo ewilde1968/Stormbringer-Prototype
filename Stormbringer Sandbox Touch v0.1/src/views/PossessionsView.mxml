@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:ViewWithBack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						 xmlns:s="library://ns.adobe.com/flex/spark"
+						 xmlns:controller="controller.*"
+						 xmlns:views="views.*"
+						 xmlns:view="view.*"
+						 title="Possessions"
+						 >
+	<fx:Script>
+		<![CDATA[
+			import model.PhysicalItem;
+
+			private function possessionHandler( p:PhysicalItem):void
+			{
+				navigator.pushView( PossessionView, p, navigator.context);
+			}
+			
+			private function addPossessionHandler( p:PhysicalItem, con:String):void
+			{
+				// if we're editing a character then this is a purchase operation
+				// if we're creating a character then this is adding something for free
+				navigator.pushView( PossessionView, p, con == "EditCharacter" ? "PurchaseItem" : con);
+			}
+		]]>
+	</fx:Script>
+
+	<view:PossessionsGroup possessionF="{possessionHandler}"
+						   character="{data}"
+						   context="{navigator.context}"
+						   addF="{addPossessionHandler}"
+						   />
+</views:ViewWithBack>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+								  xmlns:s="library://ns.adobe.com/flex/spark"
+								  applicationDPI="160"
+								  initialize="initializeHandler(event)"
+								  applicationComplete="applicationCompleteHandler(event)"
+								  splashScreenImage="@Embed('resources/Elric2.gif')"
+								  splashScreenScaleMode="stretch"
+								  splashScreenMinimumDisplayTime="1000"
+								  >
+	<fx:Script>
+		<![CDATA[
+			import controller.SandboxGlobals;
+			
+			import model.Account;
+			
+			import mx.events.FlexEvent;
+			
+			import spark.components.Group;
+			
+			import views.PreferencesView;
+			import views.ScrimErrorView;
+
+			[Bindable] public var globals:SandboxGlobals = null;
+			
+			protected function initializeHandler(event:FlexEvent):void
+			{
+				var defaultXMLA:Array = new Array();
+				defaultXMLA[ "abilities"] = abilitiesXML;
+				defaultXMLA[ "nationalities"] = nationalitiesXML;
+				defaultXMLA[ "characterclasses"] = characterclassesXML;
+				defaultXMLA[ "skills"] = skillsXML;
+				defaultXMLA[ "afflictions"] = afflictionsXML;
+				defaultXMLA[ "physicalitems"] = physicalItemsXML;
+				globals = new SandboxGlobals( defaultXMLA);
+			}
+			
+			protected function applicationCompleteHandler(event:FlexEvent):void
+			{
+				// prepare the globals
+				globals.ApplicationComplete();
+			}
+			
+			public function LogOut():void
+			{
+				for each( var n:ViewNavigator in navigators)
+					n.popToFirstView();
+				tabbedNavigator.selectedIndex = 0;
+				
+				globals.loggedIn = null;
+			}
+			
+			public function LogIn( a:Account):void
+			{
+				for each( var n:ViewNavigator in navigators)
+					n.popToFirstView();
+				tabbedNavigator.selectedIndex = 0;
+
+				globals.loggedIn = a;
+			}
+			
+			public function ShowError( tS:String, sS:String):void
+			{
+				tabbedNavigator.selectedNavigator.activeView.navigator.pushView( ScrimErrorView, tS, sS);
+			}
+			
+			public function RemoveError( g:Group):void
+			{
+				tabbedNavigator.selectedNavigator.activeView.navigator.popView();
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<fx:XML id="nationalitiesXML" source="resources/nationalities.xml"/>
+		<fx:XML id="characterclassesXML" source="resources/characterclasses.xml"/>
+		<fx:XML id="skillsXML" source="resources/skills.xml"/>
+		<fx:XML id="abilitiesXML" source="resources/abilities.xml"/>
+		<fx:XML id="afflictionsXML" source="resources/afflictions.xml"/>
+		<fx:XML id="physicalItemsXML" source="resources/physicalitems.xml"/>
+	</fx:Declarations>
+
+	<fx:Style source="stormbringsandbox.css"/>
+	
+	<s:ViewNavigator label="Characters" width="100%" height="100%" firstView="views.CharactersView"/>
+	<s:ViewNavigator label="Parties" width="100%" height="100%" firstView="views.PartiesView"/>
+	<s:ViewNavigator label="Encounters" width="100%" height="100%" firstView="views.EncountersView"/>
+	<s:ViewNavigator label="Maps" width="100%" height="100%" firstView="views.MapsView"/>
+	<s:ViewNavigator icon="@Embed('resources/Folder-Utilities-icon-64.png')" width="100%" height="100%" firstView="views.PreferencesView"/>
+</s:TabbedViewNavigatorApplication>

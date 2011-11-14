@@ -1,0 +1,129 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace views "views.*";
+@namespace skins "skins.*";
+@namespace view "view.*";
+
+.global {
+	font-family: sans-serif;
+	fontSize: 16;
+	focusColor:#b44a11;
+}
+
+s|View {
+	skinClass: ClassReference("skins.ViewSkin");
+}
+
+s|Button {
+	skinClass: ClassReference("spark.skins.mobile.ButtonSkin");
+	errorColor:#660e07;
+	accentColor: #cca551;
+	focusColor: #b44a11;
+	chromeColor: #878a68;
+}
+
+s|TextInput {
+	skinClass: ClassReference("skins.TextInputSkin");
+	focusColor: #b44a11;
+	focusedTextSelectionColor:#cca551;
+}
+
+s|TextArea {
+	skinClass: ClassReference("skins.TextAreaSkin");
+	focusColor: #b44a11;
+	focusedTextSelectionColor:#cca551;
+}
+
+s|CheckBox {
+	skinClass: ClassReference("skins.CheckBoxSkin");
+	focusColor:#b44a11;
+}
+
+s|Image {
+	skinClass: ClassReference("skins.ImageSkin");
+}
+
+s|DropDownList{
+	alternatingItemColors:#cca551;
+	focusColor:#b44a11;
+}
+
+s|ActionBar {
+	chromeColor: #603937;
+	color: #FFFFFF;
+	fontSize: 20;
+	fontWeight: normal;
+	iconPlacement: top;
+	skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
+	textShadowAlpha: .65;
+	textShadowColor: #000000;
+}
+
+s|TabbedViewNavigatorApplication #tabBar {
+	chromeColor: #603937;
+	color: #FFFFFF;
+	fontSize: 20;
+	fontWeight: normal;
+	iconPlacement: top;
+	skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorTabBarSkin");
+	textShadowAlpha: .65;
+	textShadowColor: #000000;
+}
+
+view|IconButton {
+	skinClass: ClassReference("skins.IconButtonSkin");
+}
+
+.actionListStyle {
+	skinClass: ClassReference("skins.PlainListSkin");
+	fontWeight: bold;
+	focusColor:#b44a11;
+}
+
+.afflictionsListStyle {
+	skinClass: ClassReference("skins.AfflictionsListSkin");
+	focusColor:#b44a11;
+}
+
+.characterListStyle {
+	skinClass: ClassReference("skins.CharacterListSkin");
+	fontWeight: bold;
+	focusColor:#b44a11;
+}
+
+.possessionsListStyle {
+	skinClass: ClassReference("skins.PossessionsListSkin");
+	focusColor:#b44a11;
+}
+
+.skillsListStyle {
+	skinClass: ClassReference("skins.SkillsListSkin");
+	focusColor:#b44a11;
+}
+
+.titleLabelStyle {
+	fontSize: 20;
+	fontWeight: bold;
+	color: #b44a11;
+}
+
+.boldLabelStyle {
+	fontWeight: bold;
+	color: #b44a11;
+}
+
+.errorTitleLabelStyle {
+	fontWeight: bold;
+	fontSize: 20;
+	color: #660e07;
+}
+
+.errorLabelStyle {
+	fontStyl: italic;
+	color: #660e07;
+}
+
+.linkButtonStyle {
+	color: #0000ff;
+	textDecoration:underline;
+}

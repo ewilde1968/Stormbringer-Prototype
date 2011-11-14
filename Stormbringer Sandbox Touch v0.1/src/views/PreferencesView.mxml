@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:ViewWithBack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:model="model.*"
+		xmlns:controller="controller.*"
+		title="Settings"
+		showNavContent="false" xmlns:views="views.*"
+		>
+	<fx:Script>
+		<![CDATA[
+			import model.Account;
+			
+			import mx.events.ValidationResultEvent;
+			import mx.utils.ObjectUtil;
+			
+			protected function validHandler(event:ValidationResultEvent):void
+			{
+				var aOld:Account = data as Account;
+
+				var a:Account = aOld.Copy() as Account;
+				a.email = emailTI.text;
+				a.password = passwordTI.text;
+				aOld.Update( a);
+				
+				parentApplication.LogIn( a);
+			}
+			
+			private function SaveEnabled( pw:String, cpw:String):Boolean
+			{
+				if( data.password == pw || pw == cpw)
+					return true;
+				
+				return false;
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<mx:EmailValidator source="{emailTI}" property="text"
+						   trigger="{saveB}" triggerEvent="click"
+						   valid="validHandler(event)"/>
+	</fx:Declarations>
+
+	<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="email address" width="150"/>
+			<s:TextInput id="emailTI" text="{data.email}" widthInChars="20"/>
+		</s:HGroup>
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="change password" width="150"/>
+			<s:TextInput id="passwordTI" widthInChars="20"
+						 displayAsPassword="true" text="{data.password}"/>
+		</s:HGroup>
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="confirm password" width="150"/>
+			<s:TextInput id="confirmPasswordTI" widthInChars="20"
+						 displayAsPassword="true"/>
+			<s:Button id="saveB" label="Save" enabled="{SaveEnabled( passwordTI.text, confirmPasswordTI.text)}"/>
+		</s:HGroup>
+	</s:VGroup>
+</views:ViewWithBack>

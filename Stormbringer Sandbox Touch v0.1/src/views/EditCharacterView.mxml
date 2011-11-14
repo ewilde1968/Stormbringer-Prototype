@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:ViewWithBack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						 xmlns:s="library://ns.adobe.com/flex/spark"
+						 xmlns:controller="controller.*"
+						 xmlns:mx="library://ns.adobe.com/flex/mx"
+						 xmlns:view="view.*"
+						 xmlns:views="views.*"
+						 title="{data.name}"
+						 >
+	<fx:Script>
+		<![CDATA[
+			import model.Character;
+			
+			protected function doneHandler():void
+			{
+				navigator.popView();
+			}
+			
+			private function skillsF( char:Character, con:String):void
+			{
+				navigator.pushView( SkillsView, char, con);
+			}
+			
+			private function possessionsF( char:Character, con:String):void
+			{
+				navigator.pushView( PossessionsView, char, con);
+			}
+			
+			private function descriptionF( char:Character, con:String):void
+			{
+				navigator.pushView( CharacterDescriptionView, char, con);
+			}
+
+			override protected function backB_clickHandler(event:MouseEvent):void
+			{
+				editCharacterG.backHandler();
+				
+				super.backB_clickHandler(event);
+			}
+		]]>
+	</fx:Script>
+
+	<view:EditCharacterGroup id="editCharacterG"
+							 character="{data}"
+							 doneF="{doneHandler}"
+							 skillsF="{skillsF}"
+							 possessionsF="{possessionsF}"
+							 descriptionF="{descriptionF}"
+							/>
+</views:ViewWithBack>

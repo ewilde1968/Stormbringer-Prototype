@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="ViewWithBack"
+		xmlns:controller="controller.*"
+		>
+
+	<fx:Script>
+		<![CDATA[
+			import model.Account;
+			
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Button;
+			
+
+			static private const pauseDuration:Number = 1000;
+			static private const maxAlpha:Number = 0.7;
+
+			[Bindable] public var showNavContent:Boolean = true;
+			[Bindable] public var showActionContent:Boolean = true;
+			
+			protected function backB_clickHandler(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+			
+			protected function logoutB_clickHandler(event:MouseEvent):void
+			{
+				if( parentApplication.globals.loggedIn)
+					parentApplication.LogOut();
+				else
+					navigator.pushView( AccountView);
+			}
+			
+			protected function settingsI_clickHandler(event:MouseEvent):void
+			{
+				navigator.pushView( PreferencesView, parentApplication.globals.loggedIn);
+			}
+			
+			private function WelcomeString( a:Account):String
+			{
+				if( a != null)
+					return "Welcome " + a.email;
+				
+				return "";
+			}
+			
+			private function LoginString( a:Account):String
+			{
+				if( a != null)
+					return "Logout";
+				else
+					return "Login";
+			}
+		]]>
+	</fx:Script>
+
+	<s:navigationContent>
+		<s:Button icon="@Embed(source='resources/Arrow-Left-icon.png')"
+				  enabled="{showNavContent}"
+				  click="backB_clickHandler(event)"/>
+	</s:navigationContent>
+	
+	<s:actionContent>
+		<s:Label text="{WelcomeString( parentApplication.globals.loggedIn)}" styleName="WelcomeText"/>
+		<s:Button id="logoutB" label="{LoginString( parentApplication.globals.loggedIn)}"
+				  enabled="{showActionContent}"
+				  click="logoutB_clickHandler(event)"/>
+	</s:actionContent>
+</s:View>

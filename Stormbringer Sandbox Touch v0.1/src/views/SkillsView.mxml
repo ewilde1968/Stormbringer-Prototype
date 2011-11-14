@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:ViewWithBack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						 xmlns:s="library://ns.adobe.com/flex/spark"
+						 xmlns:views="views.*"
+						 xmlns:view="view.*"
+						 title="Skills"
+						 >
+	<fx:Script>
+		<![CDATA[
+			import model.Skill;
+			
+			import spark.events.ViewNavigatorEvent;
+			
+			private function addHandler( sk:Skill):void
+			{
+				navigator.pushView( SkillView, sk)
+			}
+		]]>
+	</fx:Script>
+
+	<view:SkillsGroup context="{navigator.context}"
+					  character="{data}"
+					  addF="{addHandler}"
+					  />
+</views:ViewWithBack>

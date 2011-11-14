@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:ViewWithBack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						 xmlns:s="library://ns.adobe.com/flex/spark"
+						 xmlns:views="views.*"
+						 xmlns:view="view.*"
+						 title="{data.name}"
+						 viewActivate="viewActivateHandler(event)"
+						 >
+	<fx:Script>
+		<![CDATA[
+			import model.Skill;
+			
+			import spark.events.ViewNavigatorEvent;
+
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				var skill:Skill = data as Skill;
+
+				if( skill.complete)
+					setCurrentState( "Complete");
+				else
+					setCurrentState( "NeedChoice");
+			}
+			
+			private function doneHandler():void
+			{
+				navigator.popView();
+			}
+		]]>
+	</fx:Script>
+
+	<views:states>
+		<s:State name="Complete"/>
+		<s:State name="NeedChoice"/>
+	</views:states>
+	
+	<view:SkillDescriptionGroup includeIn="Complete"
+								skill="{data}"
+								doneF="{doneHandler}"
+								/>
+	<view:SkillChoiceGroup includeIn="NeedChoice"
+						   skill="{data}"
+						   doneF="{doneHandler}"
+						   />
+</views:ViewWithBack>

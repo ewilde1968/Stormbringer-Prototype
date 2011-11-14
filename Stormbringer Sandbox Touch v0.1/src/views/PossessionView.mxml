@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:ViewWithBack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						 xmlns:s="library://ns.adobe.com/flex/spark"
+						 xmlns:views="views.*"
+						 xmlns:view="view.*"
+						 title="{data.name}"
+						 viewActivate="viewActivateHandler(event)"
+						 >
+	<fx:Script>
+		<![CDATA[
+			import model.Character;
+			import model.PhysicalItem;
+			
+			import spark.events.ViewNavigatorEvent;
+			
+			[Bindable] public var character:Character;
+			
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				var item:PhysicalItem = data as PhysicalItem;
+				character = item.character;
+				
+				if( item.complete)
+					setCurrentState( "Complete");
+				else
+					setCurrentState( "NeedChoice");
+			}
+			
+			private function doneHandler():void
+			{
+				navigator.popView();
+			}
+		]]>
+	</fx:Script>
+	
+	<views:states>
+		<s:State name="Complete"/>
+		<s:State name="NeedChoice"/>
+	</views:states>
+	
+	<view:PossessionDescriptionGroup includeIn="Complete"
+									 doneF="{doneHandler}"
+									 item="{data}"
+									 />
+	<view:PossessionChoiceGroup includeIn="NeedChoice"
+								doneF="{doneHandler}"
+								item="{data}"
+								context="{navigator.context}"
+								/>
+</views:ViewWithBack>

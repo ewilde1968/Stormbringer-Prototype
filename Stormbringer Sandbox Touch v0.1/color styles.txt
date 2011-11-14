@@ -1,0 +1,40 @@
+Frazetta from Kuler
+603937		dark russet		dark widget parts
+878a68		medium gray-green	another background, widgets
+cca551		mustard			background
+b44a11		burnt orange		highlights/non-errors
+660e07		dark crimson		highlights/errors
+
+
+dreamscape architecture
+
+6a8991		dirty cyan		content background
+402d24		darkbrown		dark areas
+fbd390		yellowish		background
+939475		olive			another background
+70552b		medium brown		??
+
+
+copyrights
+stormbringer itself
+splash screen
+	"Elric of Melnibone" by Gene Mederos
+wow blood elf icon
+	Tooschee (no copyright)
+	respective copyright owners
+gold icon
+	Teekatas Suwannakrua (no copyright)
+Apps error icon
+	Saki
+	GNU General Public License
+dice icon
+	La Glanz Studio (freeware)
+save icon
+	Sean Poon (no copyright)
+settings icon
+	Paul Davey
+	CC Attribution-Noncommercial-Share Alike 3.0
+	checkbox icon
+arrow left icon
+	Paul Davey
+	CC Attribution-Noncommercial-Share Alike 3.0

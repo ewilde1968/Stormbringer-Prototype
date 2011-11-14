@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.CheckBox")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="disabledAndSelected" stateGroups="selectedStates"/>
+		<s:State name="downAndSelected" stateGroups="selectedStates"/>
+		<s:State name="overAndSelected" stateGroups="selectedStates"/>
+		<s:State name="upAndSelected" stateGroups="selectedStates"/>
+		<s:State name="disabled" stateGroups="unselectedStates"/>
+		<s:State name="down" stateGroups="unselectedStates"/>
+		<s:State name="over" stateGroups="unselectedStates"/>
+		<s:State name="up" stateGroups="unselectedStates"/>
+	</s:states>
+	
+	<s:BitmapImage id="iconDisplay"
+				   source.selectedStates="@Embed('resources/checkbox_checked-32.png')"
+				   source.unselectedStates="@Embed('resources/checkbox_unchecked-32.png')"
+				   verticalCenter="0"
+				   minHeight="30" minWidth="30"
+				   />
+
+	<s:Label id="labelDisplay"
+			 horizontalCenter="{iconDisplay.width + 5}" verticalCenter="1"
+			 paddingBottom="2" paddingTop="2" paddingRight="10"
+			 />
+
+	<!-- SkinParts
+	name=iconDisplay, type=spark.primitives.BitmapImage, required=false
+	name=labelDisplay, type=spark.core.IDisplayText, required=false
+	-->
+</s:Skin>

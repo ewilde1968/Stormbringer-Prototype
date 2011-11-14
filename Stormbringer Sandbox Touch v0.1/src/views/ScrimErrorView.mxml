@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="Error"
+		viewActivate="viewActivateHandler(event)" xmlns:view="view.*"
+		>
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Group;
+			import spark.events.ViewNavigatorEvent;
+
+			[Bindable] private var titleS:String;
+			[Bindable] private var subjectS:String;
+			
+			private function viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				titleS = data as String;
+				subjectS = navigator.context as String;
+				
+				pauseS.play( [this]);
+			}
+			
+			public function Remove():void
+			{
+				navigator.popView();
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Sequence id="pauseS">
+			<s:Pause duration="3000"/>
+			<s:CallAction functionName="Remove"/>
+		</s:Sequence>
+	</fx:Declarations>
+	
+	<s:Label text="{titleS}"
+			 styleName="errorTitleLabelStyle"
+			 width="400"
+			 />
+	<s:Label text="{subjectS}"
+				styleName="errorLabelStyle"
+				width="400"
+				/>
+</s:View>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:ViewWithBack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						 xmlns:s="library://ns.adobe.com/flex/spark"
+						 xmlns:views="views.*"
+						 xmlns:view="view.*"
+						 title="Create New Character" 
+						 viewActivate="viewActivateHandler(event)"
+						 >
+	<fx:Script>
+		<![CDATA[
+			import model.Character;
+			
+			import spark.events.ViewNavigatorEvent;
+
+			protected function saveHandler():void
+			{
+				navigator.popView();
+			}
+			
+			private function skillsF( char:Character, con:String):void
+			{
+				navigator.pushView( SkillsView, char, con);
+			}
+			
+			private function possessionsF( char:Character, con:String):void
+			{
+				navigator.pushView( PossessionsView, char, con);
+			}
+			
+			private function descriptionF( char:Character, con:String):void
+			{
+				navigator.pushView( CharacterDescriptionView, char, con);
+			}
+			
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				if( !data && gcg)
+					data = gcg.SetupCharacter( null);
+			}
+		]]>
+	</fx:Script>
+
+	<view:GenerateCharacterGroup id="gcg"
+								 saveF="{saveHandler}"
+								 skillsF="{skillsF}"
+								 possessionsF="{possessionsF}"
+								 descriptionF="{descriptionF}"
+								 character="@{data}"
+								 />
+</views:ViewWithBack>

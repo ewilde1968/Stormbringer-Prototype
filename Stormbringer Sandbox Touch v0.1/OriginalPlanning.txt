@@ -1,0 +1,32 @@
+8ES6583857562613K
+
+
+
+Sandbox
+
+Characters
+Party Form2, Edit2, Fight, Load2, Save2
+PC Generate1, Generate Constrained1, Edit1, Fight, Summon/Bind4, Add to party2, Load1, Save1, Train7, Manage Possessions4
+Demon/Elemental Generate3, Edit3, Fight, Load3, Save3, Train7, Summon/Bind4
+Creature Load5, Generate5, Edit5, Fight, Save5, Train7
+Creature of Chaos Load6, Generate6, Edit6, Fight, Save6, Train7
+
+Campaign
+Map Generate, Load, Save, Edit, String Together
+Hex Generate Terrain, Generate Encounter/Event8, Load, Save, Edit
+Closeup Generate, Load, Save, Edit, Key
+
+Encounter/Event
+
+
+
+Class Structure
+
+StorableObject (Load, Save, Enumerate, Serialize, Access Privileges)
+.StormbringerObject (Edit, Generate)
+..Creature (Generate, Edit, Train)
+...Creature of Chaos (Generate, Edit, Train)
+....Demon (Generate, Edit, Bind)
+...Elemental (Generate, Edit)
+...Character (Generate, Edit, Generate Constrained, Manage Possessions)
+....Sorcerer (Generate, Edit, Summon/Bind)
