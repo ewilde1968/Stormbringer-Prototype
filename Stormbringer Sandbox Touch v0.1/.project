@@ -22,4 +22,11 @@
 		<nature>com.adobe.flexbuilder.project.flexnature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] Stormbringer</name>
+			<type>2</type>
+			<location>C:/Users/ewilde/Adobe Flash Builder 4.5/Stormbringer-Prototype/com/wildebeastgames/Stormbringer</location>
+		</link>
+	</linkedResources>
 </projectDescription>
