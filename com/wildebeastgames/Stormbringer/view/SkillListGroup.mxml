@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 horizontalAlign="center"
+		 >
+
+	<fx:Script>
+		<![CDATA[
+			import controller.ItemRendererContainer;
+			
+			import model.Character;
+			import model.Skill;
+			
+			import mx.collections.ArrayList;
+			
+			import spark.components.CheckBox;
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable] public var context:String;
+			[Bindable] public var character:Character;
+			[Bindable] public var skillF:Function;
+			
+			private function AlphaSort( a:ItemRendererContainer, b:ItemRendererContainer):int
+			{
+				return Skill.AlphaSort( a.dataObject as Skill, b.dataObject as Skill);
+			}
+
+			protected function GetSkillListProvider( char:Character, con:String):ArrayList
+			{
+				var a:Array = new Array();
+				
+				if( char) {
+					for each( var skill:Skill in char.skills) {
+						var irc:ItemRendererContainer = new ItemRendererContainer( skill,
+							context, character, DeleteSkill);
+						if( skill != null)
+							a.push( irc);
+					}
+					a.sort( AlphaSort);
+				}
+				
+				var result:ArrayList = new ArrayList( a);
+				return result;
+			}
+			
+			public function DeleteSkill( o:Object):void
+			{
+				var sk:Skill = o as Skill;
+				
+				if( sk && character)
+					character.RemoveSkill( sk);
+				
+				skillsL.dataProvider = GetSkillListProvider( character, context);
+				skillsL.selectedIndex = -1;
+				skillsL.invalidateDisplayList();
+			}
+			
+			protected function skillsL_clickHandler(event:MouseEvent):void
+			{
+				// use this instead of a change event so that we can handle
+				// selecting the checkbox or delete button
+				if( !( event.target is CheckBox) && skillsL.selectedIndex > -1) {
+					var skill:Skill = skillsL.selectedItem.dataObject as Skill;
+					
+					if( skill != null && skillF != null)
+						skillF( skill);
+				}
+			}
+		]]>
+	</fx:Script>
+
+	<s:Label styleName="titleLabelStyle" text="Skills"/>
+	<s:List id="skillsL"
+			styleName="skillsListStyle"
+			dataProvider="{GetSkillListProvider( character, context)}"
+			click="skillsL_clickHandler(event)"
+			/>
+</s:VGroup>

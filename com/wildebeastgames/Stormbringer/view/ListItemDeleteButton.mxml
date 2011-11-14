@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:IconButton xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				  xmlns:s="library://ns.adobe.com/flex/spark"
+				  xmlns:view="view.*"
+				  icon="@Embed('resources/Apps-error-icon-32.png')"
+				  buttonDown="buttonDownHandler(event)"
+				  >
+	
+	<fx:Script>
+		<![CDATA[
+			import model.Character;
+			import model.PhysicalItem;
+			import model.Skill;
+			
+			import mx.events.FlexEvent;
+
+			[Bindable] public var objectToDelete:Object;
+			[Bindable] public var deleteF:Function;
+			
+			protected function buttonDownHandler(event:FlexEvent):void
+			{
+				if( deleteF != null)
+					deleteF( objectToDelete);
+			}
+			
+		]]>
+	</fx:Script>
+</view:IconButton>

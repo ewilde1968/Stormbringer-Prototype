@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  horizontalAlign="center" xmlns:view="view.*"
+		  >
+
+	<fx:Script>
+		<![CDATA[
+			import controller.ItemRendererContainer;
+			
+			import model.Character;
+			import model.PhysicalItem;
+			
+			import mx.collections.ArrayList;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable] public var character:Character;
+			[Bindable] public var context:String;
+			[Bindable] public var possessionF:Function;
+			[Bindable] public var addF:Function;
+			
+			private function AlphaSort( a:ItemRendererContainer, b:ItemRendererContainer):int
+			{
+				return PhysicalItem.AlphaSort( a.dataObject as PhysicalItem, b.dataObject as PhysicalItem);
+			}
+			
+			protected function GetPossessionListProvider( char:Character):ArrayList
+			{
+				var a:Array = new Array();
+				
+				if( char) {
+					for each( var item:PhysicalItem in char.possessions) {
+						if( item != null) {
+							var irc:ItemRendererContainer = new ItemRendererContainer( item,
+								context, character, Delete);
+							a.push( irc);
+						}
+					}
+					a.sort( AlphaSort);
+				}
+				
+				var result:ArrayList = new ArrayList( a);
+				return result;
+			}
+			
+			public function Delete( o:Object):void
+			{
+				var p:PhysicalItem = o as PhysicalItem;
+				
+				if( character && p)
+					character.RemovePossession( p);
+				
+				possessionsL.dataProvider = GetPossessionListProvider( character);
+				possessionsL.selectedIndex = -1;
+			}
+			
+			protected function possessionsL_changeHandler():void
+			{
+				var pi:PhysicalItem = possessionsL.selectedItem.dataObject as PhysicalItem;
+				
+				if( pi != null) {
+					// not allowed to choose a generic weapon, must choose skill instead
+					if( pi.name.indexOf( "Weapon") == 0)
+						parentApplication.ShowError( "Invalid Selection",
+							"Weapon selection determined automatically by attack or parry skill selection. Please choose an attack or parry skill instead.");
+					else if( pi.complete && possessionF != null)
+						possessionF( pi);
+					else if( !pi.complete && addF != null)
+						addF( pi, context);
+				}
+			}
+			
+			protected function possessionsL_clickHandler(event:MouseEvent):void
+			{
+				// use this instead of a change event so that we can handle
+				// selecting the delete button
+				if( !( event.target is ListItemDeleteButton)
+					&& possessionsL.selectedIndex > -1)
+					possessionsL_changeHandler();
+			}
+		]]>
+	</fx:Script>
+
+	<s:Label text="Possessions"/>
+	<s:List id="possessionsL"
+			styleName="possessionsListStyle"
+			dataProvider="{GetPossessionListProvider( character)}"
+			click="possessionsL_clickHandler(event)"
+			/>
+</s:VGroup>

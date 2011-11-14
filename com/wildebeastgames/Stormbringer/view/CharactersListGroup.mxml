@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 width="100%" height="100%"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import controller.CacheStorageDevice;
+			import controller.ItemRendererContainer;
+			
+			import model.Character;
+			import model.StorageDevice;
+			
+			import mx.collections.ArrayList;
+			
+			import spark.events.IndexChangeEvent;
+			
+
+			[Bindable] public var editCharacterF:Function;
+			[Bindable] public var generateCharacterF:Function;
+			
+			protected function createB_clickHandler(event:MouseEvent):void
+			{
+				if( generateCharacterF != null)
+					generateCharacterF();
+			}
+			
+			private function GetCharacterList( trigger:Boolean):ArrayList
+			{
+				var result:Array = new Array();
+				
+				if( parentApplication != null) {
+					var input:ArrayList = parentApplication.globals.cache.Enumerate( 'model_Character');
+					if( input) {
+						for each( var c:Character in input.source)
+							if( c) {
+								var irc:ItemRendererContainer = new ItemRendererContainer( null,
+									null, c, deleteItemHandler);
+								result.push( irc);
+							}
+					}
+				}
+				
+				return new ArrayList( result);
+			}
+			
+			private function deleteItemHandler( o:Object):void
+			{
+				var c:Character = o as Character;
+				if( c != null) {
+					// delete this item from the list
+					c.Delete();
+					Refresh();
+				}
+			}
+
+			protected function charactersL_changeHandler(event:IndexChangeEvent):void
+			{
+				if( charactersL.selectedIndex > -1) {
+					var c:Character = charactersL.selectedItem.character as Character;
+					
+					if( c != null && editCharacterF != null)
+						editCharacterF( c);
+				}
+			}
+			
+			public function Refresh():void
+			{
+				charactersL.dataProvider = GetCharacterList( true);
+				charactersL.selectedIndex = -1;
+				
+				// workaround flex bug where delete button or character must
+				// be selected twice in order for the click to take effect
+				this.focusManager.setFocus( charactersL);
+			}
+			
+			protected function charactersL_clickHandler(event:MouseEvent):void
+			{
+				// use this instead of a change event so that we can handle
+				// selecting the delete button
+				if( !( event.target is ListItemDeleteButton))
+					charactersL_changeHandler(null);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+	</s:layout>
+
+	<s:List id="charactersL" minHeight="64"
+			dataProvider="{GetCharacterList( parentApplication.globals.finishedPreloading)}"
+			styleName="characterListStyle"
+			click="charactersL_clickHandler(event)"
+			/>
+	<s:Spacer height="50"/>
+	<s:Button id="createB" label="New Character"
+			  click="createB_clickHandler(event)"
+			  />
+</s:Group>

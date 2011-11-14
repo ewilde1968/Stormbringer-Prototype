@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 width="100%" height="100%" xmlns:view="view.*"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import model.Character;
+			import model.PhysicalItem;
+			
+			import mx.collections.ArrayList;
+			
+			private var _item:PhysicalItem;
+			private var character:Character;
+			[Bindable] public var doneF:Function;
+			
+			public function get item():PhysicalItem {return _item;}
+			[Bindable] public function set item(pi:PhysicalItem):void
+			{
+				_item = pi;
+				
+				if( pi != null)
+					character = pi.character;
+			}
+
+			protected function sellB_clickHandler(event:MouseEvent):void
+			{
+				var character:Character = item.character;
+				
+				var lbs:PhysicalItem = character.GetPossessionByName( "Large Bronze Pieces");
+				if( lbs == null) {
+					// the character was broke, give them a new item
+					lbs = PhysicalItem.GetPhysicalItemByName( "Large Bronze Pieces");
+					
+					character.AddPossession( lbs);
+				}
+				
+				item.quantity--;
+				if( item.quantity <= 0) {
+					character.RemovePossession( item);
+
+					if( doneF != null)
+						doneF();
+				}
+				
+				lbs.quantity += item.cost;
+			}
+			
+			protected function deleteB_clickHandler(event:MouseEvent):void
+			{
+				if( character != null)
+					character.RemovePossession( item);
+				
+				if( doneF != null)
+					doneF();
+			}
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<s:Label id="titleL" styleName="titleLabelStyle" text="{item.name}"/>
+	<s:Label id="categoryL" styleName="boldLabelStyle" text="{item.category}"/>
+	<s:Label text="{'Quantity:  ' + item.quantity}"/>
+	<s:TextArea id="descriptionTA" width="500" height="300"
+				text="@{item.description}"
+				enabled="false"
+				/>
+	<s:HGroup width="100%" horizontalAlign="center">
+		<view:IconButton id="sellB"
+						 icon="@Embed('resources/Gold-icon-32.png')" toolTip="Sell item for cash."
+						 click="sellB_clickHandler(event)"
+						 enabled="{item.cost > 0}"
+						 />
+		<s:Spacer width="60"/>
+		<view:IconButton id="deleteB"
+						 icon="@Embed('resources/Apps-error-icon-32.png')" toolTip="Drop item."
+						 click="deleteB_clickHandler(event)"
+						 />
+	</s:HGroup>
+</s:Group>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<afflictions>
+	<affliction name="Cataract, half blind"/>
+	<affliction name="Missing one ear, half normal listen ability"/>
+	<affliction name="Dumb - or tongue missing"/>
+	<affliction name="Missing one eye"/>
+	<affliction name="Missing nose"/>
+	<affliction name="Tooth decay - bad breath"/>
+	<affliction name="Open sores"/>
+	<affliction name="Leprosy"/>
+	<affliction name="Hemophilia"/>
+	<affliction name="Scurvy"/>
+	<affliction name="Missing fingers"/>
+	<affliction name="Missing a hand"/>
+	<affliction name="Missing a foot"/>
+	<affliction name="Missing an arm"/>
+	<affliction name="Missing a leg"/>
+	<affliction name="Missing an arm and a leg"/>
+	<affliction name="Bald and scabby"/>
+	<affliction name="Grossly fat">
+		<Weight multiplier="2"/>
+	</affliction>
+	<affliction name="Emaciated">
+		<Weight multiplier="0.8"/>
+	</affliction>
+	<affliction name="Mentally retarded">
+		<Intelligence dice="-1" size="6"/>
+	</affliction>
+</afflictions>

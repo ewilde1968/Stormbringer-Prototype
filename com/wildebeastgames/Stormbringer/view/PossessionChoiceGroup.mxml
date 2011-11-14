@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 width="100%" height="100%" xmlns:view="view.*"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import controller.ItemRendererContainer;
+			
+			import model.Character;
+			import model.PhysicalItem;
+			
+			import mx.collections.ArrayList;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable] public var item:PhysicalItem;
+			[Bindable] public var context:String;
+			[Bindable] public var doneF:Function;
+			
+			protected function GenerateChoiceDataProvider( pi:PhysicalItem):ArrayList
+			{
+				var result:Array = new Array();
+				var input:Array = pi.GetGenericList();
+				
+				for each( var p:PhysicalItem in input) {
+					if( p != null) {
+						var irc:ItemRendererContainer = new ItemRendererContainer( p,
+							context, item.character, Refresh);
+						result.push( irc);
+					}
+				}
+				
+				return new ArrayList( result);
+			}
+			
+			private function CanBuy( pi:PhysicalItem):Boolean
+			{
+				var character:Character = item.character;
+				var lb:Number = character.GetCash();
+				
+				switch( context) {
+					case "GenerateCharacter":
+						return true;
+					case "EditCharacter":
+					case "PurchaseItem":
+						if( pi.cost <= lb)
+							return true;
+					default:
+				}
+				
+				return false;
+			}
+			
+			protected function choiceL_changeHandler(event:IndexChangeEvent):void
+			{
+				var selected:PhysicalItem = choiceL.selectedItem.dataObject as PhysicalItem;
+				
+				if( selected != null) {
+					if( CanBuy( selected)) {
+						item.character.RemovePossession( item);
+						
+						var possessedItem:PhysicalItem = selected.Copy() as PhysicalItem;
+						possessedItem.complete = true;
+						item.character.AddPossession( possessedItem);
+						
+						// spend the money
+						var lbp:PhysicalItem = item.character.GetPossessionByName( "Large Bronze Pieces");
+						lbp.quantity -= possessedItem.cost;
+						
+						if( doneF != null)
+							doneF();
+					} else
+						parentApplication.ShowError( "Unable to purchase item.",
+							"You do not have enough cash to purchase this item.");
+				}
+			}
+			
+			private function Refresh():void
+			{
+				// update the display
+				//invalidateDisplayList();
+			}
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<s:Label text="Choose an item." styleName="titleLabelStyle"/>
+	<s:List id="choiceL"
+			styleName="possessionsListStyle"
+			dataProvider="{GenerateChoiceDataProvider(item)}"
+			change="choiceL_changeHandler(event)"
+			/>
+</s:Group>

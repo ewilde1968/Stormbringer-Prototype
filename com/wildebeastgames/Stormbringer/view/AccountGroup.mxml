@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="100%" height="100%"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import model.Account;
+			
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
+			import mx.managers.FocusManager;
+			
+			[Bindable] private var emailValid:Boolean = false;
+			[Bindable] private var passwordValid:Boolean = false;
+			[Bindable] private var errorMessage:String = "";
+			[Bindable] public var forgotF:Function;
+			[Bindable] public var createF:Function;
+			
+			private function LoginEnabled( a:Boolean, b:Boolean):Boolean
+			{
+				return a && b;
+			}
+			
+			protected function loginB_buttonDownHandler(event:FlexEvent):void
+			{
+				var a:Account = new Account();
+				a.email = emailLoginTI.text;
+				
+				a = a.Load( a) as Account;
+				if( a != null && a.password == passwordTI.text) {
+					parentApplication.LogIn( a);
+					errorMessage = "";
+				} else
+					errorMessage = "Invalid username/password";
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<mx:EmailValidator source="{emailLoginTI}" property="text" required="true"
+						   valid="{emailValid=true}" invalid="{emailValid=false}"
+						   />
+		<mx:Validator source="{passwordTI}" property="text" required="true"
+					  valid="{passwordValid=true}" invalid="{passwordValid=false}"
+					  />
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+	</s:layout>
+	
+	<s:VGroup horizontalAlign="right">
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="Email address" width="150"/>
+			<s:TextInput id="emailLoginTI" widthInChars="20"/>
+		</s:HGroup>
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="Password" width="150"/>
+			<s:TextInput id="passwordTI" widthInChars="20"
+						 displayAsPassword="true"/>
+		</s:HGroup>
+		<s:Spacer height="30"/>
+		<s:Button id="loginB" label="Login"
+				  enabled="{LoginEnabled( emailValid, passwordValid)}"
+				  buttonDown="loginB_buttonDownHandler(event)"
+				  />
+	</s:VGroup>
+	<s:Spacer height="50"/>
+	<s:HGroup width="100%">
+		<s:Label id="forgotLB" text="Forgot Password"
+				 styleName="linkButtonStyle"
+				 buttonMode="true" mouseChildren="false" click="{if( forgotF != null) forgotF()}"
+				 />
+		<s:HGroup width="100%" horizontalAlign="center">
+			<s:Label id="errorL" text="{errorMessage}"
+					 styleName="errorLabelStyle"
+					 />
+		</s:HGroup>
+		<s:Label id="createLB" text="Create Account"
+				 styleName="linkButtonStyle"
+				 buttonMode="true" mouseChildren="false" click="{if( createF != null) createF()}"/>
+	</s:HGroup>
+</s:Group>

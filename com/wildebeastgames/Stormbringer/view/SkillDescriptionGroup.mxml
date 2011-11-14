@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:view="view.*"
+		 width="100%" height="100%"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import model.Skill;
+			import controller.Dice;
+			
+			import mx.collections.ArrayList;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable] public var skill:Skill;
+			[Bindable] public var doneF:Function;
+			
+			protected function deleteB_clickHandler(event:MouseEvent):void
+			{
+				skill.character.RemoveSkill( skill);
+
+				if( doneF != null)
+					doneF();
+			}
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:VGroup horizontalAlign="center">
+		<s:Label id="titleL" styleName="titleLabelStyle" text="{skill.name}"/>
+		<s:Label id="bonusL" styleName="boldLabelStyle" text="{skill.bonus.name}"/>
+		<s:TextArea id="descriptionTA"
+					width="500" height="300"
+					text="@{skill.description}"
+					editable="false"
+					/>
+		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle">
+			<s:CheckBox label="Used Successfully"
+						selected="@{skill.checked}"
+						/>
+			<s:Spacer width="60"/>
+			<view:IconButton id="deleteB"
+							 icon="@Embed('resources/Apps-error-icon-32.png')" toolTip="Remove skill."
+							 click="deleteB_clickHandler(event)"
+							 />
+		</s:HGroup>
+	</s:VGroup>
+</s:Group>

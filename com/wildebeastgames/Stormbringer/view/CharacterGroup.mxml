@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:views="views.*"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 >
+
+	<fx:Script>
+		<![CDATA[
+			import controller.ItemRendererContainer;
+			
+			import model.Character;
+			import model.PhysicalItem;
+			import model.Skill;
+			import model.Statistic;
+			import model.WeaponSkill;
+			
+			import mx.collections.ArrayList;
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
+			
+			import spark.core.IContentLoader;
+			import spark.events.IndexChangeEvent;
+			import spark.events.TextOperationEvent;
+			
+			[Bindable] public var character:Character = null;
+			[Bindable] public var context:String;
+			[Bindable] public var nameValid:Boolean;
+			[Bindable] public var cultValid:Boolean;
+			[Bindable] public var skillsF:Function;
+			[Bindable] public var possessionsF:Function;
+			[Bindable] public var descriptionF:Function;
+			private var outputFile:File;
+
+			static private const actionListA:Array = [ "Skills", "Possessions", "Description", "Parties", "Settings"];
+			
+			protected function cultDDL_changeHandler(event:IndexChangeEvent):void
+			{
+				if( cultDDL.selectedIndex >= 0)
+					character.cult = cultDDL.selectedItem;
+			}
+			
+			protected function GenerateCultList( a:Array):ArrayList
+			{
+				return new ArrayList( a);
+			}
+
+			protected function actionL_changeHandler(event:IndexChangeEvent):void
+			{
+				var irc:ItemRendererContainer = actionL.selectedItem;
+				switch( irc.dataObject) {
+					case "Skills":
+						if( skillsF != null)
+							skillsF( character, context);
+						break;
+					case "Possessions":
+						if( possessionsF != null)
+							possessionsF( character, context);
+						break;
+					case "Description":
+						if( descriptionF != null)
+							descriptionF( character, context);
+						break;
+					default:
+						break;
+				}
+				
+				// reset the selection for when we come back
+				actionL.selectedIndex = -1;
+			}
+			
+			private function fileLoadingComplete( event:Event):void
+			{
+				if( outputFile)
+					character.fullPicture = outputFile.nativePath;
+			}
+
+			private function FileSelected( event:Event):void
+			{
+				var file:File = event.target as File;
+				outputFile = File.applicationStorageDirectory.resolvePath( "images").resolvePath( file.name);
+				
+				file.addEventListener( Event.COMPLETE, fileLoadingComplete);
+				file.copyToAsync( outputFile, true);
+			}
+			
+			protected function imageDefaultG_clickHandler(event:MouseEvent):void
+			{
+				var file:File = new File();
+				file.addEventListener(Event.SELECT, FileSelected);
+				file.browseForOpen( "Choose Character Portrait", [new FileFilter("Images", "*.jpg;*.gif;*.png")]);
+			}
+			
+			private function GetActionListDataProvider( trigger:Object):ArrayList
+			{
+				nameTI.appendText("");	// trigger validator
+				
+				var result:Array = new Array();
+				for each( var s:String in actionListA) {
+					var irc:ItemRendererContainer = new ItemRendererContainer( s,
+						context, character, Refresh);
+					result.push( irc);
+				}
+				
+				return new ArrayList( result);
+			}
+			
+			protected function statisticTI_changeHandler(event:TextOperationEvent):void
+			{
+				var s:Statistic = character.stats[ event.target.id];
+				if( s)
+					s.value = event.target.text;
+			}
+			
+			public function Refresh():void
+			{
+				// update the display
+				//invalidateDisplayList();
+				actionL.dataProvider = GetActionListDataProvider( character);
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<mx:Validator source="{nameTI}" property="text" required="true"
+					  invalid="{nameValid=false}" 
+					  valid="{nameValid=true}"
+					  />
+		<mx:Validator source="{cultDDL}" property="selectedItem" required="{character.requiresCult}"
+					  invalid="{cultValid=false}" valid="{cultValid=true}"
+					  />
+	</fx:Declarations>
+
+	<s:VGroup id="groupItem">
+		<s:HGroup>
+			<s:VGroup>
+				<s:HGroup verticalAlign="middle" paddingBottom="5">
+					<s:Label text="Name" width="80"/>
+					<s:TextInput id="nameTI" width="300" text="@{character.name}"/>
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle" paddingBottom="5">
+					<s:Label text="Nationality" width="80"/>
+					<s:TextInput id="nationalityTI" width="300" text="@{character.nationality.name}"/>
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle" paddingBottom="5">
+					<s:Label text="Class" width="80"/>
+					<s:TextInput id="classTI" width="300" text="{character.ClassString()}"/>
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle" paddingBottom="5">
+					<s:Label text="Cult" width="80"/>
+					<s:DropDownList id="cultDDL" width="200" selectedItem="{character.cult}"
+									dataProvider="{GenerateCultList( character.nationality.cults)}"
+									change="cultDDL_changeHandler(event)"
+									/>
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle" paddingBottom="30">
+					<s:Label text="{'Hit Points: ' + character.maxHitPoints + '/'}"/>
+					<s:TextInput id="hpTI" width="35" text="{character.hitPoints}" restrict="0-9"/>
+					<s:Label text="Elan" paddingLeft="10"/>
+					<s:TextInput id="elanTI" width="35" text="{character.elan}" restrict="0-9"/>
+				</s:HGroup>
+			</s:VGroup>
+			<s:Image id="portraitI"
+					 source="{character.fullPicture}"
+					 width="300" height="250"
+					 buttonMode="true" mouseChildren="false" click="imageDefaultG_clickHandler(event)"
+					 />
+		</s:HGroup>
+		<s:HGroup width="100%" horizontalAlign="left">
+			<s:VGroup>
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="Strength" width="85"/>
+					<s:TextInput id="Strength" width="35"
+								 change="statisticTI_changeHandler(event)"
+								 restrict="0-9"
+								 text="{character.strength}"
+								 widthInChars="3"
+								 />
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="Constitution" width="85"/>
+					<s:TextInput id="Constitution" width="35" text="{character.constitution}"
+								 change="statisticTI_changeHandler(event)"
+								 restrict="0-9"
+								 widthInChars="3"/>
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="Size" width="85"/>
+					<s:TextInput id="Size" width="35" text="{character.size}"
+								 change="statisticTI_changeHandler(event)"
+								 restrict="0-9"
+								 />
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="Intelligence" width="85"/>
+					<s:TextInput id="Intelligence" width="35" text="{character.intelligence}"
+								 change="statisticTI_changeHandler(event)"
+								 restrict="0-9"
+								 />
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="Power" width="85"/>
+					<s:TextInput id="Power" width="35" text="{character.power}"
+								 change="statisticTI_changeHandler(event)"
+								 restrict="0-9"
+								 />
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="Dexterity" width="85"/>
+					<s:TextInput id="Dexterity" width="35" text="{character.dexterity}"
+								 change="statisticTI_changeHandler(event)"
+								 restrict="0-9"
+								 />
+				</s:HGroup>
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="Charisma" width="85"/>
+					<s:TextInput id="Charisma" width="35" text="{character.charisma}"
+								 change="statisticTI_changeHandler(event)"
+								 restrict="0-9"
+								 />
+				</s:HGroup>
+			</s:VGroup>
+			<s:Spacer width="50"/>
+			<s:VGroup width="100%" height="100%" verticalAlign="middle">
+				<s:List id="actionL"
+						width="400"
+						styleName="actionListStyle"
+						dataProvider="{GetActionListDataProvider( character)}"
+						change="actionL_changeHandler(event)"
+						/>
+			</s:VGroup>
+		</s:HGroup>
+	</s:VGroup>
+</s:Group>

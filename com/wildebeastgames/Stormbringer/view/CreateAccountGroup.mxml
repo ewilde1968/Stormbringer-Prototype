@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="100%" height="100%"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import model.Account;
+			
+			import mx.events.ValidationResultEvent;
+			
+			protected function validHandler(event:ValidationResultEvent):void
+			{
+				var a:Account = new Account();
+				a.email = emailTI.text;
+				a.password = passwordTI.text;
+				
+				if( a.password == confirmPasswordTI.text) {
+					a.Save();
+					parentApplication.LogIn( a);
+				}
+			}
+			
+			private function CreateEnabled( e:String, pw:String, cpw:String):Boolean
+			{
+				if( e && e.length > 0 && pw == cpw)
+					return true;
+				
+				return false;
+			}
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+	</s:layout>
+
+	<fx:Declarations>
+		<mx:EmailValidator source="{emailTI}" property="text"
+						   trigger="{createB}" triggerEvent="click"
+						   valid="validHandler(event)"/>
+	</fx:Declarations>
+	
+	<s:VGroup horizontalAlign="right">
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="email address" width="150"/>
+			<s:TextInput id="emailTI" widthInChars="20"/>
+		</s:HGroup>
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="password" width="150"/>
+			<s:TextInput id="passwordTI" widthInChars="20" displayAsPassword="true"/>
+		</s:HGroup>
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="confirm password" width="150"/>
+			<s:TextInput id="confirmPasswordTI" widthInChars="20" displayAsPassword="true"/>
+		</s:HGroup>
+		<s:Spacer height="30"/>
+		<s:Button id="createB" label="Create Account"
+				  enabled="{CreateEnabled( emailTI.text, passwordTI.text, confirmPasswordTI.text)}"
+				  />
+	</s:VGroup>
+</s:Group>

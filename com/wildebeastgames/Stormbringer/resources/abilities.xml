@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abilities>
+	<ability name="Attack" physical="true">
+		<Strength multiplier="1"/>
+		<Intelligence multiplier="1"/>
+		<Power multiplier="1"/>
+		<Dexterity multiplier="1"/>
+	</ability>
+	<ability name="Parry" physical="true">
+		<Strength multiplier="1"/>
+		<Size multiplier="-1"/>
+		<Power multiplier="1"/>
+		<Dexterity multiplier="1"/>
+	</ability>
+	<ability name="Agility" physical="true">
+		<Strength multiplier="1"/>
+		<Size multiplier="-1"/>
+		<Power multiplier="1"/>
+		<Dexterity multiplier="1"/>
+	</ability>
+	<ability name="Manipulation" physical="true">
+		<Strength multiplier="1"/>
+		<Intelligence multiplier="1"/>
+		<Power multiplier="1"/>
+		<Dexterity multiplier="1"/>
+	</ability>
+	<ability name="Perception" physical="true">
+		<Intelligence multiplier="1"/>
+		<Power multiplier="1"/>
+	</ability>
+	<ability name="Stealth" physical="true">
+		<Size multiplier="-1"/>
+		<Intelligence multiplier="1"/>
+		<Dexterity multiplier="1"/>
+	</ability>
+	<ability name="Knowledge">
+		<Intelligence multiplier="2"/>
+		<Age>
+			<Priest multiplier="3"/>
+			<Noble multiplier="2"/>
+		</Age>
+	</ability>
+	<ability name="Communication">
+		<Intelligence multiplier="1"/>
+		<Power multiplier="1"/>
+		<Charisma multiplier="1"/>
+	</ability>
+	<ability name="Hit Points">
+		<Size multiplier="1"/>
+	</ability>
+	<ability name="Melee Damage"/>
+	<ability name="Missile Damage"/>
+</abilities>

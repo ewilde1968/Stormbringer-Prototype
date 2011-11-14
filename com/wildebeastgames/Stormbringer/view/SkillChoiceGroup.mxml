@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 width="100%" height="100%"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import controller.Dice;
+			import controller.ItemRendererContainer;
+			
+			import model.Character;
+			import model.PhysicalItem;
+			import model.Skill;
+			import model.WeaponItem;
+			import model.WeaponSkill;
+			
+			import mx.collections.ArrayList;
+			
+			import spark.events.IndexChangeEvent;
+
+			[Bindable] public var skill:Skill;
+			[Bindable] public var doneF:Function;
+			
+			protected function GenerateChoiceDataProvider( skill:Skill):ArrayList
+			{
+				if( skill != null) {
+					var result:Array = new Array();
+					var input:Array = skill.GetGenericList();
+					for each( var sk:Skill in input) {
+						var irc:ItemRendererContainer = new ItemRendererContainer( sk,
+							"GenerateCharacter",	// use generation context since we're adding a new skill
+							skill.character, Refresh);
+						result.push( irc);
+					}
+					
+					return new ArrayList( result);
+				}
+				
+				return null;
+			}
+			
+			private function SelectWeaponSkill( addSkill:WeaponSkill, character:Character):void
+			{
+				var isAttackSkill:Boolean = skill.bonus.name == "Attack";
+				var alsoIncludeAlternateSkill:Boolean = skill.name != (isAttackSkill ? "Weapon" : "Parry");
+				
+				if( alsoIncludeAlternateSkill) {
+					// choosing a weapon skill at character creation given by class
+					// first find the alternate skill
+					var index:Number = parseInt( skill.name.substr( skill.name.indexOf( " ")));
+					var altSkillName:String = (isAttackSkill ? "Parry " : "Weapon ") + index;
+					var alternateSkill:WeaponSkill = character.skills[ altSkillName];
+					
+					// setup the skills we'll actually insert
+					var attackSkill:WeaponSkill = isAttackSkill ?
+						skill.Copy() as WeaponSkill : alternateSkill.Copy() as WeaponSkill;
+					var parrySkill:WeaponSkill = isAttackSkill ?
+						alternateSkill.Copy() as WeaponSkill : skill.Copy() as WeaponSkill;
+					
+					// next change the names, add the weapon and mark complete
+					attackSkill.name = addSkill.name + " Attack";
+					attackSkill.weapon = addSkill.weapon;
+					attackSkill.complete = true;
+					InsertSkillIntoCharacter( attackSkill, character, skill);
+					
+					// do the same for Parry if weapon allows
+					if( attackSkill.weapon.CanParry()) {
+						parrySkill.name = addSkill.name + " Parry";
+						parrySkill.weapon = attackSkill.weapon;
+						parrySkill.complete = true;
+						InsertSkillIntoCharacter( parrySkill, character, alternateSkill);
+					} else
+						character.RemoveSkill( parrySkill);
+					
+					// add possession
+					var p:PhysicalItem = character.GetPossessionByName( "Weapon " + index);
+					character.RemovePossession( p);
+					if( attackSkill.weapon.cost > 0) {
+						character.AddPossession( attackSkill.weapon);
+						attackSkill.weapon.complete = true;	// done							
+					}
+				} else {
+					// this is a weaponskill choice outside those granted by character class
+					// don't add alternate skill, don't add possession, generate skill level
+					addSkill.name += isAttackSkill ? " Attack" : " Parry";
+					
+					InsertSkillIntoCharacter( addSkill, character);
+				}
+			}
+			
+			private function InsertSkillIntoCharacter( addSkill:Skill, character:Character, removeSkill:Skill = null):void
+			{
+				character.RemoveSkill( removeSkill == null ? skill : removeSkill);
+				
+				// set the initial skill level
+				if( addSkill.complete && !(addSkill.skillLevel > 0))
+					addSkill.skillLevel = Math.ceil( Dice.Roll( 1, 100) / 2.0);
+				
+				character.AddSkill( addSkill);
+			}
+			
+			protected function choiceL_changeHandler(event:IndexChangeEvent):void
+			{
+				var selected:Skill = choiceL.selectedItem.dataObject as Skill;
+				
+				if( selected != null) {
+					var addSkill:Skill = selected.Copy() as Skill;
+					var character:Character = skill.character;
+					
+					if( addSkill.complete && addSkill is WeaponSkill)
+						SelectWeaponSkill( addSkill as WeaponSkill, character);
+					else
+						InsertSkillIntoCharacter( addSkill, character);
+					
+					if( doneF != null)
+						doneF();
+				}
+			}
+			
+			private function Refresh():void
+			{
+				// update the display
+				//invalidateDisplayList();
+			}
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<s:VGroup horizontalAlign="center">
+		<s:Label text="Choose a skill" styleName="titleLabelStyle"/>
+		<s:List id="choiceL"
+				styleName="skillsListStyle"
+				dataProvider="{GenerateChoiceDataProvider(skill)}"
+				change="choiceL_changeHandler(event)"
+				/>
+	</s:VGroup>
+</s:Group>

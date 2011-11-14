@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 width="100%" height="100%"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import model.Character;
+			import model.Statistic;
+			
+			import mx.collections.ArrayList;
+			
+			import spark.events.TextOperationEvent;
+
+			private var _character:Character;
+			[Bindable] private var includeAfflictions:Boolean;
+			
+			public function get character():Character {return _character;}
+			[Bindable] public function set character(c:Character):void
+			{
+				_character = c;
+				
+				includeAfflictions = character.afflictions.length > 0;
+			}
+			
+			protected function ageTI_changeHandler(event:TextOperationEvent):void
+			{
+				var newAge:Number = parseInt( ageTI.text);
+				if( character != null && newAge != character.age
+					&& newAge >= 25 && newAge <= 40) {
+					// The age has changed, update character
+					character.age = newAge;
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:Label text="Description" styleName="titleLabelStyle"/>
+	<s:VGroup>
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="Gender" width="70"/>
+			<s:DropDownList width="100"
+							dataProvider="{new ArrayList( Statistic.genders)}"
+							selectedIndex="@{character.gender}"
+							/>
+			<s:Spacer width="30"/>
+			<s:Label text="Age" width="60"/>
+			<s:TextInput id="ageTI" width="60"
+						 text="{character.age}" restrict="0-9"
+						 change="ageTI_changeHandler(event)"
+						 />
+		</s:HGroup>
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="Height" width="70"/>
+			<s:TextInput id="heightTI" width="100" text="{character.height}" restrict="0-9"/>
+			<s:Label text="cm" width="30"/>
+			<s:Label text="Weight" width="60"/>
+			<s:TextInput id="weightTI" width="60" text="{character.weight}" restrict="0-9"/>
+			<s:Label text="kg"/>
+		</s:HGroup>
+	</s:VGroup>
+	<s:TextArea id="descriptionTA"
+				width="400" height="150" paddingTop="10"
+				text="@{character.description}"
+				/>
+	<s:VGroup horizontalAlign="center" paddingTop="10"
+			  includeInLayout="{includeAfflictions}" visible="{includeAfflictions}"
+			  >
+		<s:Label text="Afflictions" styleName="boldLabelStyle"/>
+		<s:List id="afflictionsL"
+				styleName="afflictionsListStyle"
+				dataProvider="{new ArrayList( character.afflictions)}"
+				labelField="name"
+				/>
+	</s:VGroup>
+</s:Group>
