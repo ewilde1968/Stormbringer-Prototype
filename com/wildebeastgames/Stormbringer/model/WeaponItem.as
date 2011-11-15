@@ -38,13 +38,13 @@ package model
 					meleeStrength = new Constraint();
 					meleeStrength.name = "Strength";
 					meleeStrength.relation = "greaterequal";
-					meleeStrength.value = (temp.length() > 0) ? temp[0] : 1;
+					meleeStrength.SetValue( (temp.length() > 0) ? temp[0] : 1);
 					
 					temp = melee.attribute( "dexterity");
 					meleeDexterity = new Constraint();
 					meleeDexterity.name = "Dexterity";
 					meleeDexterity.relation = "greaterequal";
-					meleeDexterity.value = (temp.length() > 0) ? temp[0] : 1;
+					meleeDexterity.SetValue( (temp.length() > 0) ? temp[0] : 1);
 					
 					temp = melee.attribute( "length");
 					reach = (temp.length() > 0) ? temp[0] : 0;
@@ -61,13 +61,13 @@ package model
 					rangedStrength = new Constraint();
 					rangedStrength.name = "Strength";
 					rangedStrength.relation = "greaterequal";
-					rangedStrength.value = (temp.length() > 0) ? temp[0] : 1;
+					rangedStrength.SetValue( (temp.length() > 0) ? temp[0] : 1);
 					
 					temp = ranged.attribute( "dexterity");
 					rangedDexterity = new Constraint();
 					rangedDexterity.name = "Dexterity";
 					rangedDexterity.relation = "greaterequal";
-					rangedDexterity.value = (temp.length() > 0) ? temp[0] : 1;
+					rangedDexterity.SetValue( (temp.length() > 0) ? temp[0] : 1);
 					
 					temp = ranged.attribute( "range");
 					range = (temp.length() > 0) ? temp[0] : 0;

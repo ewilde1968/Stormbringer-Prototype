@@ -43,13 +43,19 @@
 			{
 				var isAttackSkill:Boolean = skill.bonus.name == "Attack";
 				var alsoIncludeAlternateSkill:Boolean = skill.name != (isAttackSkill ? "Weapon" : "Parry");
-				
-				if( alsoIncludeAlternateSkill) {
+				var isCraftsmanSpecialCase:Boolean = (character.charClass[ "Craftsman"] != null)
+					&& !character.hasChosenWeaponSkill && (skill.name == "Weapon" || skill.name == "Parry");
+
+				if( alsoIncludeAlternateSkill || isCraftsmanSpecialCase) {
 					// choosing a weapon skill at character creation given by class
 					// first find the alternate skill
 					var index:Number = parseInt( skill.name.substr( skill.name.indexOf( " ")));
 					var altSkillName:String = (isAttackSkill ? "Parry " : "Weapon ") + index;
 					var alternateSkill:WeaponSkill = character.skills[ altSkillName];
+
+					// for invalid skills, get the generic skill
+					if( alternateSkill == null)
+						alternateSkill = new WeaponSkill();
 					
 					// setup the skills we'll actually insert
 					var attackSkill:WeaponSkill = isAttackSkill ?
@@ -57,6 +63,16 @@
 					var parrySkill:WeaponSkill = isAttackSkill ?
 						alternateSkill.Copy() as WeaponSkill : skill.Copy() as WeaponSkill;
 					
+					// if first choice for Craftsman, generate 1d100 skill level
+					if( isCraftsmanSpecialCase) {
+						var rolledSkillLevel:Number = Dice.Roll(1,100);
+						attackSkill.skillLevel = rolledSkillLevel;
+						parrySkill.skillLevel = rolledSkillLevel;
+						
+						// only the first crafstam generic weapon choice gets this benefit
+						character.hasChosenWeaponSkill = true;
+					}
+
 					// next change the names, add the weapon and mark complete
 					attackSkill.name = addSkill.name + " Attack";
 					attackSkill.weapon = addSkill.weapon;

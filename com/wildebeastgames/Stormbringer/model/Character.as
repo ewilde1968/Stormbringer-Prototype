@@ -19,6 +19,7 @@ package model
 		private var _skills:Array;
 		private var _cult:String;
 		private var _possessions:Array
+		public var hasChosenWeaponSkill:Boolean = false;
 		
 		public function get nationality():Nationality {return _nationality;}
 		[Bindable] public function set nationality(n:Nationality):void {_nationality=n;}
@@ -155,7 +156,8 @@ package model
 				// Determine Skills
 				characterClass.ApplySkills( this);
 
-				// Determine Possessions
+				// Determine Possessions, some possessions require skills to get, so this
+				// call should come after ApplySkills
 				characterClass.ApplyPossessions( this);
 			}
 		}
@@ -305,6 +307,32 @@ package model
 				return lbI.quantity;
 			
 			return 0;
+		}
+		
+		public function IsExcludedSkill( skill:Skill):Boolean
+		{
+			// return true if this skill is prohibited based on character class
+			// - should really only be applicable at character generation time
+			// - if any class allows a skill, that skill is not prohibited
+			
+			var result:Boolean = true;
+			for each( var cc:CharacterClass in charClass) {
+				var thisClass:Boolean = false;
+				
+				if( cc.excludedSkills[ skill.name] != null)
+					thisClass = true;
+				
+				// check for generic weapon skill exclusion
+				if( skill is WeaponSkill && cc.excludedSkills[ "Weapon"] != null)
+					thisClass = true;
+				
+				if( cc.includedSkills[ skill.name] == true)
+					return false;
+				
+				result = result && thisClass;
+			}
+			
+			return result;
 		}
 	}
 }

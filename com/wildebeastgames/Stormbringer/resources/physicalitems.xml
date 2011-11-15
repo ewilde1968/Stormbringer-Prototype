@@ -116,7 +116,7 @@
 	<physicalitem name="Long Spear" cost="100" category="Weapon" description="A 2 to 2.5 meter shaft of wood with a slim, double-edged point and a short crossbar about halfwy down the shaft to keep an impaled animal or enemy from running up the shaft.">
 		<melee strength="11" dexterity="9" damage="1d10+1" length="225" hands="2"/>
 	</physicalitem>
-	<physicalitem name="Lormyrian Ax" cost="400" category="Weapon" description="Young Kingdoms' equivalent of a poleax. It is always double-bladed and the top half of the haft is encased in iron. A massive counterweight rests at the base of the haft. It is swung 2-handed as if chopping down a tree or cutting firewood.">
+	<physicalitem name="Lormyrian Axe" cost="400" category="Weapon" description="Young Kingdoms' equivalent of a poleax. It is always double-bladed and the top half of the haft is encased in iron. A massive counterweight rests at the base of the haft. It is swung 2-handed as if chopping down a tree or cutting firewood.">
 		<melee strength="13" dexterity="11" damage="3d6" length="165" hands="2"/>
 	</physicalitem>
 	<physicalitem name="Punch" category="Weapon">

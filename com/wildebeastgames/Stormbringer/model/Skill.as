@@ -1,5 +1,7 @@
 package model
 {
+	import controller.Dice;
+	
 	import mx.collections.ArrayList;
 	import mx.utils.ObjectUtil;
 
@@ -184,7 +186,7 @@ package model
 
 		protected function SetInitialLevel( s:SkillLoad):void
 		{
-			skillLevel = s.GetInitialLevel();
+			skillLevel = s.GetInitialLevel( character);
 		}
 
 		static public function FromSkillLoad( s:SkillLoad, char:Character):Skill
@@ -281,7 +283,7 @@ package model
 			for each( var s:Skill in genericSkills)
 				// keep the generic combat skills (Weapon, Parry)
 				// choice of a generic skill will result in a need to specify before saving
-				if( character.skills[ s.name] == null
+				if( character.skills[ s.name] == null && !character.IsExcludedSkill( s)
 					&& s.name != "Beggar Mob" && s.name != "Craft") {
 					var b:Boolean = true;
 					for each( var c:Constraint in s.constraints) {

@@ -72,7 +72,7 @@ package model
 				else if( diceNum < 0 && char.stats[ name].value > 9)
 					char.stats[ name].value -= Dice.Roll( -diceNum, diceSize, offset);
 				else if( increment > 0)
-					char.stats[ name].value += (char.stats[name].value - constraint.value) * increment;
+					char.stats[ name].value += (char.stats[name].value - constraint.GetValue()) * increment;
 				else if( offset != 0)
 					char.stats[ name].value += offset;
 				else if( multiplier != 0)

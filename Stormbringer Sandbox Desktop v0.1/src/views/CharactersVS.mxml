@@ -175,6 +175,13 @@
 				if( backButtonAction != null)
 					backButtonAction();
 			}
+			
+			protected function abort_clickHandler(event:MouseEvent):void
+			{
+				// TODO make a confirmation dialog
+				back_clickHandler();
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -186,7 +193,10 @@
 	</s:NavigatorContent>
 	<s:NavigatorContent id="gcgNC">
 		<s:VGroup>
-			<views:BackButton click="{back_clickHandler()}"/>
+			<view:IconButton icon="@Embed('resources/Apps-error-icon-64.png')"
+							  click="abort_clickHandler(event)"
+							  alpha="0.7"
+							  />
 			<view:GenerateCharacterGroup id="gcg"
 										 saveF="{doneHandler}"
 										 skillsF="{skillsF}"

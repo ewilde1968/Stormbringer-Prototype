@@ -10,6 +10,8 @@ package model
 		private var skills:Array;
 		private var possessions:Array;
 		private var statistics:Array;
+		public var excludedSkills:Array;	// some classes are excluded from certain weapons or skills
+		public var includedSkills:Array;	// explicitly included weapons or skills, to be used when generic skill excluded
 		
 		static private var classes:Array;
 		
@@ -21,6 +23,8 @@ package model
 			skills = new Array();
 			possessions = new Array();
 			statistics = new Array();
+			excludedSkills = new Array();
+			includedSkills = new Array();
 			
 			if( classes == null)
 				classes = new Array();
@@ -45,8 +49,29 @@ package model
 			
 			var chillins:XMLList = x.Skills.children();
 			for each( var xml:XML in chillins) {
-				var skill:SkillLoad = new SkillLoad( xml);
-				result.skills[ skill.name] = skill;
+				var tempS:String = xml.name();
+				switch( tempS) {
+					case "skill":
+						var skill:SkillLoad = new SkillLoad( xml);
+						result.skills[ skill.name] = skill;
+						break;
+					case "exclusion":
+						// a skill that is not allowed at character generation time
+						tempS = xml.attribute( "name")[0];
+						result.excludedSkills[ tempS] = true;
+						
+						// if this is a generic Weapon exclusion, there may be exceptions
+						if( tempS == "Weapon") {
+							var exceptionXML:XMLList = xml.exception;
+							for each( var eXML:XML in exceptionXML) {
+								tempS = eXML.attribute( "name")[0];
+								result.includedSkills[ tempS] = true;
+							}
+						}
+						break;
+					default:
+						break;
+				}
 			}
 			
 			chillins = x.Possessions.children();
@@ -88,8 +113,22 @@ package model
 						break;
 					}
 
-				if( meetsConstraints)
+				if( meetsConstraints) {
 					char.AddSkill( skill);
+					
+					// If this is the Credit skill, add money per credit rules
+					if( skill.name == "Credit") {
+						if( Dice.Roll(1,100) <= skill.skillLevel) {
+							var lbs:PhysicalItem = PhysicalItem.GetPhysicalItemByName( "Large Bronze Pieces");
+							if( Dice.Roll(1,6) < 6)
+								lbs.quantity = Dice.Roll(1,100) * 5;
+							else
+								lbs.quantity = Dice.Roll(1,100) * 10;
+							
+							char.AddPossession( lbs);
+						}
+					}
+				}
 			}
 		}
 		
@@ -101,7 +140,15 @@ package model
 				var meetsConstraints:Boolean = true;
 				for each( var constraint:Constraint in pl.constraints)
 					if( !constraint.MeetsConstraint( char)) {
-						meetsConstraints = false;
+						// there could be a consequence for failure, such as
+						// gaining a replacement item. For example, a Merchant gets
+						// to roll under his Credit skill to get any armor of choice
+						// or get leather instead
+						if( constraint.failure)
+							pi = PhysicalItem.GetPhysicalItem( constraint.failure).Copy() as PhysicalItem;
+						else
+							meetsConstraints = false;
+
 						break;
 					}
 				

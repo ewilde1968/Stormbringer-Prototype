@@ -55,7 +55,7 @@ package model
 			}
 		}
 		
-		public function GetInitialLevel():Number
+		public function GetInitialLevel( c:Character):Number
 		{
 			if( dice > 0)
 				return Dice.Roll( dice, size);

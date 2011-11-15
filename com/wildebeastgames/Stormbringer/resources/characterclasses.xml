@@ -39,7 +39,13 @@
 		</Skills>
 		<Possessions>
 			<possession name="Weapon 1" value="1" type="GenericWeapon"/>
-			<possession name="Armor 1" value="1" type="GenericArmor"/>
+			<possession name="Armor 1" value="1" type="GenericArmor">
+				<constraint name="Credit" value="1d100" relation="greaterequal">
+					<failure>
+						<possession name="Leather" value="1" type="Armor"/>
+					</failure>
+				</constraint>
+			</possession>
 			<possession name="Large Bronze Pieces" value="random" dice="5" size="100" multiplier="Intelligence"/>
 		</Possessions>
 	</CharacterClass>
@@ -100,6 +106,12 @@
 			<skill name="Ambush" value="50"/>
 			<skill name="Track" value="50"/>
 			<skill name="Blacksmith" value="20"/>
+			<exclusion name="Battle Axe"/>
+			<exclusion name="Greatsword"/>
+			<exclusion name="Lormyrian Axe"/>
+			<exclusion name="Sea Axe"/>
+			<exclusion name="Heavy Mace"/>
+			<exclusion name="Filkharian Pike"/>
 		</Skills>
 		<Possessions>
 			<possession name="Weapon 1" value="1" type="GenericWeapon"/>
@@ -143,6 +155,20 @@
 			<skill name="Blacksmith" value="20"/>
 			<skill name="Track" value="20"/>
 			<skill name="Plant Lore" value="20"/>
+			<exclusion name="Weapon">
+				<exception name="Cudgel"/>
+				<exception name="Hatchet"/>
+				<exception name="Longspear"/>
+				<exception name="Spear"/>
+				<exception name="Self Bow"/>
+				<exception name="Head Butt"/>
+				<exception name="Dagger"/>
+				<exception name="Kick"/>
+				<exception name="Punch"/>
+				<exception name="Quarterstaff"/>
+				<exception name="Rock"/>
+				<exception name="Sling"/>
+			</exclusion>
 		</Skills>
 		<Possessions>
 			<possession name="Cudgel" value="1" type="Weapon">
@@ -201,6 +227,9 @@
 			<skill name="Summon Lord of Law" sorcery="true">
 				<constraint name="PowerAndIntelligence" value="47" relation="greater"/>
 			</skill>
+			<exclusion name="Weapon">
+				<exception name="Dagger"/>
+			</exclusion>
 		</Skills>
 		<Possessions>
 			<possession name="Dagger" value="1" type="Weapon">
@@ -278,6 +307,10 @@
 			<skill name="Listen" value="70"/>
 			<skill name="Move Quietly" value="50"/>
 			<skill name="Evaluate Treasure" value="50"/>
+			<exclusion name="Lormyrian Axe"/>
+			<exclusion name="Filkharian Pike"/>
+			<exclusion name="Longspear"/>
+			<exclusion name="Greatsword"/>
 		</Skills>
 		<Possessions>
 			<possession name="Weapon 1" value="1" type="GenericWeapon"/>
@@ -295,6 +328,7 @@
 			<skill name="Search" value="25"/>
 			<skill name="Pick Lock" value="50"/>
 			<skill name="Beggar Mob" value="10"/>
+			<exclusion name="Weapon"/>
 		</Skills>
 		<Possessions>
 			<possession name="Large Bronze Pieces" value="random" dice="1" size="6"/>
@@ -306,6 +340,7 @@
 		</Skills>
 		<Possessions>
 			<possession name="Large Bronze Pieces" value="random" dice="1" size="6" multiplier="Intelligence"/>
+			<possession name="Leather" value="1" type="Armor"/>
 		</Possessions>
 		<Statistics>
 			<Dexterity modifier="3"/>

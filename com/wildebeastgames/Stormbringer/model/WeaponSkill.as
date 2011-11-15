@@ -73,7 +73,9 @@ package model
 					newSkill.weapon = wi;
 					newSkill.complete = true;
 					
-					temp.push( newSkill);
+					// exclude prohibited weapons
+					if( !character.IsExcludedSkill( newSkill))
+						temp.push( newSkill);
 				}
 			}
 			
