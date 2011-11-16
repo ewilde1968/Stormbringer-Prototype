@@ -185,6 +185,10 @@
 		]]>
 	</fx:Script>
 	
+	<fx:Declarations>
+		<s:BitmapImage id="cancelIcon" source="@Embed('resources/Apps-error-icon-64.png')"/>
+		<s:BitmapImage id="saveIcon" source="@Embed('resources/Alarm-Arrow-Up-icon-64.png')"/>
+	</fx:Declarations>
 	<s:NavigatorContent id="clgNC">
 		<view:CharactersListGroup id="clg"
 								  generateCharacterF="{generateCharacterHandler}"
@@ -193,12 +197,9 @@
 	</s:NavigatorContent>
 	<s:NavigatorContent id="gcgNC">
 		<s:VGroup>
-			<view:IconButton icon="@Embed('resources/Apps-error-icon-64.png')"
-							  click="abort_clickHandler(event)"
-							  alpha="0.6"
-							  />
 			<view:GenerateCharacterGroup id="gcg"
 										 saveF="{doneHandler}"
+										 doneF="{doneHandler}"
 										 skillsF="{skillsF}"
 										 possessionsF="{possessionsF}"
 										 descriptionF="{descriptionF}"

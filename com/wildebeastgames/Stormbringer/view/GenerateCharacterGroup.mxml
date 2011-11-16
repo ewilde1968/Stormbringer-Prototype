@@ -19,9 +19,11 @@
 
 			// callbacks to context
 			[Bindable] public var saveF:Function;
+			[Bindable] public var doneF:Function;
 			[Bindable] public var skillsF:Function;
 			[Bindable] public var possessionsF:Function;
 			[Bindable] public var descriptionF:Function;
+			[Bindable] public var canSave:Boolean;
 
 			public function get character():Character {return _character;}
 			[Bindable] public function set character(c:Character):void
@@ -48,7 +50,13 @@
 			private function IsComplete(a:Boolean, b:Boolean, c:Boolean):Boolean
 			{
 				// deal with the crazy trigger mechanism for Flex binding
-				return a && b && c;
+				if( a && b && c) {
+					setCurrentState( "CanSave");
+					return true;
+				}
+
+				setCurrentState( "CannotSave");
+				return false;
 			}
 			
 			private function GenerateCharacter():Character
@@ -61,18 +69,21 @@
 					
 					// insert something into the while clause if you want a specific
 					// type of character
-				} while( false /*result.charClass[ "Craftsman"] == null*/);
+				} while( false /*result.charClass[ "Beggar"] == null*/);
 
 				return result;
 			}
-			
+
+			protected function doneB_clickHandler(event:MouseEvent):void
+			{
+				if( doneF != null)
+					doneF();
+			}
+
 			protected function saveB_clickHandler(event:MouseEvent):void
 			{
 				// First attempt to save. If that works then finalize and save again.
 				character.Save();	// will throw on failure
-				
-				character.ApplyDefaultSkills();
-				character.Save();
 				
 				if( saveF != null)
 					saveF();
@@ -90,6 +101,15 @@
 		]]>
 	</fx:Script>
 
+	<fx:Binding destination="canSave"
+				source="{IsComplete(complete,charGroup.nameValid, charGroup.cultValid)}"
+				/>
+
+	<s:states>
+		<s:State name="CanSave"/>
+		<s:State name="CannotSave"/>
+	</s:states>
+
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
 	</s:layout>
@@ -105,12 +125,14 @@
 		<view:IconButton id="rerollB"
 						 icon="@Embed('resources/dice-icon-64.png')"
 						 click="{character = GenerateCharacter()}"
+						 horizontalCenter="0"
 						 />
 		<s:Spacer width="60"/>
 		<view:IconButton id="saveB"
-						 icon="@Embed('resources/Alarm-Arrow-Up-icon-64.png')"
-						 click="saveB_clickHandler(event)"
-						 enabled="{IsComplete(complete,charGroup.nameValid, charGroup.cultValid)}"
+						 icon.CanSave="@Embed('resources/Alarm-Arrow-Up-icon-64.png')"
+						 icon.CannotSave="@Embed('resources/Apps-error-icon-64.png')"
+						 click.CanSave="saveB_clickHandler(event)"
+						 click.CannotSave="doneB_clickHandler(event)"
 						 />
 	</s:HGroup>
 </s:Group>

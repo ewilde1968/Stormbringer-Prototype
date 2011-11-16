@@ -70,6 +70,7 @@ package model
 						break;
 					case "Attack":
 					case "Parry":
+					case "Beggar Mob":
 						result = new WeaponSkill( xml);
 						break;
 					default:
@@ -173,6 +174,7 @@ package model
 					break;
 				case "Attack":
 				case "Parry":
+				case "Beggar Mob":
 					result = new WeaponSkill();
 					result = result.Load( rootObj) as WeaponSkill;
 					break;
@@ -284,7 +286,7 @@ package model
 				// keep the generic combat skills (Weapon, Parry)
 				// choice of a generic skill will result in a need to specify before saving
 				if( character.skills[ s.name] == null && !character.IsExcludedSkill( s)
-					&& s.name != "Beggar Mob" && s.name != "Craft") {
+					&& s.name != "Craft") {
 					var b:Boolean = true;
 					for each( var c:Constraint in s.constraints) {
 						if( !c.MeetsConstraint( character))

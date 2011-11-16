@@ -18,8 +18,9 @@ package model
 		private var _sorcererRanks:String;
 		private var _skills:Array;
 		private var _cult:String;
-		private var _possessions:Array
+		private var _possessions:Array;
 		public var hasChosenWeaponSkill:Boolean = false;
+		private var defaultSkillsApplied:Boolean = false;
 		
 		public function get nationality():Nationality {return _nationality;}
 		[Bindable] public function set nationality(n:Nationality):void {_nationality=n;}
@@ -97,10 +98,18 @@ package model
 					AddPossession( p);
 				}
 			}
+			
+			defaultSkillsApplied = obj.defaultSkillsApplied;
 		}
 		
 		override public function Save():void
 		{
+			// only apply  the default skills once upon character generation
+			if( !defaultSkillsApplied) {
+				defaultSkillsApplied = true;
+				ApplyDefaultSkills();
+			}
+			
 			// character name
 			if( name == null || name.length < 1)
 				throw( Error( "Character must have a name. Please enter a character name."));
@@ -349,14 +358,22 @@ package model
 				if( cc.excludedSkills[ skill.name] != null)
 					thisClass = true;
 				
-				// check for generic weapon skill exclusion
-				if( skill is WeaponSkill && cc.excludedSkills[ "Weapon"] != null)
-					thisClass = true;
-				
 				if( cc.includedSkills[ skill.name] == true)
 					return false;
 				
 				result = result && thisClass;
+			}
+			
+			return result;
+		}
+		
+		public function NumSkillChoicesRemaining():Number
+		{
+			var result:Number = 0;
+			
+			for each( var sk:Skill in skills) {
+				if( sk is ParentSkill && !(sk is CraftSkill))
+					result++;
 			}
 			
 			return result;

@@ -2,7 +2,12 @@
 <skills>
 	<skill name="Weapon" bonus="Attack" beginning="bonus" parent="true"/>
 	<skill name="Parry" bonus="Parry" beginning="bonus" parent="true"/>
-	<skill name="Beggar Mob" bonus="Attack" beginning="bonus"/>
+	<skill name="Weapon Attack (Beggar Rule)" bonus="Beggar Mob" beginning="10" parent="true">
+		<constraint name="Class" value="Beggar" relation="contains"/>
+	</skill>
+	<skill name="Weapon Parry (Beggar Rule)" bonus="Beggar Mob" beginning="10" parent="true">
+		<constraint name="Class" value="Beggar" relation="contains"/>
+	</skill>
 	<skill name="Move Quietly" bonus="Stealth" beginning="10" description="This is the ability to walk, run, crawl, swim, jump, etc., as quietly as possible. On a successful roll, an opponent will be surprised. Wood or metal armor reduces one's ability to Move Quietly (it tends to clink and jingle.) If wearing barbarian or plate armor, subtract 40% from your skill percentage before making the skill roll."/>
 	<skill name="Hide" bonus="Stealth" beginning="10" description="Unless one has the ability to be invisible, one cannot hide without cover. 'Cover' may be almost anything: boulders, brush, trees, a field full of corpses, etc. If one makes the roll, the hidden person will remain undetected by searchers unless they come within a yard (one meter) of the hidden person or make a successful see roll within 10 yards (10 meters.)\n\nIf the character tries to move while staying hidden in cover, roll again at half the normal skill roll."/>
 	<skill name="Ambush" bonus="Stealth" beginning="bonus" description="This is the skill of hiding one's intent to attack another.\n\nA successful roll on one's Ambush skill means the character will probably get the advantage of surprise in the first combat rounds."/>

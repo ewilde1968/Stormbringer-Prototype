@@ -12,6 +12,8 @@
 		<Power multiplier="1"/>
 		<Dexterity multiplier="1"/>
 	</ability>
+	<ability name="Beggar Mob" physical="true">
+	</ability>
 	<ability name="Agility" physical="true">
 		<Strength multiplier="1"/>
 		<Size multiplier="-1"/>

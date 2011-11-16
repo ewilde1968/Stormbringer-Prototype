@@ -9,6 +9,8 @@
 			import controller.ItemRendererContainer;
 			
 			import model.Character;
+			import model.CraftSkill;
+			import model.ParentSkill;
 			import model.PhysicalItem;
 			import model.Skill;
 			import model.WeaponItem;
@@ -41,8 +43,9 @@
 			
 			private function SelectWeaponSkill( addSkill:WeaponSkill, character:Character):void
 			{
-				var isAttackSkill:Boolean = skill.bonus.name == "Attack";
-				var alsoIncludeAlternateSkill:Boolean = skill.name != (isAttackSkill ? "Weapon" : "Parry");
+				var isAttackSkill:Boolean = skill.bonus.name.indexOf( "Attack") > -1;
+				var alsoIncludeAlternateSkill:Boolean = skill.name != (isAttackSkill ? "Weapon" : "Parry")
+					&& skill.bonus.name != "Beggar Mob";
 				var isCraftsmanSpecialCase:Boolean = (character.charClass[ "Craftsman"] != null)
 					&& !character.hasChosenWeaponSkill && (skill.name == "Weapon" || skill.name == "Parry");
 
@@ -109,7 +112,10 @@
 				character.RemoveSkill( removeSkill == null ? skill : removeSkill);
 				
 				// set the initial skill level
-				if( addSkill.complete && !(addSkill.skillLevel > 0))
+				if( skill.bonus && skill.bonus.name == "Beggar Mob")
+					// Beggar Mob skills start at 10%
+					addSkill.skillLevel = 10;
+				else if( addSkill.complete && !(addSkill.skillLevel > 0))
 					addSkill.skillLevel = Math.ceil( Dice.Roll( 1, 100) / 2.0);
 				
 				character.AddSkill( addSkill);
@@ -120,8 +126,32 @@
 				var selected:Skill = choiceL.selectedItem.dataObject as Skill;
 				
 				if( selected != null) {
-					var addSkill:Skill = selected.Copy() as Skill;
 					var character:Character = skill.character;
+					var errorB:Boolean = true;
+
+					// if this is a beggar choosing a weapon, cost 2 slots
+					if( selected.bonus && selected.bonus.name == "Beggar Mob"
+						&& (!skill.bonus || skill.bonus.name != "Beggar Mob")) {
+						for each( var tSK:Skill in character.skills) {
+							if( tSK is ParentSkill && tSK != skill
+								&& (!tSK.bonus || tSK.bonus.name != "Beggar Mob")
+								&& !(tSK is CraftSkill)) {
+								// remove the second slot
+								character.RemoveSkill( tSK);
+								errorB = false;
+								break;
+							}
+						}
+						
+						// not enough skill slots to purchase
+						if( errorB) {
+							parentApplication.ShowError( "Not Enough Skill Choices",
+								"You must have two choices available to select this skill.");
+							return;
+						}
+					}
+
+					var addSkill:Skill = selected.Copy() as Skill;
 					
 					if( addSkill.complete && addSkill is WeaponSkill)
 						SelectWeaponSkill( addSkill as WeaponSkill, character);

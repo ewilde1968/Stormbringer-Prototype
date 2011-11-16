@@ -5,6 +5,7 @@
 						 xmlns:view="view.*"
 						 title="Create New Character" 
 						 viewActivate="viewActivateHandler(event)"
+						 showNavContent="false"
 						 >
 	<fx:Script>
 		<![CDATA[
@@ -41,6 +42,7 @@
 	</fx:Script>
 
 	<view:GenerateCharacterGroup id="gcg"
+								 doneF="{saveHandler}"
 								 saveF="{saveHandler}"
 								 skillsF="{skillsF}"
 								 possessionsF="{possessionsF}"

@@ -328,8 +328,8 @@
 			<skill name="See" value="60"/>
 			<skill name="Search" value="25"/>
 			<skill name="Pick Lock" value="50"/>
-			<skill name="Beggar Mob" value="10"/>
 			<exclusion name="Weapon"/>
+			<exclusion name="Parry"/>
 		</Skills>
 		<Possessions>
 			<possession name="Large Bronze Pieces" value="random" dice="1" size="6"/>

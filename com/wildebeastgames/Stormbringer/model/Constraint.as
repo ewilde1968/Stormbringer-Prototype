@@ -55,6 +55,8 @@ package model
 					return character.stats[ name].value;
 				case "training":
 					return 0;
+				case "Class":
+					return character.ClassString().indexOf( value);
 				default:
 					return character.skills[ name].skillLevel;
 					// must be a skill
@@ -94,6 +96,11 @@ package model
 						if( compVal <= val)
 							return true;
 						return false;
+					case "contains":
+						// return value is index, -1 for does not contain
+						return compVal > -1;
+					case "notcontains":
+						return compVal == -1;
 					default:
 						return true;
 				}

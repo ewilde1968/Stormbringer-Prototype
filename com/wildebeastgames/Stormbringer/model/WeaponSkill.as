@@ -42,7 +42,7 @@ package model
 
 		private function AlreadyHasThisSkill( w:WeaponItem):Boolean
 		{
-			var testName:String = w.name + " " + bonus.name;
+			var testName:String = w.name + (bonus != null ? " " + bonus.name : "");
 
 			var result:Boolean = character.skills[testName] != null;
 			return result;
@@ -63,6 +63,10 @@ package model
 				// if the user chose a Parry skill, exclude melee
 				// weapons and others that cannot parry
 				if( excludeNonParryWeapons && !wi.CanParry())
+					continue;
+				
+				// special case Beggar Rule skills to require two selection slots
+				if( bonus.name == "Beggar Mob" && character.NumSkillChoicesRemaining() < 2)
 					continue;
 				
 				if( wi.MeetsConstraints( character, "melee")
