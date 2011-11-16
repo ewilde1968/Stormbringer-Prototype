@@ -38,6 +38,8 @@ package model
 		public function get cult():String {return _cult;}
 		[Bindable] public function set cult(s:String):void {_cult=s;}
 
+		static private const defaultSkills:Array = [ "Jump", "Climb", "Dodge", "Balance", "Persuade", "Listen", "Hide"];
+
 		public function Character( /* TODO contraints*/)
 		{
 			super();
@@ -153,6 +155,9 @@ package model
 					}
 				}
 				
+				// Determine attribute modifiers
+				characterClass.ApplyModifiers( this);
+				
 				// Determine Skills
 				characterClass.ApplySkills( this);
 
@@ -207,7 +212,29 @@ package model
 				result.constitution + hpBonus.Value( result));
 			result.stats["HitPoints"] = Statistic.Generate( "HitPoints", result.maxHitPoints);
 			
+			// Determine Major Wound boundry
+			result.stats["MajorWound"] = Statistic.Generate( "MajorWound", Math.ceil(result.hitPoints / 2.0));
+			
 			return result;
+		}
+
+		public function ApplyDefaultSkills():void
+		{
+			// These skills are at least 10%; or, if already chosen, have +10% to them
+			// To be called only after chargen is complete
+			for each( var s:String in defaultSkills) {
+				if( skills[ s] != null)
+					skills[ s].skillLevel += 10;
+				else {
+					var sk:Skill = Skill.GetSkillByName( s);
+					if( sk != null) {
+						sk = sk.Copy() as Skill;
+						sk.skillLevel = 10;
+						
+						AddSkill(sk);
+					}
+				}
+			}
 		}
 
 		private function DetermineSorcererRanks():void

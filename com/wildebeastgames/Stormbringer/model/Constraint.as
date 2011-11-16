@@ -51,6 +51,7 @@ package model
 				case "Charisma":
 				case "Dexterity":
 				case "Gender":
+				case "Age":
 					return character.stats[ name].value;
 				case "training":
 					return 0;

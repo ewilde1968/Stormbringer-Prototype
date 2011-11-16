@@ -195,7 +195,7 @@
 		<s:VGroup>
 			<view:IconButton icon="@Embed('resources/Apps-error-icon-64.png')"
 							  click="abort_clickHandler(event)"
-							  alpha="0.7"
+							  alpha="0.6"
 							  />
 			<view:GenerateCharacterGroup id="gcg"
 										 saveF="{doneHandler}"

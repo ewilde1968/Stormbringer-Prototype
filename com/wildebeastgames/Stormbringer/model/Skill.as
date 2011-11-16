@@ -313,5 +313,10 @@ package model
 
 			return result;
 		}
+		
+		static public function GetSkillByName( s:String):Skill
+		{
+			return skills[ s];
+		}
 	}
 }

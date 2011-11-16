@@ -101,6 +101,12 @@ package model
 			return classes[ s];
 		}
 		
+		public function ApplyModifiers( char:Character):void
+		{
+			for each( var m:Modifier in statistics)
+				m.Apply( char);
+		}
+
 		public function ApplySkills( char:Character):void
 		{
 			for each( var s:SkillLoad in skills) {

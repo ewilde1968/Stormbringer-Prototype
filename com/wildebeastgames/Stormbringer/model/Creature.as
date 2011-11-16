@@ -37,6 +37,8 @@ package model
 		[Bindable] public function set age(n:Number):void {_stats["Age"].value=n;}
 		public function get elan():Number {return _stats["Elan"].value;}
 		[Bindable] public function set elan(n:Number):void {_stats["Elan"].value=n;}
+		public function get majorWound():Number {return _stats["MajorWound"].value;}
+		[Bindable] public function set majorWound(n:Number):void {_stats["MajorWound"].value=n;}
 		
 		public function Creature()
 		{

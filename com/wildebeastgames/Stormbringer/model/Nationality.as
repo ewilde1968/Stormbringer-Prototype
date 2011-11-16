@@ -134,8 +134,11 @@ package model
 						c = nationalities[ "Vilmir"].classes.GenerateCharClassLoad();	// TODO use default table instead of Vilmir table
 						var sc:CharClassSet = InnerGenerateCharClassSet( c, char);
 						
-						for each( c in sc.array)
+						trace( "Noble Classes")
+						for each( c in sc.array) {
+							trace( c.name);
 							cs.AddCharClass( c);
+						}
 							
 						break;	// only go through this once
 					}

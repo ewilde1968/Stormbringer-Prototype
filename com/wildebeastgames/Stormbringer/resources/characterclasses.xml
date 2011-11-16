@@ -9,12 +9,13 @@
 			<skill name="Weapon 3" value="30"/>
 			<skill name="Parry 3" value="30"/>
 			<skill name="Ride" value="25"/>
-			<skill name="Ride" value="40" range="60"/>
+			<skill name="Ride" value="65" range="60"/>
 		</Skills>
 		<Possessions>
 			<possession name="Weapon 1" value="1" type="GenericWeapon"/>
 			<possession name="Weapon 2" value="1" type="GenericWeapon"/>
 			<possession name="Weapon 3" value="1" type="GenericWeapon"/>
+			<possession name="Armor 1" value="1" type="GenericArmor"/>
 			<possession name="Large Bronze Pieces" value="random" dice="1" size="100" multiplier="Intelligence"/>
 		</Possessions>
 	</CharacterClass>

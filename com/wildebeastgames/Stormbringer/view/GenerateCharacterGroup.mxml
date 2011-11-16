@@ -61,14 +61,19 @@
 					
 					// insert something into the while clause if you want a specific
 					// type of character
-				} while( false /*result.skills[ "Summon Lord of Chaos"] == null*/);
+				} while( false /*result.charClass[ "Craftsman"] == null*/);
 
 				return result;
 			}
 			
 			protected function saveB_clickHandler(event:MouseEvent):void
 			{
+				// First attempt to save. If that works then finalize and save again.
+				character.Save();	// will throw on failure
+				
+				character.ApplyDefaultSkills();
 				character.Save();
+				
 				if( saveF != null)
 					saveF();
 			}
