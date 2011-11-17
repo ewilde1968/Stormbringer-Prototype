@@ -133,6 +133,9 @@ package model
 
 		public function GetValue():Number
 		{
+			if( value == null)
+				return 0;
+			
 			if( value.indexOf( "d") != -1)
 				return Dice.ParseStringResult( value); // Must be a dice value
 

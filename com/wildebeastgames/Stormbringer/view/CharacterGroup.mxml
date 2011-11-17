@@ -72,7 +72,7 @@
 			private function fileLoadingComplete( event:Event):void
 			{
 				if( outputFile)
-					character.fullPicture = outputFile.nativePath;
+					character.fullPicture = outputFile.url;
 			}
 
 			private function FileSelected( event:Event):void
