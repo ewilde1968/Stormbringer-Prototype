@@ -5,6 +5,8 @@
 				xmlns:view="view.*"
 				autoDrawBackground="true"
 				dataChange="dataChangeHandler(event)"
+				stateChangeComplete="itemrenderer1_stateChangeCompleteHandler(event)"
+				currentState="Complete"
 				>
 	<fx:Script>
 		<![CDATA[
@@ -20,43 +22,61 @@
 			
 			[Bindable] private var irc:ItemRendererContainer;
 			[Bindable] private var itemPI:PhysicalItem;
-			[Bindable] private var doRedBorder:Boolean;
-
-			private function SetContext():void
-			{
-				doRedBorder = false;
-				switch( irc.context) {
-					case "GenerateCharacter":
-						if( itemPI && !itemPI.complete)
-							doRedBorder = true;
-						break;
-					case "PurchaseItem":
-						if( itemPI && irc.character && itemPI.cost > irc.character.GetCash())
-							doRedBorder = true;	// can't afford the item
-						break;
-					default:
-						break;
-				}
-
-			}
 
 			protected function dataChangeHandler(event:FlexEvent):void
 			{
 				if( data != null) {
 					irc = data as ItemRendererContainer;
 					itemPI = irc.dataObject as PhysicalItem;
-					
-					SetContext();
 				}
+				
+				setCurrentState( DetermineState());
 			}
+			
+			private function DetermineState():String
+			{
+				switch( irc.context) {
+					case "GenerateCharacter":
+						if( itemPI && !itemPI.complete)
+							return "Invalid";
+					case "PurchaseItem":
+						if( itemPI && irc.character && itemPI.cost > irc.character.GetCash())
+							return "Invalid";	// can't afford the item
+					default:
+						break;
+				}
+				
+				return "Complete";
+			}
+			
+			protected function itemrenderer1_stateChangeCompleteHandler(event:FlexEvent):void
+			{
+				this.invalidateDisplayList();
+			}
+			
 		]]>
 	</fx:Script>
 
+	<s:states>
+		<s:State name="Invalid"/>
+		<s:State name="Complete"/>
+	</s:states>
+
 	<s:Rect left="0" right="0" top="0" bottom="0"
 			radiusX="5" radiusY="5"
+			includeIn="Invalid"
 			>
 		<s:stroke>
-			<s:SolidColorStroke color="{doRedBorder ? 0xff0000 : 0x603937}"/>
+			<s:SolidColorStroke color="0xff0000" weight="2" alpha="0.7"/>
+		</s:stroke>
+	</s:Rect>
+
+	<s:Rect left="0" right="0" top="0" bottom="0"
+			radiusX="5" radiusY="5"
+			includeIn="Complete"
+			>
+		<s:stroke>
+			<s:SolidColorStroke color="0x603937" weight="1" alpha="0.7"/>
 		</s:stroke>
 	</s:Rect>
 

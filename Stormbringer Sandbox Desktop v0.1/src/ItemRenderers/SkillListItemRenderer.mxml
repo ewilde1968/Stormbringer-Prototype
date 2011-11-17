@@ -43,7 +43,10 @@
 	<s:Rect left="0" right="0" top="0" bottom="0"
 			radiusX="5" radiusY="5">
 		<s:stroke>
-			<s:SolidColorStroke color="{skill.complete ? 0x603937 : 0xff0000}" alpha="0.7"/>
+			<s:SolidColorStroke color="{skill.complete ? 0x603937 : 0xff0000}"
+								alpha="0.7"
+								weight="{skill.complete ? 1 : 2}"
+								/>
 		</s:stroke>
 	</s:Rect>
 
