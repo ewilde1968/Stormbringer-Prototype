@@ -57,6 +57,7 @@
 				updater = new ApplicationUpdaterUI();
 				updater.configurationFile = new File( "app:/config/updaterConfig.xml");
 				globals.versionString = updater.currentVersion;
+				
 				updater.initialize();
 			}
 			
