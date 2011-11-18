@@ -8,6 +8,8 @@
 			import model.Character;
 			import model.PhysicalItem;
 			
+			import mx.events.FlexEvent;
+			
 			private var _context:String;
 			[Bindable] public var character:Character;
 			[Bindable] public var possessionF:Function;
@@ -30,17 +32,18 @@
 				}
 			}
 			
-			protected function addB_clickHandler(event:MouseEvent):void
+			protected function addB_buttonDownHandler(event:FlexEvent):void
 			{
 				var p:PhysicalItem = new PhysicalItem();
 				p.complete = false;
 				p.name = "Purchase Item";
 				p.character = character;
-
+				
 				if( addF != null)
 					addF( p, context);
 			}
-	]]>
+			
+		]]>
 	</fx:Script>
 
 	<s:layout>
@@ -53,5 +56,7 @@
 							  possessionF="{possessionF}"
 							  addF="{addF}"
 							  />
-	<s:Button id="addB" click="addB_clickHandler(event)"/>
+	<view:KeyResponsiveButton id="addB"
+							  buttonDown="addB_buttonDownHandler(event)"
+							  />
 </s:Group>

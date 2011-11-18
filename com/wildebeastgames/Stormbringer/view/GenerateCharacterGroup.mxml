@@ -74,13 +74,13 @@
 				return result;
 			}
 
-			protected function doneB_clickHandler(event:MouseEvent):void
+			protected function doneB_buttonDownHandler():void
 			{
 				if( doneF != null)
 					doneF();
 			}
 
-			protected function saveB_clickHandler(event:MouseEvent):void
+			protected function saveB_buttonDownHandler():void
 			{
 				// First attempt to save. If that works then finalize and save again.
 				character.Save();	// will throw on failure
@@ -124,15 +124,15 @@
 	<s:HGroup horizontalAlign="center">
 		<view:IconButton id="rerollB"
 						 icon="@Embed('resources/dice-icon-64.png')"
-						 click="{character = GenerateCharacter()}"
+						 buttonDown="{character = GenerateCharacter()}"
 						 horizontalCenter="0"
 						 />
 		<s:Spacer width="60"/>
 		<view:IconButton id="saveB"
-						 icon.CanSave="@Embed('resources/Alarm-Arrow-Up-icon-64.png')"
+						 icon.CanSave="@Embed('resources/Refresh-icon.png')"
 						 icon.CannotSave="@Embed('resources/Apps-error-icon-64.png')"
-						 click.CanSave="saveB_clickHandler(event)"
-						 click.CannotSave="doneB_clickHandler(event)"
+						 buttonDown.CanSave="saveB_buttonDownHandler()"
+						 buttonDown.CannotSave="doneB_buttonDownHandler()"
 						 />
 	</s:HGroup>
 </s:Group>

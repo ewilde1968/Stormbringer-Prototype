@@ -10,11 +10,13 @@
 			import model.Skill;
 			import model.SkillLoad;
 			
+			import mx.events.FlexEvent;
+			
 			[Bindable] public var character:Character;
 			[Bindable] public var context:String;
 			[Bindable] public var addF:Function;
 			
-			protected function addB_clickHandler(event:MouseEvent):void
+			protected function addB_buttonDownHandler(event:FlexEvent):void
 			{
 				var sk:Skill = new Skill();
 				sk.name = "Add Skill";
@@ -24,6 +26,7 @@
 				if( addF != null)
 					addF( sk);
 			}
+			
 		]]>
 	</fx:Script>
 
@@ -36,5 +39,8 @@
 						 context="{context}"
 						 skillF="{addF}"
 						 />
-	<s:Button id="addB" label="Add Free Skill" click="addB_clickHandler(event)"/>
+	<view:KeyResponsiveButton id="addB"
+							  label="Add Free Skill"
+							  buttonDown="addB_buttonDownHandler(event)"
+							  />
 </s:Group>

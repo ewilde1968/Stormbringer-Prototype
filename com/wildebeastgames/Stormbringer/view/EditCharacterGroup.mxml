@@ -25,13 +25,14 @@
 				}
 			}
 			
-			protected function deleteB_clickHandler(event:MouseEvent):void
+			protected function deleteB_buttonDownHandler(event:FlexEvent):void
 			{
 				character.Delete();
 				
 				if( doneF != null)
 					doneF();
 			}
+			
 		]]>
 	</fx:Script>
 
@@ -48,6 +49,6 @@
 	<s:Spacer height="20"/>
 	<view:IconButton id="deleteB"
 					 icon="@Embed('resources/Apps-error-icon-64.png')"
-					 click="deleteB_clickHandler(event)"
+					 buttonDown="deleteB_buttonDownHandler(event)"
 					 />
 </s:Group>

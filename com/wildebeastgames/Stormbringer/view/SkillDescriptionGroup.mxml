@@ -6,17 +6,19 @@
 		 >
 	<fx:Script>
 		<![CDATA[
-			import model.Skill;
 			import controller.Dice;
 			
+			import model.Skill;
+			
 			import mx.collections.ArrayList;
+			import mx.events.FlexEvent;
 			
 			import spark.events.IndexChangeEvent;
 			
 			[Bindable] public var skill:Skill;
 			[Bindable] public var doneF:Function;
 			
-			protected function deleteB_clickHandler(event:MouseEvent):void
+			protected function deleteB_buttonDownHandler(event:FlexEvent):void
 			{
 				skill.character.RemoveSkill( skill);
 
@@ -45,7 +47,7 @@
 			<s:Spacer width="60"/>
 			<view:IconButton id="deleteB"
 							 icon="@Embed('resources/Apps-error-icon-32.png')" toolTip="Remove skill."
-							 click="deleteB_clickHandler(event)"
+							 buttonDown="deleteB_buttonDownHandler(event)"
 							 />
 		</s:HGroup>
 	</s:VGroup>

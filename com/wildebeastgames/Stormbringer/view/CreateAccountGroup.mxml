@@ -2,15 +2,24 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 width="100%" height="100%"
+		 width="100%" height="100%" xmlns:view="view.*"
 		 >
 	<fx:Script>
 		<![CDATA[
 			import model.Account;
 			
+			import mx.events.FlexEvent;
 			import mx.events.ValidationResultEvent;
 			
-			protected function validHandler(event:ValidationResultEvent):void
+			[Bindable] private var validEmail:Boolean;
+			[Bindable] private var validPassword:Boolean;
+			
+			private function CreateEnabled( a:Boolean, b:Boolean):Boolean
+			{
+				return a && b;
+			}
+			
+			protected function createB_buttonDownHandler(event:FlexEvent):void
 			{
 				var a:Account = new Account();
 				a.email = emailTI.text;
@@ -22,13 +31,6 @@
 				}
 			}
 			
-			private function CreateEnabled( e:String, pw:String, cpw:String):Boolean
-			{
-				if( e && e.length > 0 && pw == cpw)
-					return true;
-				
-				return false;
-			}
 		]]>
 	</fx:Script>
 
@@ -37,9 +39,14 @@
 	</s:layout>
 
 	<fx:Declarations>
-		<mx:EmailValidator source="{emailTI}" property="text"
-						   trigger="{createB}" triggerEvent="click"
-						   valid="validHandler(event)"/>
+		<mx:EmailValidator source="{emailTI}" property="text" required="true"
+						   invalid="{validEmail=false}"
+						   valid="{validEmail=true}"
+						   />
+		<mx:Validator source="{confirmPasswordTI}" property="text" required="true"
+					  valid="{validPassword = confirmPasswordTI.text == passwordTI.text}"
+					  invalid="{validPassword = false}"
+					  />
 	</fx:Declarations>
 	
 	<s:VGroup horizontalAlign="right">
@@ -56,8 +63,9 @@
 			<s:TextInput id="confirmPasswordTI" widthInChars="20" displayAsPassword="true"/>
 		</s:HGroup>
 		<s:Spacer height="30"/>
-		<s:Button id="createB" label="Create Account"
-				  enabled="{CreateEnabled( emailTI.text, passwordTI.text, confirmPasswordTI.text)}"
-				  />
+		<view:KeyResponsiveButton id="createB" label="Create Account"
+								  enabled="{CreateEnabled( validEmail, validPassword)}"
+								  buttonDown="createB_buttonDownHandler(event)"
+								  />
 	</s:VGroup>
 </s:Group>

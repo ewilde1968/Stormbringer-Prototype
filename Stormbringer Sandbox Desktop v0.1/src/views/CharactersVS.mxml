@@ -221,7 +221,7 @@
 	</s:NavigatorContent>
 	<s:NavigatorContent id="skillsNC">
 		<s:VGroup>
-			<views:BackButton click="{back_clickHandler()}"/>
+			<views:BackButton buttonDown="{back_clickHandler()}"/>
 			<view:SkillsGroup id="skillsG"
 							  addF="{addSkillHandler}"
 							  character="{character}"
@@ -231,7 +231,7 @@
 	</s:NavigatorContent>
 	<s:NavigatorContent id="possessionsNC">
 		<s:VGroup>
-			<views:BackButton click="{back_clickHandler()}"/>
+			<views:BackButton buttonDown="{back_clickHandler()}"/>
 			<view:PossessionsGroup id="possessionsG"
 								   possessionF="{possessionHandler}"
 								   addF="{addPossessionHandler}"
@@ -242,7 +242,7 @@
 	</s:NavigatorContent>
 	<s:NavigatorContent id="characterDescriptionNC">
 		<s:VGroup>
-			<views:BackButton click="{back_clickHandler()}"/>
+			<views:BackButton buttonDown="{back_clickHandler()}"/>
 			<view:CharacterDescriptionGroup id="characterDescriptionG"
 											character="{character}"
 											/>
@@ -250,7 +250,7 @@
 	</s:NavigatorContent>
 	<s:NavigatorContent id="skillDescriptionNC">
 		<s:VGroup>
-			<views:BackButton click="{back_clickHandler()}"/>
+			<views:BackButton buttonDown="{back_clickHandler()}"/>
 			<view:SkillDescriptionGroup id="skillDescriptionG"
 										skill="{skill}"
 										doneF="{skillsDoneHandler}"
@@ -259,7 +259,7 @@
 	</s:NavigatorContent>
 	<s:NavigatorContent id="skillChoiceNC">
 		<s:VGroup>
-			<views:BackButton click="{back_clickHandler()}"/>
+			<views:BackButton buttonDown="{back_clickHandler()}"/>
 			<view:SkillChoiceGroup id="skillChoiceG"
 								   skill="{skill}"
 								   doneF="{skillsDoneHandler}"
@@ -268,7 +268,7 @@
 	</s:NavigatorContent>
 	<s:NavigatorContent id="possessionDescriptionNC">
 		<s:VGroup>
-			<views:BackButton click="{back_clickHandler()}"/>
+			<views:BackButton buttonDown="{back_clickHandler()}"/>
 			<view:PossessionDescriptionGroup id="possessionDescriptionG"
 											 item="{possession}"
 											 doneF="{possessionDoneHandler}"
@@ -277,7 +277,7 @@
 	</s:NavigatorContent>
 	<s:NavigatorContent id="possessionChoiceNC">
 		<s:VGroup>
-			<views:BackButton click="{back_clickHandler()}"/>
+			<views:BackButton buttonDown="{back_clickHandler()}"/>
 			<view:PossessionChoiceGroup id="possessionChoiceG"
 										item="{possession}"
 										context="{context}"

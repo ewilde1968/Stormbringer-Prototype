@@ -2,7 +2,7 @@
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   width="400" height="300"
+			   width="400" height="300" xmlns:view="view.*"
 			   >
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
@@ -13,5 +13,8 @@
 	</fx:Declarations>
 	
 	<s:Label text="{errorMessageS}" width="80%"/>
-	<s:Button label="OK" click="{parentApplication.RemoveError( null)}"/>
+	<view:KeyResponsiveButton id="okB"
+							  label="OK"
+							  buttonDown="{parentApplication.RemoveError( null)}"
+							  />
 </s:TitleWindow>

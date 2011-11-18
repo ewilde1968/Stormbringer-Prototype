@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Button xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  keyDown="button1_keyDownHandler(event)"
+		  >
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			protected function button1_keyDownHandler(event:KeyboardEvent):void
+			{
+				if( event.keyCode == Keyboard.ENTER) {
+					var m:FlexEvent = new FlexEvent( FlexEvent.BUTTON_DOWN);
+					dispatchEvent( m);
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:Button>

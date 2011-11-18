@@ -184,14 +184,12 @@
         <!-- layer 2: background fill -->
         <!--- Defines the appearance of the TitleWindowSkin class's background. -->
         <s:Rect id="background" left="1" top="1" right="1" bottom="1">
-            <s:fill>
-				<s:LinearGradient id="bgbackgroundFill" rotation="45">
-					<s:entries>
-						<s:GradientEntry color="0x603937" ratio="0.00" alpha="0.8"/>
-						<s:GradientEntry color="0xcca551" ratio="0.66" alpha="1.0"/>
-					</s:entries>
+			<s:fill>
+				<s:LinearGradient>
+					<s:GradientEntry color="0x878a68" ratio="0.00" alpha="0.7"/>
+					<s:GradientEntry color="0xcca551" ratio="0.7" alpha="1.0"/>
 				</s:LinearGradient>
-            </s:fill>
+			</s:fill>
         </s:Rect>
         
         <!-- layer 3: contents -->
