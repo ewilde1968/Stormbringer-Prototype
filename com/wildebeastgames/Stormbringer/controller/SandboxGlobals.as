@@ -13,6 +13,7 @@ package controller
 	import model.PhysicalItem;
 	import model.Skill;
 	import model.StorableObject;
+	import model.UserPreferences;
 	
 	import mx.utils.XMLUtil;
 
@@ -23,11 +24,15 @@ package controller
 		[Bindable] public var loggedIn:Account;
 		[Bindable] public var versionString:String;
 		private var defaultXMLA:Array;
+		private static var defaultAccount:Account = new Account();
 
+		[Bindable] public static var singleton:SandboxGlobals;
+		public static function preferences():UserPreferences {return singleton.loggedIn.preferences;}
+		
 		private function GetXMLFromFile( type:String):XML
 		{
 			// currently will have a filesize limit; but, that should be OK for now
-			var filename:String = "configuration/" + type + ".xml";
+			var filename:String = loggedIn.preferences.campaign + "/configuration/" + type + ".xml";
 			var file:File = File.applicationStorageDirectory.resolvePath( filename);
 			var filestream:FileStream = new FileStream();
 			
@@ -60,6 +65,10 @@ package controller
 		
 		public function SandboxGlobals( defaultA:Array)
 		{
+			if( singleton == null)
+				singleton = this;
+			
+			loggedIn = defaultAccount;
 			defaultXMLA = defaultA;
 			
 			var db:DatabaseStorageDevice = new DatabaseStorageDevice( "defaultDB");
@@ -73,6 +82,34 @@ package controller
 		{
 			ConsumeInstanceXMLFiles();
 			cache.PreloadAll( null, FinishedPreloading);
+		}
+		
+		public function ChangeCampaign( newCampaign:String):void
+		{
+			if( loggedIn.preferences.campaign != newCampaign) {
+				loggedIn.preferences = new UserPreferences( newCampaign);
+				loggedIn.Save();
+				
+				ConsumeInstanceXMLFiles();
+			}
+		}
+		
+		public function LogIn( a:Account):void
+		{
+			var refresh:Boolean = false;
+			if( a.preferences.campaign != loggedIn.preferences.campaign)
+				refresh = true;
+			
+			loggedIn = a;
+			
+			// clear chargen storage, would be broader clear in future app
+			ConsumeInstanceXMLFiles();
+		}
+		
+		public function LogOut():void
+		{
+			// is there any cache or storage to clear or change?
+			loggedIn = defaultAccount;
 		}
 	}
 }

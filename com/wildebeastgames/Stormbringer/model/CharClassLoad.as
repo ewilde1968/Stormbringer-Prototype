@@ -1,6 +1,7 @@
 package model
 {
 	import controller.Dice;
+	import controller.SandboxGlobals;
 
 	public class CharClassLoad
 	{
@@ -64,8 +65,12 @@ package model
 						a[0] = "Royalty";
 					break;
 				case "Sorcerer":
+					if( SandboxGlobals.preferences().sorcererRequires16Int && char.intelligence < 16)
+						return false;
+					
+					// fall through
 				case "Priest":
-					if( char.intelligence < 16 || (char.intelligence + char.power < 32))
+					if( (char.intelligence + char.power) < 32)
 						return false;
 					break;
 				case "Officer":

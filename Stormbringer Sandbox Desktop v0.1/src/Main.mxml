@@ -23,6 +23,7 @@
 			import model.Account;
 			
 			import mx.events.FlexEvent;
+			import mx.events.IndexChangedEvent;
 			import mx.managers.PopUpManager;
 			
 			import spark.components.Group;
@@ -63,15 +64,14 @@
 			
 			public function LogOut():void
 			{
-				tabNavigatorTN.selectedChild = charactersVS;
-				globals.loggedIn = null;
+				settingsVS.setCurrentState( "LoggedOut");
+				globals.LogOut();
 			}
 			
 			public function LogIn( a:Account):void
 			{
-				tabNavigatorTN.selectedChild = charactersVS;
-				
-				globals.loggedIn = a;
+				settingsVS.setCurrentState( "LoggedIn");
+				globals.LogIn( a);
 			}
 			
 			public function AttemptLogIn():void
@@ -106,6 +106,14 @@
 			{
 				exit();
 			}
+			
+			protected function tabNavigatorTN_changeHandler(event:IndexChangedEvent):void
+			{
+				if( event.oldIndex == 1) {
+					// moving away from preferences, reload data
+					settingsVS.Commit();
+				}
+			}
 		]]>
 	</fx:Script>
 	
@@ -117,12 +125,12 @@
 	<fx:Style source="stormbringersandbox_desktop.css"/>
 	
 	<fx:Declarations>
-		<fx:XML id="nationalitiesXML" source="resources/nationalities.xml"/>
-		<fx:XML id="characterclassesXML" source="resources/characterclasses.xml"/>
-		<fx:XML id="skillsXML" source="resources/skills.xml"/>
-		<fx:XML id="abilitiesXML" source="resources/abilities.xml"/>
-		<fx:XML id="afflictionsXML" source="resources/afflictions.xml"/>
-		<fx:XML id="physicalItemsXML" source="resources/physicalitems.xml"/>
+		<fx:XML id="nationalitiesXML" source="resources/Stormhack/nationalities.xml"/>
+		<fx:XML id="characterclassesXML" source="resources/Stormhack/characterclasses.xml"/>
+		<fx:XML id="skillsXML" source="resources/Stormhack/skills.xml"/>
+		<fx:XML id="abilitiesXML" source="resources/Stormhack/abilities.xml"/>
+		<fx:XML id="afflictionsXML" source="resources/Stormhack/afflictions.xml"/>
+		<fx:XML id="physicalItemsXML" source="resources/Stormhack/physicalitems.xml"/>
 		
 		<views:ScrimError id="scrimError"/>
 		
@@ -137,9 +145,10 @@
 	<mx:TabNavigator id="tabNavigatorTN" includeIn="Executing"
 					 width="100%" height="100%"
 					 tabStyleName="tabNavigatorTabStyle"
+					 change="tabNavigatorTN_changeHandler(event)"
 					 >
 		<views:CharactersVS id="charactersVS"
-							label="Characters"
+							label="Party"
 							/>
 		<views:SettingsVS id="settingsVS"
 						  label="Settings"

@@ -46,6 +46,9 @@ package model
 		{
 			var list:XMLList = xml.children();
 			
+			// Clear the previous list of skills
+			skills = new Array();
+
 			for each( var x:XML in list) {
 				var s:Skill = LoadFromXML( x);
 				if( s != null)
@@ -179,8 +182,10 @@ package model
 					result = result.Load( rootObj) as WeaponSkill;
 					break;
 				default:
-					result = skills[ rootObj.name].Copy() as Skill;
+					var origSk:Skill = skills[ rootObj.name];
+					result = origSk == null ? new Skill() : origSk.Copy() as Skill;
 					result.StuffGenericObject( rootObj);
+					break;
 			}
 			
 			return result;

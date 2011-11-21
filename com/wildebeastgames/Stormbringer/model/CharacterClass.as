@@ -34,6 +34,9 @@ package model
 		{
 			var list:XMLList = xml.children();
 			
+			// Clear the previous list of classes
+			classes = new Array();
+
 			for each( var x:XML in list) {
 				var c:CharacterClass = LoadFromXML( x);
 				if( c != null)

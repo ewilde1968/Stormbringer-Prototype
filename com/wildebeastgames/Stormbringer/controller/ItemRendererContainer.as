@@ -7,7 +7,7 @@ package controller
 	public class ItemRendererContainer
 	{
 		[Bindable] public var dataObject:Object;
-		public var context:String;
+		[Bindable] public var context:String;
 		public var character:Character;
 		[Bindable] public var genericF:Function;	// for any kind of generic callback (e.g. delete button in list renderer
 		

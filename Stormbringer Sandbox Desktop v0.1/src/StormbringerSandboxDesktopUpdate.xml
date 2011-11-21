@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.adobe.com/air/framework/update/description/2.5">
-	<versionNumber>0.0.6</versionNumber>
+	<versionNumber>0.0.7</versionNumber>
 	<url>http://hertfordshirekap5.wikidot.com/local--files/start/StormbringerSandboxDesktop.air</url>
 	<description><![CDATA[Provide automated updates, fix bugs and cleanup code for open source.]]></description>
 </update>

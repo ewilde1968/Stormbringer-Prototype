@@ -62,6 +62,12 @@
 			<s:TextInput id="weightTI" width="60" text="{character.weight}" restrict="0-9"/>
 			<s:Label text="kg"/>
 		</s:HGroup>
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="Skin" width="50"/>
+			<s:TextInput id="skinTI" width="150" text="@{character.skinDescription}"/>
+			<s:Label text="Eyes"/>
+			<s:TextInput id="eyesTI" width="120" text="@{character.eyesDescription}"/>
+		</s:HGroup>
 	</s:VGroup>
 	<s:TextArea id="descriptionTA"
 				width="400" height="150" paddingTop="10"

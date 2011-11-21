@@ -39,6 +39,9 @@ package model
 		{
 			var list:XMLList = xml.children();
 
+			// Clear the previous list of nationalities
+			nationalities = new Array();
+
 			totalRange = 0;
 			for each( var x:XML in list) {
 				var n:Nationality = LoadFromXML( x);

@@ -54,6 +54,9 @@ package model
 		{
 			var list:XMLList = xml.children();
 			
+			// Clear the previous list of afflictions
+			afflictions = new Array();
+
 			for each( var x:XML in list) {
 				var a:Affliction = new Affliction( x);
 				afflictions.push( a);

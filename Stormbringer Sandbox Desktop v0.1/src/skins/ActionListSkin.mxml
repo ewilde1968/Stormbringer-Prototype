@@ -29,7 +29,7 @@
 				minViewportInset="1"
 				focusEnabled="false">
 		<s:DataGroup id="dataGroup"
-					 itemRenderer="ItemRenderers.PlainListItemRenderer"
+					 itemRenderer="ItemRenderers.ActionListItemRenderer"
 					 maxHeight="400"
 					 >
 			<s:layout>

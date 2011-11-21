@@ -9,6 +9,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import model.Account;
 			protected function forgotHandler():void
 			{
 				navigator.pushView( ForgotPasswordView);
@@ -18,10 +19,16 @@
 			{
 				navigator.pushView( CreateAccountView);
 			}
+			
+			protected function loginHandler( a:Account):void
+			{
+				parentApplication.LogIn( a);
+			}
 		]]>
 	</fx:Script>
 
-	<view:AccountGroup forgotF="{forgotHandler}"
+	<view:AccountGroup loginF="{loginHandler}"
+					   forgotF="{forgotHandler}"
 					   createF="{createHandler}"
 					   />
 </views:ViewWithBack>

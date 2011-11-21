@@ -29,6 +29,9 @@ package model
 		{
 			var list:XMLList = xml.children();
 			
+			// Clear the previous list of bonuses
+			bonuses = new Array();
+			
 			for each( var x:XML in list) {
 				var b:Bonus = LoadFromXML( x);
 				if( b != null)

@@ -3,6 +3,7 @@ package model
 	import controller.BodyFrame;
 	import controller.CacheStorageDevice;
 	import controller.Dice;
+	import controller.SandboxGlobals;
 	
 	import mx.utils.ArrayUtil;
 	import mx.utils.ObjectUtil;
@@ -19,6 +20,9 @@ package model
 		private var _skills:Array;
 		private var _cult:String;
 		private var _possessions:Array;
+		[Bindable] public var skinDescription:String;
+		[Bindable] public var eyesDescription:String;
+		
 		public var hasChosenWeaponSkill:Boolean = false;
 		private var defaultSkillsApplied:Boolean = false;
 		
@@ -66,6 +70,8 @@ package model
 			requiresCult = obj.requiresCult;
 			sorcererRanks = obj.sorcererRanks;
 			cult = obj.cult;
+			skinDescription = obj.skinDescription;
+			eyesDescription = obj.eyesDescription;
 
 			for each( var o:Object in obj.afflictions) {
 				if( o != null) {
@@ -141,7 +147,7 @@ package model
 				charClass[ c.name] = characterClass;
 				
 				if( c.name == "Priest") {
-					requiresCult = true;
+					requiresCult = SandboxGlobals.preferences().priestRequiresCult;
 					elan = Dice.Roll( 2, 6);
 				}
 				
@@ -208,7 +214,8 @@ package model
 				result.AddClass( c);
 
 			// Determine Additional Skills
-			var additionalSkills:Number = Dice.Roll(1, 6, 2);
+			var additionalSkills:Number = SandboxGlobals.preferences().lessSkills ?
+				Dice.Roll(1, 4, 2) : Dice.Roll(1, 6, 2);
 			while( additionalSkills--) {
 				var skill:ParentSkill = new ParentSkill();
 				skill.name = "Choose a Skill " + (additionalSkills+1).toString();
@@ -216,10 +223,13 @@ package model
 			}
 
 			// Determine max hit points
+			// use the Stormhack variant rule, should be externalized
 			var hpBonus:Bonus = Bonus.Get( "Hit Points");
-			result.stats["MaxHitPoints"] = Statistic.Generate( "MaxHitPoints",
-				result.constitution + hpBonus.Value( result));
-			result.stats["HitPoints"] = Statistic.Generate( "HitPoints", result.maxHitPoints);
+			var maxHP:int = SandboxGlobals.preferences().averageHitPoints ?
+				Math.ceil( (result.constitution+result.size) / 2.0) :
+				result.constitution + hpBonus.Value( result);
+			result.stats["MaxHitPoints"] = Statistic.Generate( "MaxHitPoints", maxHP);
+			result.stats["HitPoints"] = Statistic.Generate( "HitPoints", maxHP);
 			
 			// Determine Major Wound boundry
 			result.stats["MajorWound"] = Statistic.Generate( "MajorWound", Math.ceil(result.hitPoints / 2.0));
@@ -267,11 +277,6 @@ package model
 				sorcererRanks = "Circle V";
 		}
 
-		override public function Edit():void
-		{
-			// TODO
-		}
-		
 		public function ClassString():String
 		{
 			var result:String = "";

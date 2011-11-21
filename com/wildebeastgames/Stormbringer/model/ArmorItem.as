@@ -52,5 +52,10 @@ package model
 			
 			return result;
 		}
+		
+		override public function GetMessage():String
+		{
+			return "Soak: " + protection;
+		}
 	}
 }

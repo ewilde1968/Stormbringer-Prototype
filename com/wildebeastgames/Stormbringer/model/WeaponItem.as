@@ -201,5 +201,10 @@ package model
 		{
 			return weapons[ name];
 		}
+		
+		static public function ClearCache():void
+		{
+			weapons = new Array();
+		}
 	}
 }

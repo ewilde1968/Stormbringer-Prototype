@@ -17,6 +17,7 @@
 			[Bindable] private var errorMessage:String = "";
 			[Bindable] public var forgotF:Function;
 			[Bindable] public var createF:Function;
+			[Bindable] public var loginF:Function;
 			
 			private function LoginEnabled( a:Boolean, b:Boolean):Boolean
 			{
@@ -30,7 +31,8 @@
 				
 				a = a.Load( a) as Account;
 				if( a != null && a.password == passwordTI.text) {
-					parentApplication.LogIn( a);
+					if( loginF != null)
+						loginF( a);
 					errorMessage = "";
 				} else
 					errorMessage = "Invalid username/password";

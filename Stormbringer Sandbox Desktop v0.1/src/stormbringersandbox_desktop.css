@@ -63,8 +63,12 @@ view|IconButton {
 	skinClass: ClassReference("skins.IconButtonSkin");
 }
 
+view|IconRadioButton {
+	skinClass:ClassReference("skins.IconRadioButtonSkin");
+}
+
 .actionListStyle {
-	skinClass: ClassReference("skins.PlainListSkin");
+	skinClass: ClassReference("skins.ActionListSkin");
 }
 
 .afflictionsListStyle {

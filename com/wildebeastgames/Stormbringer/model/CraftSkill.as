@@ -32,5 +32,10 @@ package model
 			
 			return result;
 		}
+		
+		static public function ClearCache():void
+		{
+			craftSkillList = new Array();
+		}
 	}
 }

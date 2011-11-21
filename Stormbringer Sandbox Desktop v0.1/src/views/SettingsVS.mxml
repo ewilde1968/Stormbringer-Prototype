@@ -5,10 +5,14 @@
 			  xmlns:view="view.*"
 			  width="100%" height="100%"
 			  change="viewstack1_changeHandler(event)"
+			  currentStateChange="currentStateChangeHandler(event)" 
 			  >
 	<fx:Script>
 		<![CDATA[
+			import model.Account;
+			
 			import mx.events.IndexChangedEvent;
+			import mx.events.StateChangeEvent;
 			public function AttemptLogIn():void
 			{
 				if( this.selectedIndex != -1)
@@ -32,6 +36,11 @@
 				selectedChild = accountNC;
 			}
 
+			private function Login( a:Account):void
+			{
+				parentApplication.LogIn( a);	// sets state there to handle login from different view stacks
+			}
+
 			protected function viewstack1_changeHandler(event:IndexChangedEvent):void
 			{
 				switch( selectedChild) {
@@ -48,6 +57,21 @@
 				}
 			}
 			
+			protected function currentStateChangeHandler(event:StateChangeEvent):void
+			{
+				switch( event.newState) {
+					case "LoggedIn":
+						selectedChild = accountNC;
+						break;
+					default:
+						break;
+				}
+			}
+
+			public function Commit():void
+			{
+				parentApplication.globals.ChangeCampaign( settingsG.campaignRBG.selectedValue);
+			}
 		]]>
 	</fx:Script>
 
@@ -58,10 +82,15 @@
 	
 	<s:NavigatorContent id="accountNC">
 		<view:AccountGroup id="accountG"
+						   includeIn="LoggedOut"
 						   width="50%"
 						   createF="{CreateAccount}"
 						   forgotF="{ForgotEmail}"
+						   loginF="{Login}"
 						   />
+		<view:SettingsGroup id="settingsG"
+							includeIn="LoggedIn"
+							/>
 	</s:NavigatorContent>
 	<s:NavigatorContent id="createAccountNC">
 		<view:CreateAccountGroup id="createAccountG"

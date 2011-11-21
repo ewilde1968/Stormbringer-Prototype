@@ -34,8 +34,9 @@ package model
 		{
 			var list:XMLList = xml.children();
 			
-			if( items == null)
-				items = new Array();
+			// Clear the previous list of items
+			// also need to figure out what to do for Weapons
+			ClearCache();
 			
 			for each( var x:XML in list) {
 				var pi:PhysicalItem = LoadFromXML( x);
@@ -184,6 +185,13 @@ package model
 		public function GetMessage():String
 		{
 			return "";
+		}
+		
+		static public function ClearCache():void
+		{
+			// there has to be a better way
+			items = new Array();
+			WeaponItem.ClearCache();
 		}
 	}
 }

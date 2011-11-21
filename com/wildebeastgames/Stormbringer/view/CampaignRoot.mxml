@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="100%" height="100%"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import controller.ItemRendererContainer;
+			
+			import mx.collections.ArrayList;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			private static const preloadedCampaignsA:Array = ["Young Kingdoms", "Stormhack"];
+
+			private function GetPreloadedCampaigns():ArrayList
+			{
+				return new ArrayList( preloadedCampaignsA);
+			}
+			
+			protected function preloadedCampaigns_changeHandler(event:IndexChangeEvent):void
+			{
+				
+			}
+			
+			protected function characterB_buttonDownHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:VerticalLayout verticalAlign="middle" horizontalAlign="center"/>
+	</s:layout>
+	
+	<s:HGroup>
+		<s:Label text="Campaign:" fontSize="32"/>
+		<s:DropDownList id="preloadedCampaignsDDL" fontSize="32"
+						width="400"
+						dataProvider="{GetPreloadedCampaigns()}"
+						change="preloadedCampaigns_changeHandler(event)"
+						selectedIndex="0"
+						/>
+	</s:HGroup>
+	<s:Spacer height="50"/>
+	<s:HGroup>
+		<s:Button id="characterB"
+				  width="128" height="128"
+				  icon="@Embed('resources/ilian.jpg')"
+				  buttonDown="characterB_buttonDownHandler(event)"
+				  />
+		<s:Button id="racesB"
+				  width="128" height="128"
+				  label="Races"
+				  icon="@Embed('resources/2afba290bc95409630f17141c81a2162.jpg')"
+				  />
+		<s:Button id="nationsB"
+				  width="128" height="128"
+				  icon="@Embed('resources/LordSains.png')"
+				  />
+		<s:Button id="encountersB"
+				  width="128" height="128"
+				  icon="@Embed('resources/Lesser_Demon_of_False_Hope__by_seneschal.jpg')"
+				  />
+		<s:Button id="mapsB"
+				  width="128" height="128"
+				  icon="@Embed('resources/8efdb8489245fd3849fca15aca45ab66.jpg')"
+				  />
+	</s:HGroup>
+</s:Group>
