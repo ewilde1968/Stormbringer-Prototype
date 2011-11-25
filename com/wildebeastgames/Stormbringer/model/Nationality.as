@@ -39,8 +39,14 @@ package model
 		
 		public function Nationality()
 		{
-			if( nationalities == null)
-				nationalities = new Array();
+		}
+
+		static private function ClearCachedLoadData():void
+		{
+			nationalities = new Array();
+			randomNames = null;
+			skinsC = null;
+			standard = null;
 		}
 
 		static private function LoadCampaignNations( xml:XML):void
@@ -50,10 +56,15 @@ package model
 			
 			totalRange = 0;
 			for each( var x:XML in list) {
-				var n:Nationality = LoadFromXML( x);
-				if( n != null) {
-					nationalities[ n.name] = n;
-					totalRange += n.range;
+				if( x.name() == "standardTable") {
+					LoadStandardTable( XMLList( x));
+				} else {
+					var n:Nationality = LoadFromXML( x);
+					
+					if( n != null) {
+						nationalities[ n.name] = n;
+						totalRange += n.range;
+					}
 				}
 			}
 		}
@@ -173,12 +184,14 @@ package model
 
 		static public function Consume( xml:XML):void
 		{
+			ClearCachedLoadData();
+			
 			var list:XMLList = xml.random;
 
 			// Clear the previous list of nationalities
 			nationalities = new Array();
 			
-			if( list != null)
+			if( list.length() > 0)
 				LoadRandomNations( list[0]);
 			else
 				LoadCampaignNations( xml);
@@ -305,19 +318,21 @@ package model
 		
 		public function ApplyColoring( char:Character):void
 		{
-			var colorO:Object = skinsC.Roll();
-			
-			if( colorO is Array) {
-				char.skinDescription = "";
+			if( skinsC != null) {
+				var colorO:Object = skinsC.Roll();
 				
-				for each( var str:String in colorO) {
-					if( char.skinDescription.length > 0)
-						char.skinDescription += "-";
+				if( colorO is Array) {
+					char.skinDescription = "";
 					
-					char.skinDescription += str;
-				}
-			} else
-				char.skinDescription = colorO as String;
+					for each( var str:String in colorO) {
+						if( char.skinDescription.length > 0)
+							char.skinDescription += "-";
+						
+						char.skinDescription += str;
+					}
+				} else
+					char.skinDescription = colorO as String;
+			}
 		}
 
 		override public function Load(rootObj:Object):StorableObject
