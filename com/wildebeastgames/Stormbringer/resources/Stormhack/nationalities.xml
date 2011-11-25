@@ -1,586 +1,438 @@
 <?xml version="1.0" encoding="utf-8"?>
 <nationalities>
-	<nationality name="Melnibone" range="2">
-		<StatModifiers>
-			<Intelligence dice="1" size="10"/>
-			<Power dice="2" size="6"/>
-			<Size modifier="3"/>
-		</StatModifiers>
+	<random>
+		<structureTable>
+			<structure range="10">
+				<syllable/>
+			</structure>
+			<structure range="20">
+				<syllable/>
+				<syllable/>
+			</structure>
+			<structure range="10">
+				<syllable/>
+				<string value="'"/>
+				<syllable/>
+			</structure>
+			<structure range="20">
+				<syllable/>
+				<string value="-"/>
+				<syllable/>
+			</structure>
+			<structure range="10">
+				<syllable/>
+				<syllable/>
+				<syllable/>
+			</structure>
+			<structure range="10">
+				<placename/>
+				<string value=" of "/>
+				<nounDescriptor/>
+			</structure>
+			<structure range="10">
+				<color/>
+				<string value=" "/>
+				<placename/>
+			</structure>
+			<structure range="10">
+				<descriptor/>
+				<string value=" "/>
+				<placename/>
+			</structure>
+		</structureTable>
+		<syllableTable>
+			<syllable range="2" value="Ain"/>
+			<syllable range="3" value="Ath"/>
+			<syllable range="3" value="Bai"/>
+			<syllable range="2" value="Bay"/>
+			<syllable range="2" value="Be"/>
+			<syllable range="2" value="Can"/>
+			<syllable range="1" value="Dei"/>
+			<syllable range="2" value="Eo"/>
+			<syllable range="2" value="Fir"/>
+			<syllable range="1" value="For"/>
+			<syllable range="1" value="Gur"/>
+			<syllable range="3" value="Gor"/>
+			<syllable range="1" value="Hir"/>
+			<syllable range="3" value="Hor"/>
+			<syllable range="1" value="Jen"/>
+			<syllable range="2" value="Jor"/>
+			<syllable range="3" value="Kar"/>
+			<syllable range="2" value="Kam"/>
+			<syllable range="2" value="Koz"/>
+			<syllable range="4" value="Kyr"/>
+			<syllable range="4" value="Lan"/>
+			<syllable range="4" value="Mar"/>
+			<syllable range="1" value="Mer"/>
+			<syllable range="3" value="Mir"/>
+			<syllable range="2" value="Myr"/>
+			<syllable range="1" value="No"/>
+			<syllable range="1" value="Nok"/>
+			<syllable range="1" value="Nuk"/>
+			<syllable range="1" value="Oi"/>
+			<syllable range="2" value="Po"/>
+			<syllable range="3" value="Rom"/>
+			<syllable range="2" value="Rat"/>
+			<syllable range="4" value="Ror"/>
+			<syllable range="1" value="Rex"/>
+			<syllable range="1" value="Ru"/>
+			<syllable range="2" value="Tek"/>
+			<syllable range="1" value="To"/>
+			<syllable range="1" value="Vlk"/>
+			<syllable range="4" value="Vor"/>
+			<syllable range="1" value="Xo"/>
+			<syllable range="1" value="Xai"/>
+			<syllable range="2" value="Xe"/>
+			<syllable range="4" value="Xoth"/>
+			<syllable range="3" value="Yani"/>
+			<syllable range="2" value="Yor"/>
+			<syllable range="2" value="Zhe"/>
+			<syllable range="1" value="Zu"/>
+			<syllable range="3" reroll="2"/>
+		</syllableTable>
+		<descriptorTable>
+			<descriptor range="10" value="Sighing"/>
+			<descriptor range="10" value="Whispering"/>
+			<descriptor range="10" value="Howling"/>
+			<descriptor range="10" value="Woeful"/>
+			<descriptor range="10" value="Dreadful"/>
+			<descriptor range="10" value="Fearful"/>
+			<descriptor range="10" value="Desolate"/>
+			<descriptor range="10" value="Mad"/>
+			<descriptor range="10" value="Without End"/>
+			<descriptor range="10" value="Ahazredit"/>
+		</descriptorTable>
+		<nounDescriptorTable>
+			<nounDescriptor range="10" value="Sighs"/>
+			<nounDescriptor range="10" value="Whispers"/>
+			<nounDescriptor range="10" value="Howls"/>
+			<nounDescriptor range="10" value="Woe"/>
+			<nounDescriptor range="10" value="Dread"/>
+			<nounDescriptor range="10" value="Fear"/>
+			<nounDescriptor range="10" value="Desolation"/>
+			<nounDescriptor range="10" value="Madness"/>
+			<nounDescriptor range="10" value="Endless"/>
+			<nounDescriptor range="10" value="Unamit"/>
+		</nounDescriptorTable>
+		<placenameTable>
+			<placename range="4" value="Desert"/>
+			<placename range="3" value="Wastes"/>
+			<placename range="3" value="Barrens"/>
+			<placename range="5" value="Steppes"/>
+			<placename range="5" value="Plains"/>
+			<placename range="5" value="Cities"/>
+			<placename range="5" value="Towns"/>
+			<placename range="4" value="Forest"/>
+			<placename range="3" value="Woods"/>
+			<placename range="3" value="Jungles"/>
+			<placename range="5" value="Isles"/>
+			<placename range="5" value="Island"/>
+			<placename range="4" value="Mountains"/>
+			<placename range="3" value="Peaks"/>
+			<placename range="3" value="Valley"/>
+			<placename range="10" value="Hills"/>
+			<placename range="4" value="Moors"/>
+			<placename range="3" value="Craters"/>
+			<placename range="3" value="Broken Lands"/>
+			<placename range="3" value="Swamps"/>
+			<placename range="3" value="Marshes"/>
+			<placename range="2" value="Bogs"/>
+			<placename range="2" value="Mires"/>
+			<placename range="3" value="Ocean"/>
+			<placename range="3" value="Seas"/>
+			<placename range="2" value="Gulf"/>
+			<placename range="2" value="Bay"/>
+		</placenameTable>
+		<colorTable>
+			<color range="5" value="Pink"/>
+			<color range="5" value="Red"/>
+			<color range="5" value="Crimson"/>
+			<color range="5" value="Maroon"/>
+			<color range="5" value="Brown"/>
+			<color range="5" value="Ochre"/>
+			<color range="5" value="Green"/>
+			<color range="5" value="Silver"/>
+			<color range="5" value="White"/>
+			<color range="5" value="Teal"/>
+			<color range="5" value="Purple"/>
+			<color range="5" value="Blue"/>
+			<color range="5" value="Yellow"/>
+			<color range="5" value="Black"/>
+			<color range="5" value="Gray"/>
+			<color range="5" value="Orange"/>
+			<color range="5" value="Violet"/>
+			<color range="5" value="Plum"/>
+			<color range="5" value="Ivory"/>
+			<color range="5" value="Azure"/>
+		</colorTable>
+		<nationalAttributeTable count="1d4">
+			<nationalAttribute range="5" name="Average">
+				<Commands>
+					<clear/>
+					<stop/>
+				</Commands>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Nomads">
+				<StatModifiers>
+					<Dexterity dice="1" size="3"/>
+					<Intelligence modifier="-1"/>
+				</StatModifiers>
+				<CharClasses>
+					<Hunter range="4"/>
+					<Warrior range="3"/>
+					<PoorNoble range="1"/>
+				</CharClasses>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Barbarians">
+				<StatModifiers>
+					<Constitution dice="1" size="3"/>
+					<Intelligence modifier="-1"/>
+				</StatModifiers>
+				<CharClasses>
+					<Farmer range="2"/>
+					<Hunter range="3"/>
+					<Warrior range="2"/>
+					<PoorNoble range="1"/>
+				</CharClasses>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Seafaring">
+				<CharClasses>
+					<Sailor range="5">
+						<Officer range="20"/>
+					</Sailor>
+					<Merchant range="2">
+						<Trader range="30"/>
+					</Merchant>
+					<PoorNoble range="1"/>
+				</CharClasses>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Mercantile">
+				<CharClasses>
+					<Sailor range="2">
+						<Officer range="20"/>
+					</Sailor>
+					<Merchant range="5">
+						<Trader range="30"/>
+					</Merchant>
+					<StandardTable range="1"/>
+				</CharClasses>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Agricultural">
+				<CharClasses>
+					<Farmer range="4"/>
+					<Hunter range="2"/>
+					<Craftsman range="1"/>
+					<PoorNoble range="1"/>
+				</CharClasses>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Aligned">
+				<Alignment>
+					<alignment range="1" value="Law"/>
+					<alignment range="1" value="Law (Evil)"/>
+					<alignment range="2" value="Balance"/>
+					<alignment range="2" value="Chaos"/>
+				</Alignment>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Desperately Poor">
+				<StatModifiers>
+					<Constitution dice="1" size="3"/>
+				</StatModifiers>
+				<CharClasses>
+					<Farmer range="4"/>
+					<Beggar range="2"/>
+					<StandardTable range="2"/>
+				</CharClasses>
+				<Possessions>
+					<possession name="Large Bronze Pieces" value="random" dice="-1" size="20"/>
+				</Possessions>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Wealthy">
+				<StatModifiers>
+					<Charisma modifier="1"/>
+					<Intelligence modifier="-1"/>
+				</StatModifiers>
+				<Possessions>
+					<possession name="Large Bronze Pieces" value="random" multiplier="2"/>
+				</Possessions>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Warlike">
+				<StatModifiers>
+					<Strength dice="1" size="4"/>
+				</StatModifiers>
+				<CharClasses>
+					<Warrior range="6"/>
+					<StandardTable range="2"/>
+				</CharClasses>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Obese">
+				<StatModifiers>
+					<Constitution modifier="-1"/>
+					<Dexterity modifier="-1"/>
+				</StatModifiers>
+				<BodyFrame value="heavy"/>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Beanpoles">
+				<StatModifiers>
+					<Constitution modifier="-1"/>
+					<Dexterity modifier="1"/>
+				</StatModifiers>
+				<BodyFrame value="light"/>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Dwarfish">
+				<StatModifiers>
+					<Size dice="-1" size="4"/>
+				</StatModifiers>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Huge">
+				<StatModifiers>
+					<Size dice="1" size="4"/>
+				</StatModifiers>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Cultured">
+				<Chance>
+					<StatModifiers range="50">
+						<Intelligence dice="1" size="4"/>
+					</StatModifiers>
+					<StatModifiers range="50">
+						<Charisma dice="1" size="4"/>
+					</StatModifiers>
+				</Chance>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Decadent">
+				<Chance>
+					<StatModifiers range="50">
+						<Strength dice="-1" size="4"/>
+					</StatModifiers>
+					<StatModifiers range="50">
+						<Constitution dice="-1" size="4"/>
+					</StatModifiers>
+				</Chance>
+				<Chance>
+					<StatModifiers range="33">
+						<Intelligence dice="1" size="4"/>
+					</StatModifiers>
+					<StatModifiers range="33">
+						<Power dice="1" size="4"/>
+					</StatModifiers>
+					<StatModifiers range="33">
+						<Charisma dice="1" size="4"/>
+					</StatModifiers>
+				</Chance>
+				<CharClasses>
+					<Warrior range="1"/>
+					<Priest range="2"/>
+					<PoorNoble range="2"/>
+					<Noble range="1"/>
+				</CharClasses>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Magical">
+				<StatModifiers>
+					<Power dice="1" size="3"/>
+					<Intelligence dice="1" size="3"/>
+				</StatModifiers>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Pious">
+				<StatModifiers>
+					<Power dice="1" size="4"/>
+				</StatModifiers>
+				<CharClasses>
+					<Priest range="4"/>
+					<StandardTable range="2"/>
+				</CharClasses>
+			</nationalAttribute>
+			<nationalAttribute range="2" name="Bald">
+				<StatModifiers>
+					<Charisma modifier="-1"/>
+				</StatModifiers>
+			</nationalAttribute>
+			<nationalAttribute range="3" name="Hairy">
+				<StatModifiers>
+					<Charisma modifier="-1"/>
+				</StatModifiers>
+			</nationalAttribute>
+			<nationalAttribute range="5" name="Psychotic">
+				<Chance>
+					<StatModifiers range="1">
+						<Strength dice="-1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Constitution dice="-1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Intelligence dice="-1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Power dice="-1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Charisma dice="-1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Dexterity dice="-1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Size dice="-1" size="3"/>
+					</StatModifiers>
+				</Chance>
+				<Chance>
+					<StatModifiers range="1">
+						<Strength dice="1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Constitution dice="1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Intelligence dice="1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Power dice="1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Charisma dice="1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Dexterity dice="1" size="3"/>
+					</StatModifiers>
+					<StatModifiers range="1">
+						<Size dice="1" size="3"/>
+					</StatModifiers>
+				</Chance>
+			</nationalAttribute>
+		</nationalAttributeTable>
+	</random>
+	<standardTable>
 		<CharClasses>
-			<Warrior range="100">
-				<Noble range="100"/>
-				<Sorcerer range="100"/>
-			</Warrior>
-		</CharClasses>
-		<BodyFrame value="light"/>
-		<Cults>
-			<Arioch/>
-			<Pyaray/>
-			<Xiombarg/>
-			<Mabelrode/>
-		</Cults>
-	</nationality>
-	<nationality name="Pan Tang" range="3">
-		<StatModifiers>
-			<Intelligence dice="1" size="8"/>
-			<Power dice="1" size="8"/>
-			<Size modifier="1"/>
-		</StatModifiers>
-		<CharClasses>
-			<Noble range="20">
-				<Priest range="100"/>
-				<Warrior range="100"/>
-			</Noble>
-			<Warrior range="80">
-				<Priest range="100"/>
-			</Warrior>
-		</CharClasses>
-		<BodyFrame value="heavy"/>
-		<Cults>
-			<Arioch/>
-			<Pyaray/>
-			<Chardhros/>
-			<Slortar/>
-		</Cults>
-	</nationality>
-	<nationality name="Myrrhyn" range="3">
-		<StatModifiers>
-			<Intelligence dice="1" size="6"/>
-			<Power dice="1" size="6"/>
-			<Charisma dice="1" size="6">
-				<constraint name="Gender" value="0" relation="equal"/>
-			</Charisma>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="50"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
+			<Beggar range="4"/>
+			<Thief range="11"/>
+			<Farmer range="5"/>
 			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<BodyFrame value="light"/>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-		</Cults>
-	</nationality>
-	<nationality name="Dharijor" range="4">
-		<StatModifiers>
-			<Constitution dice="1" size="4"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="15">
+			<Sailor range="10">
 				<Officer range="20"/>
 			</Sailor>
-			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<Cults>
-			<Chardhros/>
-			<Checkalakh/>
-			<Kakatal/>
-			<Straasha/>
-		</Cults>
-	</nationality>
-	<nationality name="Jharkor" range="4">
-		<StatModifiers>
-			<Dexterity dice="1" size="4"/>
-			<Charisma dice="-1" size="4"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
+			<Craftsman range="5"/>
 			<Merchant range="10">
-				<Sorcerer range="50"/>
 				<Trader range="30"/>
 			</Merchant>
-			<Sailor range="15">
-				<Officer range="20"/>
-			</Sailor>
-			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
+			<Warrior range="25"/>
+			<Priest range="10"/>
 			<Noble range="5">
-				<Priest range="50"/>
+				<PoorNoble range="60"/>
 			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
 		</CharClasses>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Arioch/>
-			<Pyaray/>
-			<Xiombarg/>
-		</Cults>
-	</nationality>
-	<nationality name="Shazaar" range="8">
-		<StatModifiers>
-			<Constitution dice="1" size="6"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="15">
-				<Officer range="20"/>
-			</Sailor>
-			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Arkyn/>
-		</Cults>
-	</nationality>
-	<nationality name="Tarkesh" range="5">
-		<StatModifiers>
-			<Constitution dice="1" size="4"/>
-		</StatModifiers>
-		<Size modifier="-1"/>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="35">
-				<Officer range="20"/>
-			</Sailor>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<BodyFrame value="!light"/>
-		<Cults>
-			<Straasha/>
-			<Pozz-Mann-Llyrr/>
-		</Cults>
-	</nationality>
-	<nationality name="Vilmir" range="8">
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="15">
-				<Officer range="20"/>
-			</Sailor>
-			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Arkyn/>
-			<Donblas/>
-		</Cults>
-	</nationality>
-	<nationality name="Ilmiora" range="7">
-		<StatModifiers>
-			<Charisma dice="1" size="4"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="15">
-				<Officer range="20"/>
-			</Sailor>
-			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Arkyn/>
-			<Donblas/>
-		</Cults>
-	</nationality>
-	<nationality name="Nadsokor" range="5">
-		<StatModifiers>
-			<Constitution dice="-1" size="6"/>
-			<Charisma dice="-1" size="6"/>
-		</StatModifiers>
-		<CharClasses>
-			<Beggar range="100"/>
-		</CharClasses>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Narjhan/>
-			<Balo/>
-		</Cults>
-	</nationality>
-	<nationality name="Weeping Waste" range="7">
-		<StatModifiers>
-			<Strength dice="1" size="6"/>
-			<Constitution dice="1" size="6"/>
-			<Size modifier="-1"/>
-			<Dexterity dice="1" size="4"/>
-			<Charisma dice="-1" size="4"/>
-		</StatModifiers>
-		<CharClasses>
-			<Hunter range="100">
-				<Warrior range="100"/>
-			</Hunter>
-		</CharClasses>
-		<BodyFrame value="medium"/>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Others/>
-		</Cults>
-	</nationality>
-	<nationality name="Eshmir" range="4">
-		<StatModifiers>
-			<Intelligence dice="1" size="4"/>
-			<Power dice="1" size="6"/>
-			<Size modifier="-2"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20">
-				<Sorcerer range="100"/>
-				<Priest range="100"/>
-			</Warrior>
-			<Merchant range="10">
-				<Sorcerer range="100"/>
-				<Priest range="100"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="15">
-				<Officer range="20"/>
-				<Sorcerer range="100"/>
-				<Priest range="100"/>
-			</Sailor>
-			<Hunter range="15">
-				<Sorcerer range="100"/>
-				<Priest range="100"/>
-			</Hunter>
-			<Farmer range="5">
-				<Sorcerer range="100"/>
-				<Priest range="100"/>
-			</Farmer>
-			<Priest range="5">
-				<Sorcerer range="100"/>
-				<Warrior range="100">
-					<constraint name="Strength" value="12" relation="greater"/>
-				</Warrior>
-			</Priest>
-			<Noble range="5">
-				<Sorcerer range="100"/>
-				<Priest range="100"/>
-			</Noble>
-			<Thief range="10">
-				<Sorcerer range="100"/>
-				<Priest range="100"/>
-			</Thief>
-			<Beggar range="5">
-				<Sorcerer range="100"/>
-				<Priest range="100"/>
-			</Beggar>
-			<Craftsman range="10">
-				<Sorcerer range="100"/>
-				<Priest range="100"/>
-			</Craftsman>
-		</CharClasses>
-		<BodyFrame value="medium"/>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Arioch/>
-			<Mabelrode/>
-			<Hionhurn/>
-			<Vezhan/>
-		</Cults>
-	</nationality>
-	<nationality name="Island of Purple Towns" range="7">
-		<StatModifiers>
-			<Strength dice="1" size="4"/>
-			<Constitution dice="1" size="6"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="30">
-				<Officer range="20"/>
-			</Sailor>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<BodyFrame value="!light"/>
-		<Cults>
-			<Straasha/>
-			<Goldar/>
-		</Cults>
-	</nationality>
-	<nationality name="Argimiliar" range="7">
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="15">
-				<Officer range="20"/>
-			</Sailor>
-			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<BodyFrame value="medium"/>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Goldar/>
-			<Mabelrode/>
-		</Cults>
-	</nationality>
-	<nationality name="Pikarayd" range="7">
-		<StatModifiers>
-			<Strength dice="2" size="4"/>
-			<Size modifier="1"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="15">
-				<Officer range="20"/>
-			</Sailor>
-			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<BodyFrame value="!light"/>
-		<Cults>
-			<Grome/>
-			<Kakatal/>
-			<Arioch/>
-			<Chardhros/>
-			<Hionhurn/>
-		</Cults>
-	</nationality>
-	<nationality name="Lormyr" range="7">
-		<StatModifiers>
-			<Intelligence dice="-1" size="4"/>
-			<Size modifier="2"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="15">
-				<Officer range="20"/>
-			</Sailor>
-			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<BodyFrame value="!light"/>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Arkrn/>
-			<Donblas/>
-		</Cults>
-	</nationality>
-	<nationality name="Filkhar" range="7">
-		<StatModifiers>
-			<Dexterity dice="1" size="4"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Sailor range="15">
-				<Officer range="20"/>
-			</Sailor>
-			<Hunter range="15"/>
-			<Farmer range="5"/>
-			<Priest range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<BodyFrame value="!heavy"/>
-		<Cults>
-			<Grome/>
-			<Lassa/>
-			<Kakatal/>
-			<Straasha/>
-			<Arkrn/>
-			<Donblas/>
-		</Cults>
-	</nationality>
-	<nationality name="Oin" range="2">
-		<StatModifiers>
-			<Constitution dice="1" size="6"/>
-			<Intelligence dice="-1" size="6"/>
-			<Power dice="-1" size="6"/>
-			<Dexterity dice="-1" size="6"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Merchant range="10">
-				<Sorcerer range="50"/>
-				<Trader range="30"/>
-			</Merchant>
-			<Hunter range="15"/>
-			<Farmer range="25"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-	</nationality>
-	<nationality name="Yu" range="2">
-		<StatModifiers>
-			<Intelligence dice="-1" size="6"/>
-			<Power dice="-1" size="6"/>
-			<Charisma dice="-1" size="6"/>
-			<Constitution dice="1" size="6"/>
-			<Strength dice="1" size="6"/>
-		</StatModifiers>
-		<CharClasses>
-			<Warrior range="20"/>
-			<Hunter range="45"/>
-			<Farmer range="5"/>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Thief range="10"/>
-			<Beggar range="5"/>
-			<Craftsman range="10"/>
-		</CharClasses>
-		<BodyFrame value="heavy"/>
-	</nationality>
-	<nationality name="Org" range="1">
-		<StatModifiers>
-			<Strength dice="1" size="4"/>
-			<Constitution dice="2" size="8"/>
-			<Size modifier="-2"/>
-			<Intelligence dice="-1" size="6"/>
-			<Power dice="-2" size="4"/>
-			<Dexterity dice="-1" size="6"/>
-			<Charisma dice="-2" size="4"/>
-		</StatModifiers>
-		<CharClasses>
-			<Noble range="5">
-				<Priest range="50"/>
-			</Noble>
-			<Hunter range="95"/>
-		</CharClasses>
-		<BodyFrame value="heavy"/>
-		<Cults>
-			<Others/>
-		</Cults>
-	</nationality>
+	</standardTable>
+	<coloringTable>
+		<Chance>
+			<string range="1" value="Albino"/>
+			<string range="1" value="Pale"/>
+			<string range="1" value="Peach"/>
+			<string range="1" value="Ruddy Pink"/>
+			<string range="1" value="Olive"/>
+			<string range="1" value="Bronze"/>
+			<string range="1" value="Tan"/>
+			<string range="1" value="Dark Brown"/>
+			<string range="1" value="Black"/>
+			<string range="2" value="Exotic"/>
+			<reroll range="1" reroll="1d3"/>
+		</Chance>
+	</coloringTable>
 </nationalities>

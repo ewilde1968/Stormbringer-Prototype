@@ -37,7 +37,7 @@ package controller
 			var filestream:FileStream = new FileStream();
 			
 			if( !file.exists)
-				return defaultXMLA[ type];
+				return defaultXMLA[ filename];
 
 			filestream.open( file, FileMode.READ);
 

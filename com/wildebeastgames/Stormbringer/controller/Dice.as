@@ -8,8 +8,13 @@ package controller
 		static public function Roll( diceNum:int, diceSize:int, mod:Number = 0):Number
 		{
 			var result:Number = mod;
+			var negate:Boolean = diceNum < 0;
+			diceNum = Math.abs( diceNum);
 			while( diceNum--)
 				result += Math.floor( Math.random() * diceSize) + 1;
+			
+			if( negate)
+				result = result * -1;
 			
 			return result;
 		}

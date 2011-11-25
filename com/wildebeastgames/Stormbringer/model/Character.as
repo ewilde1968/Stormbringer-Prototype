@@ -179,7 +179,8 @@ package model
 				// Determine Possessions, some possessions require skills to get, so this
 				// call should come after ApplySkills
 				characterClass.ApplyPossessions( this);
-			}
+			} else
+				throw Error( "Character:AddClass - character type didn't exist");
 		}
 
 		static public function GenerateRandomCharacter():Character
@@ -202,6 +203,7 @@ package model
 			// Determine Nationality/Race
 			result.nationality = Nationality.GenerateNationality();
 			result.nationality.ApplyModifiers( result);
+			result.nationality.ApplyColoring( result);
 
 			// Determine Height/Weight
 			var bf:BodyFrame = new BodyFrame( result);
@@ -233,6 +235,9 @@ package model
 			
 			// Determine Major Wound boundry
 			result.stats["MajorWound"] = Statistic.Generate( "MajorWound", Math.ceil(result.hitPoints / 2.0));
+			
+			// Add nationality possessions last, which could effect LB quantities
+			result.nationality.ApplyPossessions( result);
 			
 			return result;
 		}

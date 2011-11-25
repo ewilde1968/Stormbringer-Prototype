@@ -27,9 +27,6 @@ package model
 		
 		public function GenerateCharClassLoad():CharClassLoad
 		{
-			if( totalRange != 100)
-				throw( "CharClassSet:GenerateCharClassLoad - invalid totalRange");
-			
 			var roll:Number = Dice.Roll( 1, totalRange);
 			
 			for each( var c:CharClassLoad in array) {

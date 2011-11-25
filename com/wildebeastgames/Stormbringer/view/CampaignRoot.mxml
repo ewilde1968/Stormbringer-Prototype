@@ -2,7 +2,7 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 width="100%" height="100%"
+		 width="100%" height="100%" xmlns:view="view.*"
 		 >
 	<fx:Script>
 		<![CDATA[
@@ -24,15 +24,28 @@
 			{
 				
 			}
-			
-			protected function characterB_buttonDownHandler(event:FlexEvent):void
-			{
-				// TODO Auto-generated method stub
-				
-			}
-			
 		]]>
 	</fx:Script>
+
+	<fx:Declarations>
+		<s:RadioButtonGroup id="campaignRBG"
+							/>
+		<s:Image id="charactersI" source="@Embed('resources/ilian.jpg')"
+				 fillMode="clip"
+				 />
+		<s:Image id="racesI" source="@Embed('resources/2afba290bc95409630f17141c81a2162.jpg')"
+				 scaleMode="letterbox" fillMode="scale"
+				 />
+		<s:Image id="nationsI" source="@Embed('resources/LordSains.png')"
+				 scaleMode="letterbox" fillMode="scale"
+				 />
+		<s:Image id="encountersI" source="@Embed('resources/Lesser_Demon_of_False_Hope__by_seneschal.jpg')"
+				 fillMode="clip"
+				 />
+		<s:Image id="mapsI" source="@Embed('resources/8efdb8489245fd3849fca15aca45ab66.jpg')"
+				 fillMode="clip"
+				 />
+	</fx:Declarations>
 
 	<s:layout>
 		<s:VerticalLayout verticalAlign="middle" horizontalAlign="center"/>
@@ -49,27 +62,40 @@
 	</s:HGroup>
 	<s:Spacer height="50"/>
 	<s:HGroup>
-		<s:Button id="characterB"
-				  width="128" height="128"
-				  icon="@Embed('resources/ilian.jpg')"
-				  buttonDown="characterB_buttonDownHandler(event)"
-				  />
-		<s:Button id="racesB"
-				  width="128" height="128"
-				  label="Races"
-				  icon="@Embed('resources/2afba290bc95409630f17141c81a2162.jpg')"
-				  />
-		<s:Button id="nationsB"
-				  width="128" height="128"
-				  icon="@Embed('resources/LordSains.png')"
-				  />
-		<s:Button id="encountersB"
-				  width="128" height="128"
-				  icon="@Embed('resources/Lesser_Demon_of_False_Hope__by_seneschal.jpg')"
-				  />
-		<s:Button id="mapsB"
-				  width="128" height="128"
-				  icon="@Embed('resources/8efdb8489245fd3849fca15aca45ab66.jpg')"
-				  />
+		<view:IconRadioButton id="characterIRB"
+							  width="128" height="128"
+							  group="{campaignRBG}"
+							  iconImage="{charactersI}"
+							  label="Characters"
+							  value="Characters"
+							  />
+		<view:IconRadioButton id="racesIRB"
+							  width="128" height="128"
+							  group="{campaignRBG}"
+							  iconImage="{racesI}"
+							  label="Races"
+							  value="Races"
+							  />
+		<view:IconRadioButton id="nationsIRB"
+							  width="128" height="128"
+							  group="{campaignRBG}"
+							  iconImage="{nationsI}"
+							  label="States"
+							  value="States"
+							  />
+		<view:IconRadioButton id="encountersIRB"
+							  width="128" height="128"
+							  group="{campaignRBG}"
+							  iconImage="{encountersI}"
+							  label="Encounters"
+							  value="Encounters"
+							  />
+		<view:IconRadioButton id="mapsIRB"
+							  width="128" height="128"
+							  group="{campaignRBG}"
+							  iconImage="{mapsI}"
+							  label="Maps"
+							  value="Maps"
+							  />
 	</s:HGroup>
 </s:Group>

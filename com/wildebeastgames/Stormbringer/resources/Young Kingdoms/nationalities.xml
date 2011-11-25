@@ -616,4 +616,28 @@
 			<Others/>
 		</Cults>
 	</nationality>
+
+	<standardTable>
+		<CharClasses>
+			<Warrior range="20">
+				<Assassin range="20"/>
+			</Warrior>
+			<Merchant range="10">
+				<Sorcerer range="50"/>
+				<Trader range="30"/>
+			</Merchant>
+			<Sailor range="15">
+				<Officer range="20"/>
+			</Sailor>
+			<Hunter range="15"/>
+			<Farmer range="5"/>
+			<Priest range="5"/>
+			<Noble range="5">
+				<Priest range="50"/>
+			</Noble>
+			<Thief range="10"/>
+			<Beggar range="5"/>
+			<Craftsman range="10"/>
+		</CharClasses>
+	</standardTable>
 </nationalities>

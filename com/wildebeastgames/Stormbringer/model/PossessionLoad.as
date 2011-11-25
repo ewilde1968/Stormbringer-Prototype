@@ -5,9 +5,9 @@ package model
 	public class PossessionLoad extends RoleplayingObject
 	{
 		private var defaultNum:Number;	// the number available at character creation time
-		private var defaultDice:Number;
-		private var defaultDieSize:Number;
-		private var defaultMultiplier:String;
+		public var defaultDice:Number;
+		public var defaultDieSize:Number;
+		public var defaultMultiplier:String;
 		private var _constraints:Array;
 		
 		public function get constraints():Array {return _constraints;}

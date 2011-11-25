@@ -64,9 +64,37 @@
 		</s:HGroup>
 		<s:HGroup verticalAlign="middle">
 			<s:Label text="Skin" width="50"/>
-			<s:TextInput id="skinTI" width="150" text="@{character.skinDescription}"/>
-			<s:Label text="Eyes"/>
-			<s:TextInput id="eyesTI" width="120" text="@{character.eyesDescription}"/>
+			<s:TextInput id="skinTI"
+						 width="310"
+						 text="@{character.skinDescription}" 
+						 />
+		</s:HGroup>
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="Eyes" width="50"/>
+			<s:TextInput id="eyesTI"
+						 width="310"
+						 text="@{character.eyesDescription}"
+						 />
+		</s:HGroup>
+		<s:HGroup verticalAlign="middle"
+				  visible="{character.nationality.alignment != null}"
+				  includeInLayout="{character.nationality.alignment != null}"
+				  >
+			<s:Label text="Alignment" width="80"/>
+			<s:TextInput id="alignTI"
+						 width="280"
+						 text="@{character.nationality.alignment}"
+						 />
+		</s:HGroup>
+		<s:HGroup verticalAlign="middle"
+				  visible="{character.nationality.description != null}"
+				  includeInLayout="{character.nationality.description != null}"
+				  >
+			<s:Label text="Culture" width="80"/>
+			<s:TextInput id="cultureTI"
+						 width="280"
+						 text="@{character.nationality.description}"
+						 />
 		</s:HGroup>
 	</s:VGroup>
 	<s:TextArea id="descriptionTA"

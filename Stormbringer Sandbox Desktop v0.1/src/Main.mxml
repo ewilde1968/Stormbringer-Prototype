@@ -36,12 +36,18 @@
 			protected function initializeHandler(event:FlexEvent):void
 			{
 				var defaultXMLA:Array = new Array();
-				defaultXMLA[ "abilities"] = abilitiesXML;
-				defaultXMLA[ "nationalities"] = nationalitiesXML;
-				defaultXMLA[ "characterclasses"] = characterclassesXML;
-				defaultXMLA[ "skills"] = skillsXML;
-				defaultXMLA[ "afflictions"] = afflictionsXML;
-				defaultXMLA[ "physicalitems"] = physicalItemsXML;
+				defaultXMLA[ "Stormhack/configuration/abilities.xml"] = abilitiesXMLSH;
+				defaultXMLA[ "Stormhack/configuration/nationalities.xml"] = nationalitiesXMLSH;
+				defaultXMLA[ "Stormhack/configuration/characterclasses.xml"] = characterclassesXMLSH;
+				defaultXMLA[ "Stormhack/configuration/skills.xml"] = skillsXMLSH;
+				defaultXMLA[ "Stormhack/configuration/afflictions.xml"] = afflictionsXMLSH;
+				defaultXMLA[ "Stormhack/configuration/physicalitems.xml"] = physicalItemsXMLSH;
+				defaultXMLA[ "Young Kingdoms/configuration/abilities.xml"] = abilitiesXMLYK;
+				defaultXMLA[ "Young Kingdoms/configuration/nationalities.xml"] = nationalitiesXMLYK;
+				defaultXMLA[ "Young Kingdoms/configuration/characterclasses.xml"] = characterclassesXMLYK;
+				defaultXMLA[ "Young Kingdoms/configuration/skills.xml"] = skillsXMLYK;
+				defaultXMLA[ "Young Kingdoms/configuration/afflictions.xml"] = afflictionsXMLYK;
+				defaultXMLA[ "Young Kingdoms/configuration/physicalitems.xml"] = physicalItemsXMLYK;
 				
 				globals = new SandboxGlobals( defaultXMLA);
 			}
@@ -125,12 +131,18 @@
 	<fx:Style source="stormbringersandbox_desktop.css"/>
 	
 	<fx:Declarations>
-		<fx:XML id="nationalitiesXML" source="resources/Stormhack/nationalities.xml"/>
-		<fx:XML id="characterclassesXML" source="resources/Stormhack/characterclasses.xml"/>
-		<fx:XML id="skillsXML" source="resources/Stormhack/skills.xml"/>
-		<fx:XML id="abilitiesXML" source="resources/Stormhack/abilities.xml"/>
-		<fx:XML id="afflictionsXML" source="resources/Stormhack/afflictions.xml"/>
-		<fx:XML id="physicalItemsXML" source="resources/Stormhack/physicalitems.xml"/>
+		<fx:XML id="nationalitiesXMLSH" source="resources/Stormhack/nationalities.xml"/>
+		<fx:XML id="characterclassesXMLSH" source="resources/Stormhack/characterclasses.xml"/>
+		<fx:XML id="skillsXMLSH" source="resources/Stormhack/skills.xml"/>
+		<fx:XML id="abilitiesXMLSH" source="resources/Stormhack/abilities.xml"/>
+		<fx:XML id="afflictionsXMLSH" source="resources/Stormhack/afflictions.xml"/>
+		<fx:XML id="physicalItemsXMLSH" source="resources/Stormhack/physicalitems.xml"/>
+		<fx:XML id="nationalitiesXMLYK" source="resources/Young Kingdoms/nationalities.xml"/>
+		<fx:XML id="characterclassesXMLYK" source="resources/Young Kingdoms/characterclasses.xml"/>
+		<fx:XML id="skillsXMLYK" source="resources/Young Kingdoms/skills.xml"/>
+		<fx:XML id="abilitiesXMLYK" source="resources/Young Kingdoms/abilities.xml"/>
+		<fx:XML id="afflictionsXMLYK" source="resources/Young Kingdoms/afflictions.xml"/>
+		<fx:XML id="physicalItemsXMLYK" source="resources/Young Kingdoms/physicalitems.xml"/>
 		
 		<views:ScrimError id="scrimError"/>
 		

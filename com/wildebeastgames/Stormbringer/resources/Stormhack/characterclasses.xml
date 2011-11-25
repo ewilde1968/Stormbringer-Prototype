@@ -31,6 +31,26 @@
 	</CharacterClass>
 	<CharacterClass name="Merchant">
 		<Skills>
+			<skill name="Weapon 1" value="20"/>
+			<skill name="Parry 1" value="20"/>
+			<skill name="Read/Write Common" value="70"/>
+			<skill name="Credit" value="40"/>
+			<skill name="Evaluate Treasure" value="80"/>
+		</Skills>
+		<Possessions>
+			<possession name="Weapon 1" value="1" type="GenericWeapon"/>
+			<possession name="Armor 1" value="1" type="GenericArmor">
+				<constraint name="Credit" value="1d100" relation="greaterequal">
+					<failure>
+						<possession name="Leather" value="1" type="Armor"/>
+					</failure>
+				</constraint>
+			</possession>
+			<possession name="Large Bronze Pieces" value="random" dice="5" size="100" multiplier="Intelligence"/>
+		</Possessions>
+	</CharacterClass>
+	<CharacterClass name="Trader">
+		<Skills>
 			<skill name="Weapon 1" value="40"/>
 			<skill name="Parry 1" value="40"/>
 			<skill name="Read/Write Common" value="70"/>
@@ -251,6 +271,21 @@
 			<possession name="Weapon 2" value="1" type="GenericWeapon"/>
 			<possession name="Armor 1" value="1" type="GenericArmor"/>
 			<possession name="Property (LB)" value="random" dice="1" size="100" multiplier="10000"/>
+			<possession name="Large Bronze Pieces" value="random" dice="1" size="100" multiplier="100"/>
+		</Possessions>
+	</CharacterClass>
+	<CharacterClass name="PoorNoble">
+		<Skills>
+			<skill name="Weapon 1" value="40"/>
+			<skill name="Parry 1" value="40"/>
+			<skill name="Weapon 2" value="20"/>
+			<skill name="Parry 2" value="20"/>
+			<skill name="Credit" value="40"/>
+		</Skills>
+		<Possessions>
+			<possession name="Weapon 1" value="1" type="GenericWeapon"/>
+			<possession name="Weapon 2" value="1" type="GenericWeapon"/>
+			<possession name="Armor 1" value="1" type="GenericArmor"/>
 			<possession name="Large Bronze Pieces" value="random" dice="1" size="100" multiplier="100"/>
 		</Possessions>
 	</CharacterClass>
