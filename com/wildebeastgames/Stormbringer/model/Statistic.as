@@ -7,6 +7,7 @@ package model
 		private var _name:String = null;
 		private var _checked:Boolean = false;
 		private var _value:Number = 0;
+		public var strVal:String;
 
 		public function get name():String {return _name;}
 		[Bindable] public function set name(s:String):void {_name=s;}
@@ -22,14 +23,13 @@ package model
 			super();
 		}
 		
-		static public function Generate( n:String, v:Number = -1):Statistic
+		static public function Generate( n:String, v:Number = -1, sv:String = ""):Statistic
 		{
 			var result:Statistic = new Statistic();
 			
 			result.name = n;
-			if( v == -1)
-				v = Dice.Roll( 3, 6);
-			result.value = v;
+			result.value = (v == -1) ? Dice.Roll(3,6) : v;
+			result.strVal = (sv == null) ? "" : sv;
 
 			return result;
 		}
@@ -41,6 +41,7 @@ package model
 			name = obj[ "name"];
 			checked = obj[ "checked"];
 			value = obj[ "value"];
+			strVal = obj[ "strVal"];
 		}
 		
 		override public function Copy( newObj:StorableObject=null):StorableObject
@@ -53,6 +54,7 @@ package model
 			result.name = name;
 			result.checked = checked;
 			result.value = value;
+			result.strVal = strVal;
 			
 			return result;
 		}

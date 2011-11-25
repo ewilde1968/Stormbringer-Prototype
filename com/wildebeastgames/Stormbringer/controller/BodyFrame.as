@@ -1,6 +1,7 @@
 package controller
 {
 	import model.Character;
+	import model.Nationality;
 
 	public class BodyFrame
 	{
@@ -12,9 +13,9 @@ package controller
 		public function get height():Number {return _height;}
 		public function get weight():Number {return _weight;}
 		
-		public function BodyFrame( char:Character)
+		public function BodyFrame( char:Character, n:Nationality)
 		{
-			switch( char.nationality.bodyType) {
+			switch( n.bodyType) {
 				case "light":
 					typeS = data[0];
 					break;

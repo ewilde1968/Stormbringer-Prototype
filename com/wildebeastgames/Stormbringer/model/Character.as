@@ -12,7 +12,6 @@ package model
 	
 	public class Character extends Creature
 	{
-		private var _nationality:Nationality = null;
 		private var _charClass:Array;
 		private var _requiresCult:Boolean = false;
 		private var _afflictions:Array;
@@ -22,12 +21,11 @@ package model
 		private var _possessions:Array;
 		[Bindable] public var skinDescription:String;
 		[Bindable] public var eyesDescription:String;
+		[Bindable] public var availableCults:Array;
 		
 		public var hasChosenWeaponSkill:Boolean = false;
 		private var defaultSkillsApplied:Boolean = false;
 		
-		public function get nationality():Nationality {return _nationality;}
-		[Bindable] public function set nationality(n:Nationality):void {_nationality=n;}
 		public function get charClass():Array {return _charClass;}
 		public function set charClass(a:Array):void {_charClass = a;};
 		public function get requiresCult():Boolean {return _requiresCult;}
@@ -42,6 +40,10 @@ package model
 		[Bindable] public function set sorcererRanks(s:String):void {_sorcererRanks=s;}
 		public function get cult():String {return _cult;}
 		[Bindable] public function set cult(s:String):void {_cult=s;}
+		public function get culture():String {return _stats["Culture"].strVal;}
+		[Bindable] public function set culture(s:String):void {_stats["Culture"].strVal=s;}
+		public function get nation():String {return _stats["Nation"].strVal;}
+		[Bindable] public function set nation(s:String):void {_stats["Nation"].strVal=s;}
 
 		static private const defaultSkills:Array = [ "Jump", "Climb", "Dodge", "Balance", "Persuade", "Listen", "Hide"];
 
@@ -56,6 +58,7 @@ package model
 			afflictions = new Array();
 			skills = new Array();
 			possessions = new Array();
+			availableCults = new Array();
 		}
 
 		override public function get identifier():String {return name;}
@@ -64,9 +67,6 @@ package model
 		{
 			super.StuffGenericObject( obj);
 
-			nationality = new Nationality();
-			nationality = nationality.Load( obj.nationality) as Nationality;
-			
 			requiresCult = obj.requiresCult;
 			sorcererRanks = obj.sorcererRanks;
 			cult = obj.cult;
@@ -136,6 +136,9 @@ package model
 					throw( Error( "Generic possessions still remain. Please select specific possessions for all remaining generic possessions."));
 			}
 
+			// clear out the stuff we don't want to save
+			availableCults = null;
+			
 			// Whew! Made it. Now save this puppy.
 			super.Save();
 		}
@@ -201,17 +204,21 @@ package model
 			result.stats["Gender"] = Statistic.Generate( "Gender", Dice.Roll( 1, 2, -1));
 			
 			// Determine Nationality/Race
-			result.nationality = Nationality.GenerateNationality();
-			result.nationality.ApplyModifiers( result);
-			result.nationality.ApplyColoring( result);
+			var n:Nationality = Nationality.GenerateNationality();
+			n.ApplyModifiers( result);
+			n.ApplyColoring( result);
+			result.stats["Nation"] = Statistic.Generate( "Nation", 0, n.name);
+			result.stats["Culture"] = Statistic.Generate( "Culture", 0, n.description);
+			result.stats["Alignment"] = Statistic.Generate( "Alignment", 0, n.alignment);
+			result.availableCults = n.cults;
 
 			// Determine Height/Weight
-			var bf:BodyFrame = new BodyFrame( result);
+			var bf:BodyFrame = new BodyFrame( result, n);
 			result.stats["Height"] = Statistic.Generate( "Height", bf.height);
 			result.stats["Weight"] = Statistic.Generate( "Weight", bf.weight);
 			
 			// Determine Class
-			var cs:CharClassSet = result.nationality.GenerateCharClassSet( result);
+			var cs:CharClassSet = n.GenerateCharClassSet( result);
 			for each( var c:CharClassLoad in cs.array)
 				result.AddClass( c);
 
@@ -237,7 +244,7 @@ package model
 			result.stats["MajorWound"] = Statistic.Generate( "MajorWound", Math.ceil(result.hitPoints / 2.0));
 			
 			// Add nationality possessions last, which could effect LB quantities
-			result.nationality.ApplyPossessions( result);
+			n.ApplyPossessions( result);
 			
 			return result;
 		}

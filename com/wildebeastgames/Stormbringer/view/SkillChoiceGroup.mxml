@@ -43,7 +43,8 @@
 			
 			private function SelectWeaponSkill( addSkill:WeaponSkill, character:Character):void
 			{
-				var isAttackSkill:Boolean = skill.bonus.name.indexOf( "Attack") > -1;
+				var isAttackSkill:Boolean = skill.bonus.name.indexOf( "Attack") > -1
+					|| skill.name.indexOf( "Attack") > -1;
 				var alsoIncludeAlternateSkill:Boolean = skill.name != (isAttackSkill ? "Weapon" : "Parry")
 					&& skill.bonus.name != "Beggar Mob";
 				var isCraftsmanSpecialCase:Boolean = (character.charClass[ "Craftsman"] != null)
@@ -94,7 +95,7 @@
 					// add possession
 					var p:PhysicalItem = character.GetPossessionByName( "Weapon " + index);
 					character.RemovePossession( p);
-					if( attackSkill.weapon.cost > 0) {
+					if( p != null && attackSkill.weapon.cost > 0) {
 						character.AddPossession( attackSkill.weapon);
 						attackSkill.weapon.complete = true;	// done							
 					}
@@ -109,14 +110,17 @@
 			
 			private function InsertSkillIntoCharacter( addSkill:Skill, character:Character, removeSkill:Skill = null):void
 			{
-				character.RemoveSkill( removeSkill == null ? skill : removeSkill);
+				var oldSkill:Skill = removeSkill == null ? skill : removeSkill;
+				character.RemoveSkill( oldSkill);
 				
 				// set the initial skill level
 				if( skill.bonus && skill.bonus.name == "Beggar Mob")
 					// Beggar Mob skills start at 10%
 					addSkill.skillLevel = 10;
-				else if( addSkill.complete && !(addSkill.skillLevel > 0))
-					addSkill.skillLevel = Math.ceil( Dice.Roll( 1, 100) / 2.0);
+				else if( addSkill.complete && !(addSkill.skillLevel > 0)) {
+					addSkill.skillLevel = oldSkill.skillLevel > 0 ? oldSkill.skillLevel :
+						Math.ceil( Dice.Roll( 1, 100) / 2.0);
+				}
 				
 				character.AddSkill( addSkill);
 			}

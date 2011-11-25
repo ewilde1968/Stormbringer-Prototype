@@ -180,7 +180,9 @@
 				<CharClasses>
 					<Hunter range="4"/>
 					<Warrior range="3"/>
-					<PoorNoble range="1"/>
+					<PoorNoble range="1">
+						<Sorcerer range="50"/>
+					</PoorNoble>
 				</CharClasses>
 			</nationalAttribute>
 			<nationalAttribute range="5" name="Barbarians">
@@ -192,7 +194,9 @@
 					<Farmer range="2"/>
 					<Hunter range="3"/>
 					<Warrior range="2"/>
-					<PoorNoble range="1"/>
+					<PoorNoble range="1">
+						<Sorcerer range="50"/>
+					</PoorNoble>
 				</CharClasses>
 			</nationalAttribute>
 			<nationalAttribute range="5" name="Seafaring">
@@ -202,8 +206,11 @@
 					</Sailor>
 					<Merchant range="2">
 						<Trader range="30"/>
+						<Sorcerer range="50"/>
 					</Merchant>
-					<PoorNoble range="1"/>
+					<PoorNoble range="1">
+						<Sorcerer range="50"/>
+					</PoorNoble>
 				</CharClasses>
 			</nationalAttribute>
 			<nationalAttribute range="5" name="Mercantile">
@@ -213,6 +220,7 @@
 					</Sailor>
 					<Merchant range="5">
 						<Trader range="30"/>
+						<Sorcerer range="50"/>
 					</Merchant>
 					<StandardTable range="1"/>
 				</CharClasses>
@@ -222,7 +230,9 @@
 					<Farmer range="4"/>
 					<Hunter range="2"/>
 					<Craftsman range="1"/>
-					<PoorNoble range="1"/>
+					<PoorNoble range="1">
+						<Sorcerer range="50"/>
+					</PoorNoble>
 				</CharClasses>
 			</nationalAttribute>
 			<nationalAttribute range="5" name="Aligned">
@@ -321,8 +331,12 @@
 				<CharClasses>
 					<Warrior range="1"/>
 					<Priest range="2"/>
-					<PoorNoble range="2"/>
-					<Noble range="1"/>
+					<PoorNoble range="2">
+						<Sorcerer range="50"/>
+					</PoorNoble>
+					<Noble range="1">
+						<Sorcerer range="50"/>
+					</Noble>
 				</CharClasses>
 			</nationalAttribute>
 			<nationalAttribute range="5" name="Magical">
@@ -412,11 +426,13 @@
 			<Craftsman range="5"/>
 			<Merchant range="10">
 				<Trader range="30"/>
+				<Sorcerer range="50"/>
 			</Merchant>
 			<Warrior range="25"/>
 			<Priest range="10"/>
 			<Noble range="5">
 				<PoorNoble range="60"/>
+				<Sorcerer range="50"/>
 			</Noble>
 		</CharClasses>
 	</standardTable>

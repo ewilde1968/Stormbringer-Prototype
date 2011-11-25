@@ -75,7 +75,6 @@
 			<skill name="Parry 1" value="40"/>
 			<skill name="Swim" value="50"/>
 			<skill name="Climb" value="40"/>
-			<skill name="Climb Rigging" value="75"/>
 			<skill name="Balance" value="50"/>
 		</Skills>
 		<Possessions>
@@ -89,7 +88,6 @@
 			<skill name="Parry 1" value="45"/>
 			<skill name="Swim" value="55"/>
 			<skill name="Climb" value="45"/>
-			<skill name="Climb Rigging" value="80"/>
 			<skill name="Balance" value="55"/>
 			<skill name="Navigation" value="80"/>
 		</Skills>
@@ -103,7 +101,6 @@
 			<skill name="Parry 1" value="50"/>
 			<skill name="Swim" value="60"/>
 			<skill name="Climb" value="50"/>
-			<skill name="Climb Rigging" value="85"/>
 			<skill name="Balance" value="60"/>
 			<skill name="Navigation" value="85"/>
 		</Skills>

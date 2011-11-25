@@ -46,7 +46,7 @@
 					 text="{character.name}"
 					 />
 			<s:Label id="subtextL"
-					 text="{character.nationality.name + ',   ' + character.ClassString()}"
+					 text="{character.nation + ',   ' + character.ClassString()}"
 					 styleName="subtextLabelStyle"
 					 />
 		</s:VGroup>

@@ -44,6 +44,11 @@
 			{
 				return new ArrayList( a);
 			}
+			
+			protected function ShowCultDropdown( a:Array):Boolean
+			{
+				return a.length > 0;
+			}
 
 			protected function actionL_changeHandler(event:IndexChangeEvent):void
 			{
@@ -140,24 +145,40 @@
 				</s:HGroup>
 				<s:HGroup verticalAlign="middle" paddingBottom="5">
 					<s:Label text="Nationality" width="80"/>
-					<s:TextInput id="nationalityTI" width="300" text="@{character.nationality.name}"/>
+					<s:TextInput id="nationalityTI" width="300" text="@{character.nation}"/>
 				</s:HGroup>
 				<s:HGroup verticalAlign="middle" paddingBottom="5">
 					<s:Label text="Class" width="80"/>
 					<s:TextInput id="classTI" width="300" text="{character.ClassString()}"/>
 				</s:HGroup>
-				<s:HGroup verticalAlign="middle" paddingBottom="5">
+				<s:HGroup verticalAlign="middle" paddingBottom="5"
+						  >
 					<s:Label text="Cult" width="80"/>
 					<s:DropDownList id="cultDDL" width="200" selectedItem="{character.cult}"
-									dataProvider="{GenerateCultList( character.nationality.cults)}"
+									includeInLayout="{ShowCultDropdown( character.availableCults)}"
+									visible="{ShowCultDropdown( character.availableCults)}"
+									dataProvider="{GenerateCultList( character.availableCults)}"
 									change="cultDDL_changeHandler(event)"
 									/>
+					<s:TextInput id="cultTI" width="200"
+								 includeInLayout="{!ShowCultDropdown( character.availableCults)}"
+								 visible="{!ShowCultDropdown( character.availableCults)}"
+								 text="@{character.cult}"
+								 />
 				</s:HGroup>
 				<s:HGroup verticalAlign="middle" paddingBottom="30">
 					<s:Label text="{'Hit Points: ' + character.maxHitPoints + '/'}"/>
-					<s:TextInput id="hpTI" width="35" text="{character.hitPoints}" restrict="0-9"/>
+					<s:TextInput id="HitPoints" width="35"
+								 text="{character.hitPoints}"
+								 restrict="0-9"
+								 change="statisticTI_changeHandler(event)"
+								 />
 					<s:Label text="Elan" paddingLeft="10"/>
-					<s:TextInput id="elanTI" width="35" text="{character.elan}" restrict="0-9"/>
+					<s:TextInput id="Elan" width="35"
+								 text="{character.elan}"
+								 restrict="0-9"
+								 change="statisticTI_changeHandler(event)"
+								 />
 				</s:HGroup>
 			</s:VGroup>
 			<s:Image id="portraitI"

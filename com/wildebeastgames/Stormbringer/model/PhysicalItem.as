@@ -192,6 +192,7 @@ package model
 			// there has to be a better way
 			items = new Array();
 			WeaponItem.ClearCache();
+			ArmorItem.ClearCache();
 		}
 	}
 }

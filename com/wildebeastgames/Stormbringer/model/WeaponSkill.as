@@ -65,10 +65,6 @@ package model
 				if( excludeNonParryWeapons && !wi.CanParry())
 					continue;
 				
-				// special case Beggar Rule skills to require two selection slots
-				if( bonus.name == "Beggar Mob" && character.NumSkillChoicesRemaining() < 2)
-					continue;
-				
 				if( wi.MeetsConstraints( character, "melee")
 					|| wi.MeetsConstraints( character, "ranged")) {
 					var newSkill:WeaponSkill = this.Copy() as WeaponSkill;

@@ -77,23 +77,23 @@
 						 />
 		</s:HGroup>
 		<s:HGroup verticalAlign="middle"
-				  visible="{character.nationality.alignment != null}"
-				  includeInLayout="{character.nationality.alignment != null}"
+				  visible="{character.alignment != null}"
+				  includeInLayout="{character.alignment != null}"
 				  >
 			<s:Label text="Alignment" width="80"/>
 			<s:TextInput id="alignTI"
 						 width="280"
-						 text="@{character.nationality.alignment}"
+						 text="@{character.alignment}"
 						 />
 		</s:HGroup>
 		<s:HGroup verticalAlign="middle"
-				  visible="{character.nationality.description != null}"
-				  includeInLayout="{character.nationality.description != null}"
+				  visible="{character.culture != null}"
+				  includeInLayout="{character.culture != null}"
 				  >
 			<s:Label text="Culture" width="80"/>
 			<s:TextInput id="cultureTI"
 						 width="280"
-						 text="@{character.nationality.description}"
+						 text="@{character.culture}"
 						 />
 		</s:HGroup>
 	</s:VGroup>

@@ -57,5 +57,10 @@ package model
 		{
 			return "Soak: " + protection;
 		}
+
+		static public function ClearCache():void
+		{
+			armors = new Array();
+		}
 	}
 }

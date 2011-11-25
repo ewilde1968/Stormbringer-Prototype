@@ -69,7 +69,7 @@
 					
 					// insert something into the while clause if you want a specific
 					// type of character
-				} while( false /*result.charClass[ "Noble"] == null*/);
+				} while( false /*result.charClass[ "Sorcerer"] == null*/);
 
 				return result;
 			}

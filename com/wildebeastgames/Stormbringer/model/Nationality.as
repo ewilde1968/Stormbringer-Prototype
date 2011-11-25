@@ -335,11 +335,6 @@ package model
 			}
 		}
 
-		override public function Load(rootObj:Object):StorableObject
-		{
-			return nationalities[ rootObj.name];
-		}
-		
 		public function InnerGenerateCharClassSet( c:CharClassLoad, char:Character):CharClassSet
 		{
 			var result:CharClassSet = new CharClassSet();
@@ -394,6 +389,10 @@ package model
 					else if( pl.defaultDice != 0 && pl.defaultDieSize != 0)
 						cash.quantity += Dice.Roll( pl.defaultDice, pl.defaultDieSize);
 				}
+				
+			// don't go below 0 in cash at character generation time
+			if( cash.quantity < 0)
+				char.RemovePossession( cash);
 		}
 	}
 }

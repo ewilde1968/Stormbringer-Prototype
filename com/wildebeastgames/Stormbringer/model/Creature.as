@@ -2,7 +2,7 @@ package model
 {
 	public class Creature extends RoleplayingObject
 	{
-		private var _stats:Array;
+		protected var _stats:Array;
 		
 		static public const FEMALE:Number = 0;
 		static public const MALE:Number = 1;
@@ -39,6 +39,8 @@ package model
 		[Bindable] public function set elan(n:Number):void {_stats["Elan"].value=n;}
 		public function get majorWound():Number {return _stats["MajorWound"].value;}
 		[Bindable] public function set majorWound(n:Number):void {_stats["MajorWound"].value=n;}
+		public function get alignment():String {return _stats["Alignment"].strVal;}
+		[Bindable] public function set alignment(s:String):void {_stats["Alignment"].strVal=s;}
 		
 		public function Creature()
 		{
