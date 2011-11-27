@@ -50,25 +50,28 @@ package model
 				
 				var tempString:String = xml.name();
 				a[0] = tempString;
-				
-				if( tempString == "Age") {
-					// add a key/value pairs to the array [class/multiplier]
-					a[1] = new Array();
-					
-					var classes:XMLList = xml.children();
-					for each( var cx:XML in classes) {
-						var ca:Array = new Array();
-						var cn:String = cx.name();
-						ca[0] = cn;
+
+				switch( tempString) {
+					case "Age":
+						// add a key/value pairs to the array [class/multiplier]
+						a[1] = new Array();
 						
-						var mn:Number = cx.attribute( "multiplier")[0];
-						ca[1] = mn;
-						a[1].push( ca);
-					}
-				} else {
-					temp = xml.attribute( "multiplier");
-					var n:Number = (temp.length() > 0) ? temp[0] : 1;
-					a[1] = n;
+						var classes:XMLList = xml.children();
+						for each( var cx:XML in classes) {
+							var ca:Array = new Array();
+							var cn:String = cx.name();
+							ca[0] = cn;
+						
+							var mn:Number = cx.attribute( "multiplier")[0];
+							ca[1] = mn;
+							a[1].push( ca);
+						}
+						break;
+					default:
+						temp = xml.attribute( "multiplier");
+						var n:Number = (temp.length() > 0) ? temp[0] : 1;
+						a[1] = n;
+						break;
 				}
 				
 				result.stats.push( a);

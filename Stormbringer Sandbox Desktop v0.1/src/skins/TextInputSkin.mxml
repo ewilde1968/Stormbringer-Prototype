@@ -19,7 +19,7 @@
 			includeIn="normal, normalWithPrompt"
 			>
 		<s:stroke>
-			<s:SolidColorStroke color="0x878a68" weight="1"/>
+			<s:SolidColorStroke color="0x878a68" weight="2"/>
 		</s:stroke>
 		<s:fill>
 			<s:SolidColor color="0x878a68" alpha=".2"/>

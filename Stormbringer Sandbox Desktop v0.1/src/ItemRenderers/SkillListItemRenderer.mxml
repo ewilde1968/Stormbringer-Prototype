@@ -10,6 +10,7 @@
 		<![CDATA[
 			import controller.ItemRendererContainer;
 			
+			import model.Character;
 			import model.Skill;
 			import model.SummoningSpell;
 			
@@ -21,6 +22,7 @@
 			[Bindable] private var skill:Skill;
 			[Bindable] private var summon:SummoningSpell;
 			[Bindable] private var context:String;
+			[Bindable] private var character:Character;
 			
 			protected function dataChangeHandler(event:FlexEvent):void
 			{
@@ -29,6 +31,7 @@
 					skill = irc.dataObject as Skill;
 					context = irc.context;
 					summon = skill as SummoningSpell;	// may be null
+					character = irc.character;
 				}
 			}
 			
@@ -60,7 +63,7 @@
 					 />
 			<s:HGroup gap="10">
 				<s:Label id="subtextL"
-						 text="{skill.GetMessage()}"
+						 text="{skill.GetMessage( character)}"
 						 styleName="subtextLabelStyle"
 						 />
 				<s:Label id="summonL"

@@ -10,6 +10,7 @@
 			
 			import model.Character;
 			import model.Skill;
+			import model.WeaponSkill;
 			
 			import mx.collections.ArrayList;
 			
@@ -20,9 +21,34 @@
 			[Bindable] public var character:Character;
 			[Bindable] public var skillF:Function;
 			
-			private function AlphaSort( a:ItemRendererContainer, b:ItemRendererContainer):int
+			private function SkillSort( a:ItemRendererContainer, b:ItemRendererContainer):int
 			{
-				return Skill.AlphaSort( a.dataObject as Skill, b.dataObject as Skill);
+				// Sort Policy
+				// incomplete is always higher than complete
+				// for complete skills, alphabetic
+				// for incomplete skills, sort by combat vs. non-combat then alphabetic
+				var aSkill:Skill = a.dataObject as Skill;
+				var bSkill:Skill = b.dataObject as Skill;
+
+				if( aSkill.complete != bSkill.complete) {
+					if( aSkill.complete)
+						return 1;
+					else
+						return -1;
+				}
+				
+				// both are either complete or incomplete
+				if( aSkill.complete)
+					return Skill.AlphaSort( aSkill, bSkill);
+				
+				// both are incomplete, put weapon first
+				if( aSkill is WeaponSkill && !(bSkill is WeaponSkill))
+					return -1;
+				else if( !(aSkill is WeaponSkill) && bSkill is WeaponSkill)
+					return 1;
+
+				// either both are weapon or neither are weapon
+				return Skill.AlphaSort( aSkill, bSkill);
 			}
 
 			protected function GetSkillListProvider( char:Character, con:String):ArrayList
@@ -36,7 +62,7 @@
 						if( skill != null)
 							a.push( irc);
 					}
-					a.sort( AlphaSort);
+					a.sort( SkillSort);
 				}
 				
 				var result:ArrayList = new ArrayList( a);

@@ -135,7 +135,7 @@ package model
 			return result;
 		}
 		
-		override public function GetMessage():String
+		override public function GetMessage( char:Character = null):String
 		{
 			return GetMessageString( 0, Math.ceil( typeA.length / 2.0));
 		}

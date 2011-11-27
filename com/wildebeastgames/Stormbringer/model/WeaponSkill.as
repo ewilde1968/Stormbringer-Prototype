@@ -94,16 +94,18 @@ package model
 			return result;
 		}
 		
-		override public function GetMessage():String
+		override public function GetMessage( char:Character = null):String
 		{
 			var result:String = "";
 			
 			if( weapon != null)
 				result += weapon.GetMessage();
-			if( complete && character != null) {
+			
+			char = (char == null) ? character : char;
+			if( char != null) {
 				if( result.length > 0)
 					result += "\r";
-				result += "Total: " + GetValue();
+				result += "Total: " + GetValue( char);
 			}
 			
 			return result;

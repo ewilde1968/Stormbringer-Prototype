@@ -174,19 +174,23 @@ package model
 				// show melee weapon
 				needCR = true;
 				
-				result += "Melee:     ";
+				result += "Melee:  ";
 				result += (hands == 2) ? "(Two-handed)  " : "";
 				result += "reach: " + reach + "cm  ";
 				result += "damage: " + meleeDamage;
+				if( character != null)
+					result += character.GetMeleeDamageModifier();
 			}
 			
 			if( rangedDamage != null && rangedDamage.length > 0) {
 				if( needCR)
 					result += "\r";
 				
-				result += "Ranged:  ";
+				result += "Ranged: ";
 				result += "range: " + range + "m  ";
 				result += "damage: " + rangedDamage;
+				if( character != null)
+					result += character.GetRangedDamageModifier();
 			}
 
 			return result;

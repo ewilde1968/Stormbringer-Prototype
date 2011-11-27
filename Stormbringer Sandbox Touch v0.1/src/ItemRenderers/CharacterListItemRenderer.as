@@ -53,7 +53,7 @@ package ItemRenderers
 				labelDisplay.text = character.name;
 				
 				if( secondLine != null)
-					secondLine.text = character.nationality.name + ",   " + character.ClassString();
+					secondLine.text = character.nation + ",   " + character.ClassString();
 
 				if( deleteB) {
 					deleteB.objectToDelete = character;

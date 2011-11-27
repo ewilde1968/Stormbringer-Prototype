@@ -22,7 +22,21 @@
 			
 			private function AlphaSort( a:ItemRendererContainer, b:ItemRendererContainer):int
 			{
-				return PhysicalItem.AlphaSort( a.dataObject as PhysicalItem, b.dataObject as PhysicalItem);
+				// Sort Policy
+				// incomplete is always higher than complete
+				// otherwise alphabetic
+				var aPI:PhysicalItem = a.dataObject as PhysicalItem;
+				var bPI:PhysicalItem = b.dataObject as PhysicalItem;
+				
+				if( aPI.complete != bPI.complete) {
+					if( aPI.complete)
+						return 1;
+					else
+						return -1;
+				}
+				
+				// either both are complete or both are incomplete
+				return PhysicalItem.AlphaSort( aPI, bPI);
 			}
 			
 			protected function GetPossessionListProvider( char:Character):ArrayList

@@ -395,5 +395,39 @@ package model
 			
 			return result;
 		}
+		
+		public function GetMeleeDamageModifier():String
+		{
+			// BOGUS: quick hack in this prototype to just get it to work
+			// need to rearchitect on next prototype version
+			var compare:Number = strength + size;
+			if( compare < 17)
+				return "-1d6";
+			if( compare < 25)
+				return "";
+			if( compare < 41)
+				return "+1d6";
+			if( compare < 51)
+				return "+2d6";
+			
+			return "+3d6";
+		}
+		
+		public function GetRangedDamageModifier():String
+		{
+			// BOGUS: quick hack in this prototype to just get it to work
+			// need to rearchitect on next prototype version
+			var compare:Number = strength + size;
+			if( compare < 17)
+				return "-1d4";
+			if( compare < 25)
+				return "";
+			if( compare < 41)
+				return "+1d4";
+			if( compare < 51)
+				return "+2d4";
+			
+			return "+3d4";
+		}
 	}
 }

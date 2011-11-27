@@ -46,7 +46,7 @@ package model
 			return result;
 		}
 		
-		override public function GetMessage():String
+		override public function GetMessage( char:Character = null):String
 		{
 			return "Power vs. Demon Power";
 		}

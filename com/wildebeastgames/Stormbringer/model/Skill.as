@@ -255,16 +255,17 @@ package model
 			return false;
 		}
 
-		public function GetValue():Number
+		public function GetValue( char:Character = null):Number
 		{
-			var result:Number = skillLevel + ( bonus != null ? bonus.Value( character) : 0);
+			char = (char == null) ? character : char;
+			var result:Number = skillLevel + ( bonus != null ? bonus.Value( char) : 0);
 			
 			// now adjust for extreme ages
 			// NOTE: This is different than the written rules as I feel the written rules are wrong
-			if( character.age < 25)
-				result -= 5 * (25 - character.age);
-			else if( character.age > 40 && IsPhysical())
-				result -= (character.age - 40);
+			if( char.age < 25)
+				result -= 5 * (25 - char.age);
+			else if( char.age > 40 && IsPhysical())
+				result -= (char.age - 40);
 			
 			return result;
 		}
@@ -307,15 +308,17 @@ package model
 			return result;
 		}
 		
-		public function GetMessage():String
+		public function GetMessage( char:Character = null):String
 		{
 			// normal skill
 			// bonus, level
 			var result:String = bonus ? ( "Bonus: " + bonus.name) : "";
-			if( complete && character != null) {
+
+			char = (char == null) ? character : char;
+			if( char != null) {
 				if( result.length > 0)
-					result += " (" + bonus.Value( character) + ")\r";
-				result += "Total: " + GetValue();
+					result += " (" + bonus.Value( char) + ")\r";
+				result += "Total: " + GetValue( char);
 			}
 
 			return result;
