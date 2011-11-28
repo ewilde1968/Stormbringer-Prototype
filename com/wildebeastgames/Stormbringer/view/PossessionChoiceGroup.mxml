@@ -65,8 +65,10 @@
 						item.character.AddPossession( possessedItem);
 						
 						// spend the money
-						var lbp:PhysicalItem = item.character.GetPossessionByName( "Large Bronze Pieces");
-						lbp.quantity -= possessedItem.cost;
+						if( context != "GenerateCharacter") {
+							var lbp:PhysicalItem = item.character.GetPossessionByName( "Large Bronze Pieces");
+							lbp.quantity -= possessedItem.cost;
+						}
 						
 						if( doneF != null)
 							doneF();

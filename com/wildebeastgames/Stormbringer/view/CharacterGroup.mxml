@@ -49,7 +49,7 @@
 			
 			protected function ShowCultDropdown( a:Array):Boolean
 			{
-				return a.length > 0;
+				return a != null && a.length > 0;
 			}
 
 			protected function actionL_changeHandler(event:IndexChangeEvent):void

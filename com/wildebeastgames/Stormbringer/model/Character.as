@@ -19,13 +19,13 @@ package model
 		private var _skills:Array;
 		private var _cult:String;
 		private var _possessions:Array;
+		private var needsDefaultSkills:Boolean = false;
 		[Bindable] public var skinDescription:String;
 		[Bindable] public var eyesDescription:String;
 		[Bindable] public var availableCults:Array;
 		[Bindable] public var classString:String;
 		
 		public var hasChosenWeaponSkill:Boolean = false;
-		private var defaultSkillsApplied:Boolean = false;
 		
 		public function get charClass():Array {return _charClass;}
 		public function set charClass(a:Array):void {_charClass = a;};
@@ -106,16 +106,14 @@ package model
 				}
 			}
 			
-			defaultSkillsApplied = obj.defaultSkillsApplied;
+			classString = ClassString();
 		}
 		
 		override public function Save():void
 		{
-			// only apply  the default skills once upon character generation
-			if( !defaultSkillsApplied) {
-				defaultSkillsApplied = true;
+			if( needsDefaultSkills)
 				ApplyDefaultSkills();
-			}
+			needsDefaultSkills = false;
 			
 			// character name
 			if( name == null || name.length < 1)
@@ -204,6 +202,7 @@ package model
 		static public function GenerateRandomCharacter( choiceCallback:Function = null):Character
 		{
 			var result:Character = new Character();
+			result.needsDefaultSkills = true;
 
 			// Generate Stats
 			result.stats["Strength"] = Statistic.Generate( "Strength");
