@@ -48,6 +48,10 @@
 			</possession>
 			<possession name="Large Bronze Pieces" value="random" dice="5" size="100" multiplier="Intelligence"/>
 		</Possessions>
+		<Choice description="Choose an additional character class.">
+			<CharacterClass name="Trader" description="An experienced, travelling merchant."/>
+			<CharacterClass name="None" description="No additional class added."/>
+		</Choice>
 	</CharacterClass>
 	<CharacterClass name="Trader">
 		<Skills>
@@ -81,6 +85,11 @@
 			<possession name="Weapon 1" value="1" type="GenericWeapon"/>
 			<possession name="Large Bronze Pieces" value="random" dice="1" size="20" multiplier="Intelligence"/>
 		</Possessions>
+		<Choice description="Choose an additional character class.">
+			<CharacterClass name="Mate" description="Experienced first mate."/>
+			<CharacterClass name="Captain" description="Captain of a sailing ship."/>
+			<CharacterClass name="None" description="No additional class added."/>
+		</Choice>
 	</CharacterClass>
 	<CharacterClass name="Mate">
 		<Skills>
@@ -109,13 +118,25 @@
 		</Possessions>
 	</CharacterClass>
 	<CharacterClass name="Hunter">
+		<Choice description="Choose to focus either on bows or hand-to-hand fighting.">
+			<SkillGroup name="Hand-to-hand" description="Focus on melee fighting">
+				<skill name="Weapon 1" value="30"/>
+				<skill name="Parry 1" value="30"/>
+				<skill name="Self Bow Attack" value="25">
+					<constraint name="Strength" value="8" relation="greater"/>
+					<constraint name="Dexterity" value="8" relation="greater"/>
+				</skill>
+			</SkillGroup>
+			<SkillGroup name="Self-Bow" description="Focus on bow. Must have 8 Strength and 8 Dexterity.">
+				<skill name="Weapon 1" value="25"/>
+				<skill name="Parry 1" value="25"/>
+				<skill name="Self Bow Attack" value="30">
+					<constraint name="Strength" value="8" relation="greater"/>
+					<constraint name="Dexterity" value="8" relation="greater"/>
+				</skill>
+			</SkillGroup>
+		</Choice>
 		<Skills>
-			<skill name="Weapon 1" value="30"/>
-			<skill name="Parry 1" value="30"/>
-			<skill name="Self Bow Attack" value="25">
-				<constraint name="Strength" value="8" relation="greater"/>
-				<constraint name="Dexterity" value="8" relation="greater"/>
-			</skill>
 			<skill name="Set/Disarm Trap" value="50"/>
 			<skill name="Ambush" value="50"/>
 			<skill name="Track" value="50"/>

@@ -22,6 +22,7 @@ package model
 		[Bindable] public var skinDescription:String;
 		[Bindable] public var eyesDescription:String;
 		[Bindable] public var availableCults:Array;
+		[Bindable] public var classString:String;
 		
 		public var hasChosenWeaponSkill:Boolean = false;
 		private var defaultSkillsApplied:Boolean = false;
@@ -143,8 +144,16 @@ package model
 			super.Save();
 		}
 
-		private function AddClass( c:CharClassLoad):void
+		public function HasClass( cName:String):Boolean
 		{
+			return charClass[ cName] != null;
+		}
+
+		public function AddClass( c:CharClassLoad, choiceCallback:Function = null):void
+		{
+			if( HasClass( c.name))
+				return;	// character already has this class
+			
 			var characterClass:CharacterClass = CharacterClass.GetCharacterClass( c.name);
 			if( characterClass != null) {
 				charClass[ c.name] = characterClass;
@@ -178,15 +187,21 @@ package model
 				
 				// Determine Skills
 				characterClass.ApplySkills( this);
+				
+				// Determine Choices
+				characterClass.ApplyChoices( this, choiceCallback);
 
 				// Determine Possessions, some possessions require skills to get, so this
 				// call should come after ApplySkills
 				characterClass.ApplyPossessions( this);
+				
+				// Update the class string
+				classString = ClassString();
 			} else
 				throw Error( "Character:AddClass - character type didn't exist");
 		}
 
-		static public function GenerateRandomCharacter():Character
+		static public function GenerateRandomCharacter( choiceCallback:Function = null):Character
 		{
 			var result:Character = new Character();
 
@@ -220,7 +235,7 @@ package model
 			// Determine Class
 			var cs:CharClassSet = n.GenerateCharClassSet( result);
 			for each( var c:CharClassLoad in cs.array)
-				result.AddClass( c);
+				result.AddClass( c, choiceCallback);
 
 			// Determine Additional Skills
 			var additionalSkills:Number = SandboxGlobals.preferences().lessSkills ?
@@ -289,7 +304,7 @@ package model
 				sorcererRanks = "Circle V";
 		}
 
-		public function ClassString():String
+		private function ClassString():String
 		{
 			var result:String = "";
 			for each( var c:CharacterClass in charClass) {

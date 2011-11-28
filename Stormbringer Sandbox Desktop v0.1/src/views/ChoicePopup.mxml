@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:model="model.*"
+			   xmlns:view="view.*"
+			   add="addHandler(event)"
+			   creationComplete="addHandler(event)"
+			   width="400" height="300"
+			   >
+	<fx:Script>
+		<![CDATA[
+			import model.ClassChoice;
+			
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.RadioButton;
+			public var onChoice:Function;
+			
+			protected function okHandler():void
+			{
+				if( choiceRBG.selection != null) {
+					if( onChoice != null)
+						onChoice( choiceRBG.selectedValue, character);
+					PopUpManager.removePopUp( this);
+				}
+			}
+			
+			protected function addHandler(event:FlexEvent):void
+			{
+				if( radioButtonsVG == null)
+					return;	// not yet ready to add
+				
+				radioButtonsVG.removeAllElements();
+				for each( var cc:ClassChoice in dataProvider) {
+					var rb:RadioButton = new RadioButton();
+					rb.label = cc.name + " - " + cc.description;
+					rb.group = choiceRBG;
+					rb.value = cc;
+					radioButtonsVG.addElement( rb);
+				}
+			}
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+	</s:layout>
+	
+	<fx:Declarations>
+		<fx:String id="instructionsS"/>
+		<fx:Array id="dataProvider"/>
+		<model:Character id="character"/>
+		<s:RadioButtonGroup id="choiceRBG"/>
+	</fx:Declarations>
+	
+	<s:Label text="{instructionsS}" width="80%"/>
+	<s:VGroup id="radioButtonsVG" horizontalAlign="contentJustify"/>
+	<view:KeyResponsiveButton id="okB"
+							  label="OK"
+							  buttonDown="okHandler()"
+							  />
+</s:TitleWindow>

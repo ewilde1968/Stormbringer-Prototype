@@ -2,6 +2,7 @@ package model
 {
 	import controller.Dice;
 	
+	import mx.collections.ArrayCollection;
 	import mx.utils.ObjectUtil;
 
 	public class CharacterClass extends StorableObject
@@ -12,6 +13,8 @@ package model
 		private var statistics:Array;
 		public var excludedSkills:Array;	// some classes are excluded from certain weapons or skills
 		public var includedSkills:Array;	// explicitly included weapons or skills, to be used when generic skill excluded
+		public var choices:Array;			// a character class can have one special choice
+		public var choiceDescription:String;
 		
 		static private var classes:Array;
 		
@@ -25,6 +28,7 @@ package model
 			statistics = new Array();
 			excludedSkills = new Array();
 			includedSkills = new Array();
+			choices = new Array();
 			
 			if( classes == null)
 				classes = new Array();
@@ -50,6 +54,7 @@ package model
 
 			result.name = x.attribute( "name")[0];
 			
+
 			var chillins:XMLList = x.Skills.children();
 			for each( var xml:XML in chillins) {
 				var tempS:String = xml.name();
@@ -75,6 +80,14 @@ package model
 					default:
 						break;
 				}
+			}
+			
+			chillins = x.Choice;
+			if( chillins != null && chillins.length() > 0) {
+				result.choiceDescription = chillins.attribute( "description");
+				chillins = x.Choice.children();
+				for each( xml in chillins)
+					result.choices.push( new ClassChoice( xml));
 			}
 			
 			chillins = x.Possessions.children();
@@ -110,35 +123,39 @@ package model
 				m.Apply( char);
 		}
 
-		public function ApplySkills( char:Character):void
+		private function InnerApplySkills( s:SkillLoad, char:Character):void
 		{
-			for each( var s:SkillLoad in skills) {
-				var skill:Skill = Skill.FromSkillLoad( s, char);
-
-				var meetsConstraints:Boolean = true;
-				for each( var constraint:Constraint in s.constraints)
-					if( !constraint.MeetsConstraint( char)) {
-						meetsConstraints = false;
-						break;
-					}
-
-				if( meetsConstraints) {
-					char.AddSkill( skill);
-					
-					// If this is the Credit skill, add money per credit rules
-					if( skill.name == "Credit") {
-						if( Dice.Roll(1,100) <= skill.skillLevel) {
-							var lbs:PhysicalItem = PhysicalItem.GetPhysicalItemByName( "Large Bronze Pieces");
-							if( Dice.Roll(1,6) < 6)
-								lbs.quantity = Dice.Roll(1,100) * 5;
-							else
-								lbs.quantity = Dice.Roll(1,100) * 10;
-							
-							char.AddPossession( lbs);
-						}
+			var skill:Skill = Skill.FromSkillLoad( s, char);
+			
+			var meetsConstraints:Boolean = true;
+			for each( var constraint:Constraint in s.constraints)
+			if( !constraint.MeetsConstraint( char)) {
+				meetsConstraints = false;
+				break;
+			}
+			
+			if( meetsConstraints) {
+				char.AddSkill( skill);
+				
+				// If this is the Credit skill, add money per credit rules
+				if( skill.name == "Credit") {
+					if( Dice.Roll(1,100) <= skill.skillLevel) {
+						var lbs:PhysicalItem = PhysicalItem.GetPhysicalItemByName( "Large Bronze Pieces");
+						if( Dice.Roll(1,6) < 6)
+							lbs.quantity = Dice.Roll(1,100) * 5;
+						else
+							lbs.quantity = Dice.Roll(1,100) * 10;
+						
+						char.AddPossession( lbs);
 					}
 				}
 			}
+		}
+
+		public function ApplySkills( char:Character):void
+		{
+			for each( var s:SkillLoad in skills)
+				InnerApplySkills( s, char);
 		}
 		
 		public function ApplyPossessions( char:Character):void
@@ -169,6 +186,44 @@ package model
 					pi.quantity = pl.GetQuantity( char);
 					char.AddPossession( pi);
 				}
+			}
+		}
+		
+		private function ChoiceMade( choice:ClassChoice, char:Character):void
+		{
+			switch( choice.type) {
+				case "SkillGroup":
+					for each( var s:SkillLoad in choice.bennie)
+						InnerApplySkills( s, char);
+					break;
+				case "CharacterClass":
+					if( choice.name != "None") {
+						var c:CharClassLoad = new CharClassLoad();
+						c.name = choice.name;
+						char.AddClass( c);
+					}
+					break;
+			}
+		}
+
+		public function ApplyChoices( char:Character, choiceCallback:Function = null):void
+		{
+			if( choices.length > 0 && choiceCallback != null) {
+				// a choice exists
+				// only one choice exists for each class (temporary limitation for prototype)
+				var cc:ClassChoice = choices[0] as ClassChoice;
+				switch( cc.type) {
+					case "SkillGroup":
+						break;
+					case "CharacterClass":
+						for each( cc in choices) {
+							if( char.HasClass( cc.name))
+								return;	// character already has class
+						}
+						break;
+				}
+
+				choiceCallback( choiceDescription, choices, ChoiceMade, char);
 			}
 		}
 	}

@@ -10,9 +10,15 @@
 			import model.PhysicalItem;
 			import model.Skill;
 			
+			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.events.FlexEvent;
 			import mx.events.ValidationResultEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Window;
+			
+			import views.ChoicePopup;
 			
 			[Bindable] private var complete:Boolean = false;
 			private var _character:Character;
@@ -59,13 +65,29 @@
 				return false;
 			}
 			
+			private function handleChoice( description:String,
+										   dataProvider:Array,
+										   choiceCallback:Function,
+										   char:Character):void
+			{
+				var popupWindow:ChoicePopup = new ChoicePopup();
+				popupWindow.dataProvider = dataProvider;
+				popupWindow.title = "Class Choice";
+				popupWindow.instructionsS = description;
+				popupWindow.character = char;
+				popupWindow.onChoice = choiceCallback;
+
+				PopUpManager.addPopUp( popupWindow, this, true);
+				PopUpManager.centerPopUp( popupWindow);
+			}
+
 			private function GenerateCharacter():Character
 			{
 				var result:Character = null;
 				
 				do {
 					// Create a random character and let the user edit it as they wish
-					result = Character.GenerateRandomCharacter();
+					result = Character.GenerateRandomCharacter( handleChoice);
 					
 					// insert something into the while clause if you want a specific
 					// type of character

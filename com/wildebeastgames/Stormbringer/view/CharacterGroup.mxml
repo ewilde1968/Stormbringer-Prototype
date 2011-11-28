@@ -166,7 +166,7 @@
 				</s:HGroup>
 				<s:HGroup verticalAlign="middle" paddingBottom="5">
 					<s:Label text="Class" width="80"/>
-					<s:TextInput id="classTI" width="300" text="{character.ClassString()}"/>
+					<s:TextInput id="classTI" width="300" text="{character.classString}"/>
 				</s:HGroup>
 				<s:HGroup verticalAlign="middle" paddingBottom="5"
 						  >

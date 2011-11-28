@@ -59,6 +59,10 @@ views|ScrimError {
 	skinClass:ClassReference("skins.ScrimErrorSkin");
 }
 
+views|ChoicePopup {
+	skinClass:ClassReference("skins.ChoicePopupSkin");
+}
+
 view|IconButton {
 	skinClass: ClassReference("skins.IconButtonSkin");
 }

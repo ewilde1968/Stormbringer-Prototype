@@ -56,7 +56,7 @@ package model
 				case "training":
 					return 0;
 				case "Class":
-					return character.ClassString().indexOf( value);
+					return character.classString.indexOf( value);
 				default:
 					return character.skills[ name].skillLevel;
 					// must be a skill
