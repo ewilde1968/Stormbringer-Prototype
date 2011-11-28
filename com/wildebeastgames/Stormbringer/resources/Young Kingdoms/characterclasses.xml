@@ -127,7 +127,7 @@
 					<constraint name="Dexterity" value="8" relation="greater"/>
 				</skill>
 			</SkillGroup>
-			<SkillGroup name="Self-Bow" description="Focus on bow. Must have 8 Strength and 8 Dexterity.">
+			<SkillGroup name="Self-Bow" description="Focus on bow. Must have 9 Strength and 9 Dexterity.">
 				<skill name="Weapon 1" value="25"/>
 				<skill name="Parry 1" value="25"/>
 				<skill name="Self Bow Attack" value="30">

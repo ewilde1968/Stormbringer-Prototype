@@ -20,7 +20,7 @@
 			[Bindable] public var possessionF:Function;
 			[Bindable] public var addF:Function;
 			
-			private function AlphaSort( a:ItemRendererContainer, b:ItemRendererContainer):int
+			private function ItemSort( a:ItemRendererContainer, b:ItemRendererContainer):int
 			{
 				// Sort Policy
 				// incomplete is always higher than complete
@@ -51,7 +51,7 @@
 							a.push( irc);
 						}
 					}
-					a.sort( AlphaSort);
+					a.sort( ItemSort);
 				}
 				
 				var result:ArrayList = new ArrayList( a);
