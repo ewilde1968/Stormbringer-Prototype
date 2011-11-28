@@ -50,6 +50,8 @@
 			private function skillsF( char:Character, con:String):void
 			{
 				selectedChild = skillsNC;
+				if( skillsG != null && skillsG.skillLG != null)
+					skillsG.skillLG.Refresh();
 			}
 			
 			private function possessionsF( char:Character, con:String):void

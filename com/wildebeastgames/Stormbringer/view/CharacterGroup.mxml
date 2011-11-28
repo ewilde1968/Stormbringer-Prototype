@@ -8,7 +8,9 @@
 	<fx:Script>
 		<![CDATA[
 			import controller.ItemRendererContainer;
+			import controller.SandboxGlobals;
 			
+			import model.Bonus;
 			import model.Character;
 			import model.PhysicalItem;
 			import model.Skill;
@@ -115,6 +117,21 @@
 				var s:Statistic = character.stats[ event.target.id];
 				if( s)
 					s.value = event.target.text;
+				
+				// see if other things need to change
+				switch( s.name) {
+					case "Constitution":
+					case "Size":
+						var hpBonus:Bonus = Bonus.Get( "Hit Points");
+						var maxHP:int = SandboxGlobals.preferences().averageHitPoints ?
+							Math.ceil( (character.constitution + character.size) / 2.0) :
+							character.constitution + hpBonus.Value( character);
+						
+						// take into account any currently missing hit points or damage
+						character.hitPoints = maxHP - (character.maxHitPoints - character.hitPoints);
+						character.maxHitPoints = maxHP;
+						break;
+				}
 			}
 			
 			public function Refresh():void

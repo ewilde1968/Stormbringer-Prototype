@@ -92,6 +92,11 @@
 						skillF( skill);
 				}
 			}
+			
+			public function Refresh():void
+			{
+				skillsL.dataProvider = GetSkillListProvider( character, context);
+			}
 		]]>
 	</fx:Script>
 
