@@ -14,6 +14,7 @@
 			import mx.events.FlexEvent;
 			
 			import spark.events.IndexChangeEvent;
+			import spark.events.TextOperationEvent;
 			
 			[Bindable] public var skill:Skill;
 			[Bindable] public var doneF:Function;
@@ -25,6 +26,12 @@
 				if( doneF != null)
 					doneF();
 			}
+			
+			protected function levelTI_changeHandler(event:TextOperationEvent):void
+			{
+				if( skill != null && levelTI != null)
+					skill.skillLevel = parseInt( levelTI.text);
+			}
 		]]>
 	</fx:Script>
 	
@@ -34,12 +41,24 @@
 	
 	<s:VGroup horizontalAlign="center">
 		<s:Label id="titleL" styleName="titleLabelStyle" text="{skill.name}"/>
-		<s:Label id="bonusL" styleName="boldLabelStyle" text="{skill.bonus.name}"/>
 		<s:TextArea id="descriptionTA"
 					width="500" height="300"
 					text="@{skill.description}"
 					editable="false"
 					/>
+		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle">
+			<s:TextInput id="levelTI"
+						 text="{skill.skillLevel}"
+						 restrict="0-9"
+						 width="35"
+						 change="levelTI_changeHandler(event)"
+						 />
+			<s:Label text="% Success"/>
+			<s:Spacer width="60"/>
+			<s:Label id="bonusValueL"
+					 text="{skill.bonus.name + ' (' + skill.bonus.Value( skill.character) + ')'}"
+					 />
+		</s:HGroup>
 		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle">
 			<s:CheckBox label="Used Successfully"
 						selected="@{skill.checked}"

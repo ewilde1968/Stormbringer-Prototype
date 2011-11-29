@@ -6,6 +6,7 @@
 	<fx:Script>
 		<![CDATA[
 			import model.Character;
+			import model.Skill;
 			
 			import mx.events.FlexEvent;
 			

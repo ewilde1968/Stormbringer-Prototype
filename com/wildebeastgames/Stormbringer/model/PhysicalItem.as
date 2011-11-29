@@ -66,7 +66,7 @@ package model
 			result.name = x.attribute( "name")[0];
 			
 			temp = x.attribute( "cost");
-			result.cost = (temp.length() > 0) ? temp[0] : 0;
+			result.cost = (temp.length() > 0) ? temp[0] : Number.NEGATIVE_INFINITY;
 			
 			temp = x.attribute( "description");
 			result.description = (temp.length() > 0) ? temp[0] : null;
@@ -174,7 +174,7 @@ package model
 			var result:Array = new Array();
 			
 			for each( var pi:PhysicalItem in items)
-				if( pi.cost > 0)
+				if( pi.cost != Number.NEGATIVE_INFINITY)
 					result.push( pi);
 			
 			result.sort( AlphaSort);

@@ -80,7 +80,7 @@
 	<physicalitem name="Head Butt" category="Weapon">
 		<melee damage="1d4"/>
 	</physicalitem>
-	<physicalitem name="Cudgel" category="Weapon" description="Any ordinary wooden club.">
+	<physicalitem name="Cudgel" cost="0" category="Weapon" description="Any ordinary wooden club.">
 		<melee strength="7" dexterity="7" damage="1d6" length="90"/>
 	</physicalitem>
 	<physicalitem name="Dagger" cost="100" category="Weapon" description="Any form of knife, smaller even than the shortsword. Throwing daggers are generally straight and well-balanced.">
@@ -158,7 +158,7 @@
 	<physicalitem name="Bone Bow" cost="750" category="Weapon" description="A long composite bow; the secret of its manufacture was known only to the slave-bowyers of Melnibone. Only after the sack of Imryrr was this bow available to non-Melniboneans.">
 		<ranged strength="11" dexterity="13" damage="2d6+1" range="135"/>
 	</physicalitem>
-	<physicalitem name="Rock" category="Weapon" description="Any piece of stone you can pick up off the ground and throw.">
+	<physicalitem name="Rock" cost="0" category="Weapon" description="Any piece of stone you can pick up off the ground and throw.">
 		<ranged dexterity="5" damage="2d4" range="30"/>
 	</physicalitem>
 	<physicalitem name="Self Bow" cost="250" category="Weapon" description="The equivalent of the English long bow with a sngle curve to the wood. The Young Kingdoms' variety is not so well made as the English bow and does not generate as much power.">

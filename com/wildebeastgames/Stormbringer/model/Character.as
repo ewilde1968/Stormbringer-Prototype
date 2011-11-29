@@ -89,7 +89,7 @@ package model
 					AddSkill( sk);
 				}
 			}
-			
+						
 			for each( o in obj.charClass) {
 				if( o != null) {
 					var cClass:CharacterClass = new CharacterClass();

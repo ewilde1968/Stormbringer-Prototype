@@ -9,6 +9,7 @@
 			import controller.ItemRendererContainer;
 			
 			import model.Character;
+			import model.Skill;
 			import model.StorageDevice;
 			
 			import mx.collections.ArrayList;
