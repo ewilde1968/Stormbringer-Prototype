@@ -7,6 +7,8 @@
 
 	<fx:Script>
 		<![CDATA[
+			import controller.SandboxGlobals;
+			
 			import model.Account;
 			
 			import mx.managers.PopUpManager;
@@ -18,7 +20,6 @@
 			static private const maxAlpha:Number = 0.7;
 
 			[Bindable] public var showNavContent:Boolean = true;
-			[Bindable] public var showActionContent:Boolean = true;
 			
 			protected function backB_clickHandler(event:MouseEvent):void
 			{
@@ -27,31 +28,16 @@
 			
 			protected function logoutB_clickHandler(event:MouseEvent):void
 			{
-				if( parentApplication.globals.loggedIn)
+				if( SandboxGlobals.singleton.IsLoggedIn())
 					parentApplication.LogOut();
-				else
-					navigator.pushView( AccountView);
-			}
-			
-			protected function settingsI_clickHandler(event:MouseEvent):void
-			{
-				navigator.pushView( PreferencesView, parentApplication.globals.loggedIn);
 			}
 			
 			private function WelcomeString( a:Account):String
 			{
-				if( a != null)
+				if( SandboxGlobals.singleton.IsLoggedIn())
 					return "Welcome " + a.email;
 				
 				return "";
-			}
-			
-			private function LoginString( a:Account):String
-			{
-				if( a != null)
-					return "Logout";
-				else
-					return "Login";
 			}
 		]]>
 	</fx:Script>
@@ -63,9 +49,15 @@
 	</s:navigationContent>
 	
 	<s:actionContent>
-		<s:Label text="{WelcomeString( parentApplication.globals.loggedIn)}" styleName="WelcomeText"/>
-		<s:Button id="logoutB" label="{LoginString( parentApplication.globals.loggedIn)}"
-				  enabled="{showActionContent}"
+		<s:Label id="welcomeL"
+				 text="{WelcomeString( SandboxGlobals.singleton.loggedIn)}"
+				 styleName="WelcomeText"
+				 visible="{SandboxGlobals.singleton.IsLoggedIn()}"
+				 />
+		<s:Button id="logoutB"
+				  label="Logout"
+				  enabled="{SandboxGlobals.singleton.IsLoggedIn()}"
+				  visible="{SandboxGlobals.singleton.IsLoggedIn()}"
 				  click="logoutB_clickHandler(event)"/>
 	</s:actionContent>
 </s:View>

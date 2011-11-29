@@ -3,13 +3,19 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:mx="library://ns.adobe.com/flex/mx"
 		xmlns:views="views.*"
+		xmlns:view="view.*"
 		title="Login"
-		showActionContent="false" xmlns:view="view.*"
+		showNavContent="false"
+		viewActivate="viewActivateHandler(event)"
 		>
 	
 	<fx:Script>
 		<![CDATA[
+			import controller.SandboxGlobals;
+			
 			import model.Account;
+			
+			import spark.events.ViewNavigatorEvent;
 			protected function forgotHandler():void
 			{
 				navigator.pushView( ForgotPasswordView);
@@ -24,6 +30,14 @@
 			{
 				parentApplication.LogIn( a);
 			}
+			
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				if( parentApplication.tabbedNavigator.selectedNavigator == parentApplication.accountVN
+					&& SandboxGlobals.singleton.IsLoggedIn())
+					navigator.pushView( PreferencesView);
+			}
+			
 		]]>
 	</fx:Script>
 

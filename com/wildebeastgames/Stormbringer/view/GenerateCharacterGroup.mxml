@@ -16,10 +16,6 @@
 			import mx.events.ValidationResultEvent;
 			import mx.managers.PopUpManager;
 			
-			import spark.components.Window;
-			
-			import views.ChoicePopup;
-			
 			[Bindable] private var complete:Boolean = false;
 			private var _character:Character;
 
@@ -29,6 +25,7 @@
 			[Bindable] public var skillsF:Function;
 			[Bindable] public var possessionsF:Function;
 			[Bindable] public var descriptionF:Function;
+			[Bindable] public var choiceF:Function;
 			[Bindable] public var canSave:Boolean;
 
 			public function get character():Character {return _character;}
@@ -64,22 +61,6 @@
 				setCurrentState( "CannotSave");
 				return false;
 			}
-			
-			private function handleChoice( description:String,
-										   dataProvider:Array,
-										   choiceCallback:Function,
-										   char:Character):void
-			{
-				var popupWindow:ChoicePopup = new ChoicePopup();
-				popupWindow.dataProvider = dataProvider;
-				popupWindow.title = "Class Choice";
-				popupWindow.instructionsS = description;
-				popupWindow.character = char;
-				popupWindow.onChoice = choiceCallback;
-
-				PopUpManager.addPopUp( popupWindow, this, true);
-				PopUpManager.centerPopUp( popupWindow);
-			}
 
 			private function GenerateCharacter():Character
 			{
@@ -87,7 +68,7 @@
 				
 				do {
 					// Create a random character and let the user edit it as they wish
-					result = Character.GenerateRandomCharacter( handleChoice);
+					result = Character.GenerateRandomCharacter( choiceF);
 					
 					// insert something into the while clause if you want a specific
 					// type of character

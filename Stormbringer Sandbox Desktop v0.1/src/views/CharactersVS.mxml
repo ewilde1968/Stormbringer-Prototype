@@ -14,6 +14,7 @@
 			import model.Skill;
 			
 			import mx.events.IndexChangedEvent;
+			import mx.managers.PopUpManager;
 
 			private var backUpContext:String = null;
 			[Bindable] private var context:String;
@@ -117,6 +118,22 @@
 				selectedChild = possessionChoiceNC;
 			}
 			
+			private function handleChoice( description:String,
+										   dataProvider:Array,
+										   choiceCallback:Function,
+										   char:Character):void
+			{
+				var popupWindow:ChoicePopup = new ChoicePopup();
+				popupWindow.dataProvider = dataProvider;
+				popupWindow.title = "Class Choice";
+				popupWindow.instructionsS = description;
+				popupWindow.character = char;
+				popupWindow.onChoice = choiceCallback;
+				
+				PopUpManager.addPopUp( popupWindow, this, true);
+				PopUpManager.centerPopUp( popupWindow);
+			}
+			
 			protected function changeHandler(event:IndexChangedEvent):void
 			{
 				switch( selectedChild) {
@@ -205,6 +222,7 @@
 										 skillsF="{skillsF}"
 										 possessionsF="{possessionsF}"
 										 descriptionF="{descriptionF}"
+										 choiceF="{handleChoice}"
 										 character="@{character}"
 										 />
 		</s:VGroup>

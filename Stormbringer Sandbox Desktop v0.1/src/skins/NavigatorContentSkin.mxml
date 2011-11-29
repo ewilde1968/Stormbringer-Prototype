@@ -26,10 +26,12 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import controller.SandboxGlobals;
+			
 			import model.Account;
 			protected function loginB_clickHandler(event:MouseEvent):void
 			{
-				if( ShowWelcome( parentApplication.globals.loggedIn))
+				if( ShowWelcome( SandboxGlobals.singleton.loggedIn))
 					parentApplication.LogOut();
 				else
 					parentApplication.AttemptLogIn();
@@ -37,10 +39,7 @@
 			
 			protected function ShowWelcome( a:Account):Boolean
 			{
-				if( a.email && a.email.length > 0)
-					return true;
-				
-				return false;
+				return SandboxGlobals.singleton.IsLoggedIn();
 			}
 		]]>
 	</fx:Script>
@@ -70,8 +69,8 @@
 				 />
 		<s:HGroup verticalAlign="middle">
 			<s:Label id="userNameL"
-					 visible="{ShowWelcome( parentApplication.globals.loggedIn)}"
-					 text="{'Welcome ' + parentApplication.globals.loggedIn.email}"
+					 visible="{ShowWelcome( SandboxGlobals.singleton.loggedIn)}"
+					 text="{'Welcome ' + SandboxGlobals.singleton.loggedIn.email}"
 					 />
 			<s:Line height="30">
 				<s:stroke>
@@ -80,7 +79,7 @@
 			</s:Line>
 			<s:Label id="loginB"
 					 width="80"
-					 text="{!ShowWelcome( parentApplication.globals.loggedIn) ? 'Login' : 'Logout'}"
+					 text="{!ShowWelcome( SandboxGlobals.singleton.loggedIn) ? 'Login' : 'Logout'}"
 					 buttonMode="true" mouseChildren="false" click="loginB_clickHandler(event)"
 					 />
 		</s:HGroup>

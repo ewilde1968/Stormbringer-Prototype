@@ -4,7 +4,6 @@
 					xmlns:views="views.*"
 					xmlns:view="view.*"
 					title="Register"
-					showActionContent="false"
 					>
 
 	<view:CreateAccountGroup />

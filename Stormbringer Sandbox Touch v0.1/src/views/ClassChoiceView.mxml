@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:ViewWithBack xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:view="view.*"
+		xmlns:views="views.*"
+		title="Class Choice"
+		viewActivate="viewActivateHandler(event)"
+		>
+	<fx:Script>
+		<![CDATA[
+			import model.Character;
+			
+			import spark.events.ViewNavigatorEvent;
+			
+			import view.ClassChoiceGroup;
+			
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				// unpack array of data
+				var input:Array = data as Array;
+				if( input != null && classChoiceG != null) {
+					classChoiceG.instructionsS = input[0] as String;
+					classChoiceG.dataProvider = input[1] as Array;
+					classChoiceG.onChoice = input[2] as Function;
+					classChoiceG.character = input[3] as Character;
+					classChoiceG.Refresh();
+				}
+			}
+			
+			private function removeHandler():void
+			{
+				navigator.popView();
+			}
+		]]>
+	</fx:Script>
+	
+	<view:ClassChoiceGroup id="classChoiceG"
+						   removeF="{removeHandler}"
+						   />
+</views:ViewWithBack>

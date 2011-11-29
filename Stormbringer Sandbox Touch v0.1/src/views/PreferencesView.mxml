@@ -4,59 +4,33 @@
 		xmlns:mx="library://ns.adobe.com/flex/mx"
 		xmlns:model="model.*"
 		xmlns:controller="controller.*"
+		xmlns:views="views.*"
+		xmlns:view="view.*"
 		title="Settings"
-		showNavContent="false" xmlns:views="views.*"
+		showNavContent="false"
+		viewActivate="viewActivateHandler(event)"
+		viewDeactivate="viewDeactivateHandler(event)"
 		>
 	<fx:Script>
 		<![CDATA[
-			import model.Account;
+			import controller.SandboxGlobals;
 			
-			import mx.events.ValidationResultEvent;
-			import mx.utils.ObjectUtil;
+			import spark.events.ViewNavigatorEvent;
 			
-			protected function validHandler(event:ValidationResultEvent):void
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void
 			{
-				var aOld:Account = data as Account;
-
-				var a:Account = aOld.Copy() as Account;
-				a.email = emailTI.text;
-				a.password = passwordTI.text;
-				aOld.Update( a);
-				
-				parentApplication.LogIn( a);
+				if( !SandboxGlobals.singleton.IsLoggedIn())
+					navigator.popView();	// fall back to login
 			}
 			
-			private function SaveEnabled( pw:String, cpw:String):Boolean
+			protected function viewDeactivateHandler(event:ViewNavigatorEvent):void
 			{
-				if( data.password == pw || pw == cpw)
-					return true;
-				
-				return false;
+				SandboxGlobals.singleton.ChangeCampaign( settingG.campaignRBG.selectedValue as String);
 			}
+			
 		]]>
 	</fx:Script>
-
-	<fx:Declarations>
-		<mx:EmailValidator source="{emailTI}" property="text"
-						   trigger="{saveB}" triggerEvent="click"
-						   valid="validHandler(event)"/>
-	</fx:Declarations>
-
-	<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
-		<s:HGroup verticalAlign="middle">
-			<s:Label text="email address" width="150"/>
-			<s:TextInput id="emailTI" text="{data.email}" widthInChars="20"/>
-		</s:HGroup>
-		<s:HGroup verticalAlign="middle">
-			<s:Label text="change password" width="150"/>
-			<s:TextInput id="passwordTI" widthInChars="20"
-						 displayAsPassword="true" text="{data.password}"/>
-		</s:HGroup>
-		<s:HGroup verticalAlign="middle">
-			<s:Label text="confirm password" width="150"/>
-			<s:TextInput id="confirmPasswordTI" widthInChars="20"
-						 displayAsPassword="true"/>
-			<s:Button id="saveB" label="Save" enabled="{SaveEnabled( passwordTI.text, confirmPasswordTI.text)}"/>
-		</s:HGroup>
-	</s:VGroup>
+	
+	<view:SettingsGroup id="settingG"
+						/>
 </views:ViewWithBack>

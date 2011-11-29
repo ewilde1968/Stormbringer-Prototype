@@ -33,6 +33,16 @@
 				navigator.pushView( CharacterDescriptionView, char, con);
 			}
 			
+			private function handleChoice( description:String,
+										   dataProvider:Array,
+										   choiceCallback:Function,
+										   char:Character):void
+			{
+				var a:Array = [ description, dataProvider, choiceCallback, char];
+				
+				navigator.pushView( ClassChoiceView, a);
+			}
+			
 			protected function viewActivateHandler(event:ViewNavigatorEvent):void
 			{
 				if( !data && gcg)
@@ -47,6 +57,7 @@
 								 skillsF="{skillsF}"
 								 possessionsF="{possessionsF}"
 								 descriptionF="{descriptionF}"
+								 choiceF="{handleChoice}"
 								 character="@{data}"
 								 />
 </views:ViewWithBack>

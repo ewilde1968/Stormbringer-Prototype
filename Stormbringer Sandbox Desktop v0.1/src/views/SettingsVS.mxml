@@ -9,6 +9,8 @@
 			  >
 	<fx:Script>
 		<![CDATA[
+			import controller.SandboxGlobals;
+			
 			import model.Account;
 			
 			import mx.events.IndexChangedEvent;
@@ -70,7 +72,7 @@
 
 			public function Commit():void
 			{
-				parentApplication.globals.ChangeCampaign( settingsG.campaignRBG.selectedValue);
+				SandboxGlobals.singleton.ChangeCampaign( settingsG.campaignRBG.selectedValue as String);
 			}
 		]]>
 	</fx:Script>

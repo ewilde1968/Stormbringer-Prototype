@@ -211,11 +211,24 @@ package model
 			if( choices.length > 0 && choiceCallback != null) {
 				// a choice exists
 				// only one choice exists for each class (temporary limitation for prototype)
+				var c:Array = new Array();
+				
 				var cc:ClassChoice = choices[0] as ClassChoice;
 				switch( cc.type) {
 					case "SkillGroup":
+						for each( cc in choices) {
+							if( cc.MeetsConstraints( char))
+								c.push( cc);
+						}
+						
+						if( c.length == 1)
+							ChoiceMade( c[0], char);	// only one choice exists
+						
+						if( c.length < 2)
+							return;	// no choice to make
 						break;
 					case "CharacterClass":
+						c = choices;
 						for each( cc in choices) {
 							if( char.HasClass( cc.name))
 								return;	// character already has class
@@ -223,7 +236,7 @@ package model
 						break;
 				}
 
-				choiceCallback( choiceDescription, choices, ChoiceMade, char);
+				choiceCallback( choiceDescription, c, ChoiceMade, char);
 			}
 		}
 	}

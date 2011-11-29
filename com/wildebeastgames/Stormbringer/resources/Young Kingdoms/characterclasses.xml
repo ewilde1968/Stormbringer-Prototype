@@ -117,7 +117,6 @@
 		</Possessions>
 	</CharacterClass>
 	<CharacterClass name="Hunter">
-		<Skills>
 		<Choice description="Choose to focus either on bows or hand-to-hand fighting.">
 			<SkillGroup name="Hand-to-hand" description="Focus on melee fighting">
 				<skill name="Weapon 1" value="30"/>
@@ -134,8 +133,11 @@
 					<constraint name="Strength" value="8" relation="greater"/>
 					<constraint name="Dexterity" value="8" relation="greater"/>
 				</skill>
+				<constraint name="Strength" value="8" relation="greater"/>
+				<constraint name="Dexterity" value="8" relation="greater"/>
 			</SkillGroup>
 		</Choice>
+		<Skills>
 			<skill name="Set/Disarm Trap" value="50"/>
 			<skill name="Ambush" value="50"/>
 			<skill name="Track" value="50"/>

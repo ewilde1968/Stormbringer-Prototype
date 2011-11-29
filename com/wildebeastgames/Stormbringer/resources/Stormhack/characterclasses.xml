@@ -134,6 +134,8 @@
 					<constraint name="Strength" value="8" relation="greater"/>
 					<constraint name="Dexterity" value="8" relation="greater"/>
 				</skill>
+				<constraint name="Strength" value="8" relation="greater"/>
+				<constraint name="Dexterity" value="8" relation="greater"/>
 			</SkillGroup>
 		</Choice>
 		<Skills>

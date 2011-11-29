@@ -4,10 +4,8 @@
 @namespace skins "skins.*";
 @namespace view "view.*";
 
-.global {
-	font-family: sans-serif;
+global {
 	fontSize: 16;
-	focusColor:#b44a11;
 }
 
 s|View {
@@ -70,8 +68,17 @@ s|TabbedViewNavigatorApplication #tabBar {
 	textShadowColor: #000000;
 }
 
+s|RadioButton {
+	chromeColor: #878a68;
+	color: #b44a11;
+}
+
 view|IconButton {
 	skinClass: ClassReference("skins.IconButtonSkin");
+}
+
+view|IconRadioButton {
+	skinClass:ClassReference("skins.IconRadioButtonSkin")
 }
 
 .actionListStyle {
@@ -108,6 +115,11 @@ view|IconButton {
 }
 
 .boldLabelStyle {
+	fontWeight: bold;
+	color: #b44a11;
+}
+
+.choiceInstructionsStyle {
 	fontWeight: bold;
 	color: #b44a11;
 }

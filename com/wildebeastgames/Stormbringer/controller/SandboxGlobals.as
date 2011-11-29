@@ -111,5 +111,10 @@ package controller
 			// is there any cache or storage to clear or change?
 			loggedIn = defaultAccount;
 		}
+		
+		public function IsLoggedIn():Boolean
+		{
+			return loggedIn != null && loggedIn != defaultAccount;
+		}
 	}
 }
