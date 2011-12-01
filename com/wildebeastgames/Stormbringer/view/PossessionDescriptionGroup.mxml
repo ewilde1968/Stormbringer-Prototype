@@ -11,6 +11,8 @@
 			import mx.collections.ArrayList;
 			import mx.events.FlexEvent;
 			
+			import spark.events.TextOperationEvent;
+			
 			private var _item:PhysicalItem;
 			private var character:Character;
 			[Bindable] public var doneF:Function;
@@ -55,29 +57,45 @@
 				if( doneF != null)
 					doneF();
 			}
+			
+			protected function quantityTI_changeHandler(event:TextOperationEvent):void
+			{
+				if( quantityTI != null && item != null)
+					item.quantity = parseInt( quantityTI.text);
+			}
 		]]>
 	</fx:Script>
 	
 	<s:layout>
-		<s:VerticalLayout/>
+		<s:VerticalLayout horizontalAlign="center"/>
 	</s:layout>
 
 	<s:Label id="titleL" styleName="titleLabelStyle" text="{item.name}"/>
 	<s:Label id="categoryL" styleName="boldLabelStyle" text="{item.category}"/>
-	<s:Label text="{'Quantity:  ' + item.quantity}"/>
 	<s:TextArea id="descriptionTA" width="500" height="300"
 				text="@{item.description}"
 				enabled="false"
 				/>
+	<s:HGroup horizontalAlign="center">
+		<s:TextInput id="quantityTI"
+					 text="{item.quantity}"
+					 change="quantityTI_changeHandler(event)"
+					 restrict="0-9"
+					 width="65"
+					 />
+		<s:Label text="Quantity"/>
+	</s:HGroup>
 	<s:HGroup width="100%" horizontalAlign="center">
 		<view:IconButton id="sellB"
 						 icon="@Embed('resources/Gold-icon-32.png')" toolTip="Sell item for cash."
+						 label="Sell"
 						 buttonDown="sellB_buttonDownHandler(event)"
 						 enabled="{item.cost > 0}"
 						 />
 		<s:Spacer width="60"/>
 		<view:IconButton id="deleteB"
 						 icon="@Embed('resources/Apps-error-icon-32.png')" toolTip="Drop item."
+						 label="Delete"
 						 buttonDown="deleteB_buttonDownHandler(event)"
 						 />
 	</s:HGroup>
